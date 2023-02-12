@@ -15,8 +15,8 @@ final Map<String, WidgetBuilder> routes = {
   MostPopularScreen.route(): (context) => const MostPopularScreen(),
   SpecialOfferScreen.route(): (context) => const SpecialOfferScreen(),
   ProfileScreen.route(): (context) => const ProfileScreen(),
-  KekeDetailScreen.route(): (context) =>    const KekeDetailScreen(kekemodels: null,),
-  ShopDetailScreen.route(): (context) =>     ShopDetailScreen(product: null, controller: null, ),
+  KekeDetailScreen.route(): (context) =>    KekeDetailScreen( product: null,),
+  ShopDetailScreen.route(): (context) =>     ShopDetailScreen( controller: null, index: null, quantity: null, product: null, ),
   CartScreen.route(): (context) =>  CartScreen(),
   ButtomNavbarScreen.route: (context) => ButtomNavbarScreen(),
 

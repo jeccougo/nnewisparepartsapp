@@ -29,7 +29,7 @@ class _SpecialOffersState extends State<SpecialOffers> {
         const SizedBox(height: 10),
         Stack(children: [
           Container(
-            height: 181,
+            height: 151,
             decoration: const BoxDecoration(
               color: Color(0xFFE7E7E7),
               borderRadius: BorderRadius.all(Radius.circular(32)),
@@ -105,7 +105,8 @@ class _SpecialOffersState extends State<SpecialOffers> {
           onPressed: () => widget.onTapSeeAll?.call(),
           child: const Text(
             'See All',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Color(0xFF212121)),
+            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 16, color: Color(
+                0xFFFFA8A8)),
           ),
         ),
       ],

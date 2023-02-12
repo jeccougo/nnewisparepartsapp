@@ -154,11 +154,15 @@ import '../../components/button.dart';
 import '../../controller/bike_cart_controller.dart';
 import '../../model/cartmodel.dart';
 import '../../model/popular.dart';
+
 import '../../size_config.dart';
 
 class CartScreen extends StatefulWidget {
 
   CartScreen({Key? key,}) : super(key: key);
+
+  final cartController  = Get.put(BikeCartController());
+
   static String route() => '/cart';
 
   @override
@@ -167,6 +171,7 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   final cartController  = Get.put(BikeCartController());
+
 
   final BikeCartController controller = Get.find();
 
@@ -204,23 +209,32 @@ class _CartScreenState extends State<CartScreen> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
-        title: Text('Cart',
-          style: TextStyle(
-            color: Colors.black,
-              fontSize: 24,
-              fontWeight: FontWeight.bold),),
+        title: Row(
+          children: [
+            Icon(Icons.arrow_back),
+            SizedBox(
+              width: 15,
+            ),
+            Text('Cart',
+              style: TextStyle(
+                color: Colors.black,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),),
+          ],
+        ),
       ),
       floatingActionButton:  Container(
         padding: EdgeInsets.symmetric(
-          vertical: getProportionateScreenWidth(15),
+          vertical: getProportionateScreenWidth(5),
           horizontal: getProportionateScreenWidth(30),
         ),
         // height: 174,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
+            topLeft: Radius.circular(0),
             topRight: Radius.circular(30),
+            bottomRight: Radius.circular(30)
           ),
           boxShadow: [
             BoxShadow(
@@ -230,39 +244,17 @@ class _CartScreenState extends State<CartScreen> {
             )
           ],
         ),
-        child: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Row(
-              //   children: [
-              //     Container(
-              //       padding: EdgeInsets.all(10),
-              //       height: getProportionateScreenWidth(40),
-              //       width: getProportionateScreenWidth(40),
-              //       decoration: BoxDecoration(
-              //         color: Color(0xFFF5F6F9),
-              //         borderRadius: BorderRadius.circular(10),
-              //       ),
-              //       child: Icon(
-              //         Icons.arrow_forward_ios,
-              //         size: 12,
-              //         color: Colors.black,
-              //       ),
-              //     ),
-              //     Spacer(),
-              //     Text("Add voucher code"),
-              //     const SizedBox(width: 10),
-              //     Icon(
-              //       Icons.arrow_forward_ios,
-              //       size: 12,
-              //       color: Colors.black,
-              //     )
-              //   ],
-              // ),
-              SizedBox(height: getProportionateScreenHeight(20)),
-              Row(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+            SizedBox(height: getProportionateScreenHeight(5)),
+
+            Obx(() {
+              return Padding(
+                padding: const EdgeInsets.all(20),
+                child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text.rich(
@@ -270,11 +262,12 @@ class _CartScreenState extends State<CartScreen> {
                       text: "Total:\n",
                       children: [
                         TextSpan(
-                          text: controller.total,
+                          text: widget.cartController.total.toString(),
                           style: TextStyle(fontSize: 16, color: Colors.black),
                         ),
                       ],
                     ),
+
                   ),
 
                   SizedBox(
@@ -285,26 +278,35 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                   ),
                 ],
-              ),
-            ],
-          ),
+            ),
+              );
+            }
+            ),
+          ],
         ),
       ),
 
-      body: Obx(() {
-        return ListView.builder(
-          itemCount: cartController.products.length,
-          itemBuilder: (context, index) {
-            return CartScreenCard(
-              controller: cartController,
-              index: index,
-              product: cartController.products.keys.toList()[index],
-              quantity: cartController.products.values.toList()[index],
-            );
-          },
-        );
+      body: SizedBox(
+        height: getProportionateScreenHeight(620),
+        child: Obx(() {
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: cartController.products.length,
+            itemBuilder: (context, index) {
+              return CartScreenCard(
+                controller: cartController,
+                index: index,
+                product: cartController.products.keys.toList()[index],
+                quantity: cartController.products.values.toList()[index],
+                model: '',
+                type: '',
 
-      }
+              );
+            },
+          );
+
+        }
+        ),
       ),
 
     );
@@ -313,14 +315,16 @@ class _CartScreenState extends State<CartScreen> {
 class CartScreenCard extends StatefulWidget {
   final BikeCartController controller;
   final Product product;
+  final String model;
+  final String type;
   final int index;
   final int quantity;
-  CartScreenCard({
+  const CartScreenCard({
     Key? key,
     required this.controller,
     required this.index,
     required this.product,
-    required this.quantity}) : super(key: key);
+    required this.quantity, required this.model, required this.type,}) : super(key: key);
 
   @override
   State<CartScreenCard> createState() => _CartScreenCardState();
@@ -329,55 +333,58 @@ class CartScreenCard extends StatefulWidget {
 class _CartScreenCardState extends State<CartScreenCard> {
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: EdgeInsets.all(10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 15, 0, 0),
-            child: Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade50,
+    return Padding(padding: const EdgeInsets.fromLTRB(15, 7, 15, 7),
+      child: Container(
+        color: Colors.grey.shade50,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(15, 15, 0, 0),
+              child: Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade50,
+                ),
+                child: Image.asset(widget.product.image),
               ),
-              child: Image.asset(widget.product.image),
             ),
-          ),
 
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(widget.product.title,
-                style: TextStyle(fontSize: 20),),
-              Text('Quantity: ${widget.quantity}',
-                style: TextStyle(fontSize: 20),),
-              Text('Price: \$${widget.product.price}',
-                style: TextStyle(fontSize: 20),),
-              SizedBox(height: 10,),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(widget.product.name,
+                  style: TextStyle(fontSize: 20),),
+                Text('Quantity: ${widget.quantity}',
+                  style: TextStyle(fontSize: 20),),
+                Text('Price: \$${widget.product.price.toString()}',
+                  style: TextStyle(fontSize: 20),),
+                SizedBox(height: 10,),
 
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(
-                onPressed: () {
-                  widget.controller.removeProductFromCart(widget.product);
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    widget.controller.removeProductFromCart(widget.product);
 
-                },
-                icon: Icon(Icons.remove_circle),
-              ),
-              Text('${widget.quantity}'),
-              IconButton(
-                onPressed: () {
-                  widget.controller.addProductToCart(widget.product);
-                },
-                icon: Icon(Icons.add_circle),
-              ),
-            ],
-          ),
-        ],
+                  },
+                  icon: Icon(Icons.remove_circle),
+                ),
+               Text('${widget.quantity}'),
+                IconButton(
+                  onPressed: () {
+                    widget.controller.addProductToCart(widget.product);
+                  },
+                  icon: Icon(Icons.add_circle),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

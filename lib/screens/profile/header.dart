@@ -10,17 +10,18 @@ class ProfileHeader extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Image.asset('assets/icons/profile/logo@2x.png', scale: 2),
-              const SizedBox(width: 16),
+              const Icon(Icons.arrow_back),
+              const SizedBox(width: 15),
               const Expanded(
                 child: Text('Profile', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
               ),
-              IconButton(
-                iconSize: 28,
-                icon: Image.asset('assets/icons/buttomnav/light/more_circle@2x.png', scale: 2),
-                onPressed: () {},
-              ),
+              // IconButton(
+              //   iconSize: 28,
+              //   icon: Image.asset('assets/icons/buttomnav/light/more_circle@2x.png', scale: 2),
+              //   onPressed: () {},
+              // ),
             ],
           ),
         ),
@@ -43,7 +44,7 @@ class ProfileHeader extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 12),
-        const Text('Mansuriosdev', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+        const Text('Ubanized', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
         const SizedBox(height: 8),
         const Text('99 300 00 00', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
         const SizedBox(height: 20),

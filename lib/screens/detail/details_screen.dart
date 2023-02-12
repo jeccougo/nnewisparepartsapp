@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import '../../controller/bike_cart_controller.dart';
 import '../../model/cartmodel.dart';
 import '../../model/popular.dart';
+import '../../model/popular.dart';
 import '../../size_config.dart';
 
 class ShopDetailScreen extends StatefulWidget {
@@ -13,9 +14,17 @@ class ShopDetailScreen extends StatefulWidget {
   final BikeCartController? controller;
   final Product? product;
 
-   ShopDetailScreen({super.key, required this.product, required this.controller,
+   ShopDetailScreen({super.key,
+     required this.product,
+     required this.controller,
+     required this.index,
+     required this.quantity,
 
   });
+
+
+  final int? index;
+  final int? quantity;
 
   static String route() => '/shop_detail';
 
@@ -24,25 +33,15 @@ class ShopDetailScreen extends StatefulWidget {
 }
 
 class _ShopDetailScreenState extends State<ShopDetailScreen> {
-
-  int quantity = 0;
+  final cartController  = Get.put(BikeCartController());
+  late final BikeCartController? controller;
 
   bool _iscollected = false;
 
   get index => 0;
-  late final Product? product;
-
-  CartModel cartModel = CartModel();
-
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
-
-    final product = homePopularProducts;
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -75,28 +74,28 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
                         _buildLine(),
                         const SizedBox(height: 16),
                         ..._buildDescription(),
-                        const SizedBox(height: 24),
-                        _buildQuantity(),
+                       // const SizedBox(height: 24),
+                       // _buildQuantity(),
                         const SizedBox(height: 15),
                         SizedBox(
                           height: 300,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: widget.product!.moreProductImages.length,
-                            itemBuilder: (context, index) {
-                              return SizedBox(
-                                width: 150,
-                                height: 50,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(15),
-                                  child: Image.asset(
-                                    widget.product!.moreProductImages[index],
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
+                          // child: ListView.builder(
+                          //   scrollDirection: Axis.horizontal,
+                          //   itemCount: widget.product!.moreProductImages.length,
+                          //   itemBuilder: (context, index) {
+                          //     return SizedBox(
+                          //       width: 150,
+                          //       height: 50,
+                          //       child: Padding(
+                          //         padding: const EdgeInsets.all(15),
+                          //         child: Image.asset(
+                          //           widget.product!.moreProductImages[index],
+                          //           fit: BoxFit.contain,
+                          //         ),
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
                         )
                       ],
                     ),
@@ -118,7 +117,7 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
         children: [
           FittedBox(
             child: Text(
-              widget.product!.title,
+              widget.product!.name,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
             ),
           ),
@@ -132,18 +131,18 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
       const SizedBox(height: 12),
       Row(
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(6)),
-              color: Color(0xFFeeeeee),
-            ),
-            child: const Text(
-              '9,742 sold',
-              style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
-            ),
-          ),
-          const SizedBox(width: 16),
+          // Container(
+          //   padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+          //   decoration: const BoxDecoration(
+          //     borderRadius: BorderRadius.all(Radius.circular(6)),
+          //     color: Color(0xFFeeeeee),
+          //   ),
+          //   child: const Text(
+          //     '9,742 sold',
+          //     style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+          //   ),
+          // ),
+          // const SizedBox(width: 16),
           Image.asset('assets/icons/start@2x.png', height: 20, width: 20),
           const SizedBox(width: 8),
           const Text(
@@ -158,13 +157,12 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
   Widget _buildLine() {
     return Container(height: 1, color: const Color(0xFFEEEEEE));
   }
-
   List<Widget> _buildDescription() {
     return [
       const Text('Description', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
       const SizedBox(height: 8),
       ExpandableText(
-        widget.product!.productDescription,
+        widget.product!.image,
         expandText: 'view more',
         collapseText: 'view less',
         linkStyle: TextStyle(color: Color(0xFF424242), fontWeight: FontWeight.bold),
@@ -172,51 +170,49 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
     ];
   }
 
-  Widget _buildQuantity() {
-    final cartController  = Get.put(BikeCartController());
-
-
-    return Row(
-      children: [
-        const Text('Quantity', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-        const SizedBox(width: 20),
-        Container(
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(24)),
-            color: Color(0xFFF3F3F3),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          child: Material(
-            color: Colors.transparent,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    cartController.removeProductFromCart(homePopularProducts[index]);
-                  },
-                  icon: Icon(Icons.remove_circle),
-                ),
-                Text('${quantity}'),
-                IconButton(
-                  onPressed: () {
-                    cartController.addProductToCart(homePopularProducts[index]);
-                  },
-                  icon: Icon(Icons.add_circle),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
+  // Widget _buildQuantity() {
+  //   //final cartController  = Get.put(BikeCartController());
+  //   //final BikeCartController controller = Get.find();
+  //
+  //
+  //   return Row(
+  //     children: [
+  //       const Text('Quantity', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+  //       const SizedBox(width: 20),
+  //       Container(
+  //         decoration: const BoxDecoration(
+  //           borderRadius: BorderRadius.all(Radius.circular(24)),
+  //           color: Color(0xFFF3F3F3),
+  //         ),
+  //         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+  //         child: Material(
+  //           color: Colors.transparent,
+  //           child:  Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //             children: [
+  //               IconButton(
+  //                 onPressed: () {
+  //                   widget.controller?.removeProductFromCart(widget.product!);
+  //
+  //                 },
+  //                 icon: Icon(Icons.remove_circle),
+  //               ),
+  //               Text('${widget.quantity}'),
+  //               IconButton(
+  //                 onPressed: () {
+  //                   widget.controller?.addProductToCart(widget.product!);
+  //                 },
+  //                 icon: Icon(Icons.add_circle),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buldFloatBar() {
-    final cartController  = Get.put(BikeCartController());
-    final products = homePopularProducts;
-
-
     buildAddCard() => Container(
       height: 58,
       width: getProportionateScreenWidth(258),
@@ -237,11 +233,9 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
           borderRadius: const BorderRadius.all(Radius.circular(29)),
           // splashColor: const Color(0xFFEEEEEE),
           onTap: ()  {
-            cartController.addProductToCart(homePopularProducts[index]);
+            widget.controller?.addProductToCart(widget.product!);
+            },
 
-
-
-          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -277,10 +271,13 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text('Total price', style: TextStyle(color: Color(0xFF757575), fontSize: 12)),
                     SizedBox(height: 6),
-                    Text('\$280.00', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+                    Text(
+                      '\N${widget.product?.price}',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF212121)),
+                    ),
                   ],
                 ),
                 buildAddCard()

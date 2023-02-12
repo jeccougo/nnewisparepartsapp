@@ -11,6 +11,7 @@ import 'package:nnewi_spare_parts_market/screens/home/home.dart';
 import 'package:nnewi_spare_parts_market/screens/mostpopular/most_popular_screen.dart';
 import 'package:nnewi_spare_parts_market/screens/profile/profile_screen.dart';
 import 'package:nnewi_spare_parts_market/screens/special_offers/special_offers_screen.dart';
+import 'package:nnewi_spare_parts_market/screens/splash/splash.dart';
 import 'package:nnewi_spare_parts_market/theme.dart';
 
 void main() {
@@ -28,14 +29,14 @@ class ImeAfia extends StatelessWidget {
       title: 'Nnewi Spare Parts Market',
       theme: appTheme(),
       routes: routes,
-      home: ButtomNavbarScreen(),
+      home: SplashScreen(),
       getPages: [
         GetPage(name: '/', page: () => HomeScreen(title: '',)),
         GetPage(name: '/most_popular', page: () => MostPopularScreen()),
         GetPage(name: '/special_offers', page: () =>  SpecialOfferScreen()),
-        GetPage(name: '/keke_detail', page: () => KekeDetailScreen(kekemodels: null,)),
+        GetPage(name: '/keke_detail', page: () => KekeDetailScreen(product: null,)),
         GetPage(name: '/profile', page: () => ProfileScreen()),
-        GetPage(name: '/shop_detail', page: () =>  ShopDetailScreen(product: null, controller: null, )),
+        GetPage(name: '/shop_detail', page: () =>  ShopDetailScreen( controller: null, index: null, quantity: null, product: null, )),
         GetPage(name: '/cart', page: () =>  CartScreen()),
         GetPage(name: '/bnav', page: () =>  ButtomNavbarScreen()),
       ],

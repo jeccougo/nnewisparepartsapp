@@ -1,13 +1,22 @@
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
+import '../../controller/bike_cart_controller.dart';
 import '../../model/kekemodel.dart';
+import '../../model/popular.dart';
+import '../../model/popular.dart';
 import '../../size_config.dart';
 
 class KekeDetailScreen extends StatefulWidget {
-  final KekeModel? kekemodels;
+  final cartController  = Get.put(BikeCartController());
+  final BikeCartController? controller;
+  final int? index;
+  final int? quantity;
 
-  const KekeDetailScreen({super.key, required this.kekemodels,
+  final Product? product;
+   KekeDetailScreen({super.key, required this.product, this.controller, this.index, this.quantity,
 
   });
 
@@ -18,7 +27,9 @@ class KekeDetailScreen extends StatefulWidget {
 }
 
 class _KekeDetailScreenState extends State<KekeDetailScreen> {
-  int _quantity = 0;
+  final cartController  = Get.put(BikeCartController());
+  late final BikeCartController? controller;
+
 
   bool _iscollected = false;
 
@@ -44,7 +55,7 @@ class _KekeDetailScreenState extends State<KekeDetailScreen> {
                   flexibleSpace: FlexibleSpaceBar(
                     background: Container(
                       color: const Color(0xFFeeeeee),
-                      child: Image.asset(widget.kekemodels!.image,
+                      child: Image.asset(widget.product!.image,
                         fit: BoxFit.contain,
                       )),
                   ),
@@ -61,27 +72,27 @@ class _KekeDetailScreenState extends State<KekeDetailScreen> {
                         const SizedBox(height: 16),
                         ..._buildDescription(),
                         const SizedBox(height: 24),
-                        _buildQuantity(),
+                       // _buildQuantity(),
                         const SizedBox(height: 15),
                   SizedBox(
                     height: 300,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: widget.kekemodels!.moreProductImages.length,
-                      itemBuilder: (context, index) {
-                        return SizedBox(
-                          width: 150,
-                          height: 50,
-                          child: Padding(
-                            padding: const EdgeInsets.all(15),
-                            child: Image.asset(
-                              widget.kekemodels!.moreProductImages[index],
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                    // child: ListView.builder(
+                    //   scrollDirection: Axis.horizontal,
+                    //   itemCount: widget.product!.moreProductImages.length,
+                    //   itemBuilder: (context, index) {
+                    //     return SizedBox(
+                    //       width: 150,
+                    //       height: 50,
+                    //       child: Padding(
+                    //         padding: const EdgeInsets.all(15),
+                    //         child: Image.asset(
+                    //           widget.product!.moreProductImages[index],
+                    //           fit: BoxFit.contain,
+                    //         ),
+                    //       ),
+                    //     );
+                    //   },
+                    // ),
                   )
                       ],
                     ),
@@ -103,7 +114,7 @@ class _KekeDetailScreenState extends State<KekeDetailScreen> {
         children: [
            FittedBox(
             child: Text(
-                 widget.kekemodels!.title,
+                 widget.product!.name,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
             ),
           ),
@@ -149,7 +160,7 @@ class _KekeDetailScreenState extends State<KekeDetailScreen> {
       const Text('Description', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
       const SizedBox(height: 8),
        ExpandableText(
-        widget.kekemodels!.productDescription,
+        widget.product!.image,
         expandText: 'view more',
         collapseText: 'view less',
         linkStyle: TextStyle(color: Color(0xFF424242), fontWeight: FontWeight.bold),
@@ -157,46 +168,46 @@ class _KekeDetailScreenState extends State<KekeDetailScreen> {
     ];
   }
 
-  Widget _buildQuantity() {
-    return Row(
-      children: [
-        const Text('Quantity', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-        const SizedBox(width: 20),
-        Container(
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(24)),
-            color: Color(0xFFF3F3F3),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          child: Material(
-            color: Colors.transparent,
-            child: Row(
-              children: [
-                InkWell(
-                  child: Image.asset('assets/icons/detail/minus@2x.png', scale: 2),
-                  onTap: () {
-                    if (_quantity <= 0) return;
-                    setState(() => _quantity -= 1);
-                  },
-                ),
-                const SizedBox(width: 20),
-                Text('$_quantity',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    )),
-                const SizedBox(width: 20),
-                InkWell(
-                  child: Image.asset('assets/icons/detail/plus@2x.png', scale: 2),
-                  onTap: () => setState(() => _quantity += 1),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
+  // Widget _buildQuantity() {
+  //   return Row(
+  //     children: [
+  //       const Text('Quantity', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+  //       const SizedBox(width: 20),
+  //       Container(
+  //         decoration: const BoxDecoration(
+  //           borderRadius: BorderRadius.all(Radius.circular(24)),
+  //           color: Color(0xFFF3F3F3),
+  //         ),
+  //         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+  //         child: Material(
+  //           color: Colors.transparent,
+  //           child: Row(
+  //             children: [
+  //               InkWell(
+  //                 child: Image.asset('assets/icons/detail/minus@2x.png', scale: 2),
+  //                 onTap: () {
+  //                   if (_quantity <= 0) return;
+  //                   setState(() => _quantity -= 1);
+  //                 },
+  //               ),
+  //               const SizedBox(width: 20),
+  //               Text('$_quantity',
+  //                   style: const TextStyle(
+  //                     fontWeight: FontWeight.bold,
+  //                     fontSize: 18,
+  //                   )),
+  //               const SizedBox(width: 20),
+  //               InkWell(
+  //                 child: Image.asset('assets/icons/detail/plus@2x.png', scale: 2),
+  //                 onTap: () => setState(() => _quantity += 1),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buldFloatBar() {
     buildAddCard() => Container(
@@ -218,7 +229,9 @@ class _KekeDetailScreenState extends State<KekeDetailScreen> {
             child: InkWell(
               borderRadius: const BorderRadius.all(Radius.circular(29)),
               // splashColor: const Color(0xFFEEEEEE),
-              onTap: () {},
+              onTap: () {
+                widget.controller?.addProductToCart(widget.product!);
+                },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

@@ -108,11 +108,13 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nnewi_spare_parts_market/model/popular.dart';
 import 'package:nnewi_spare_parts_market/screens/home/most_popular.dart';
 import 'package:nnewi_spare_parts_market/screens/home/search_field.dart';
 import 'package:nnewi_spare_parts_market/screens/home/special_offer.dart';
 
 import '../../constants.dart';
+import '../../model/kekemodel.dart';
 import '../../size_config.dart';
 import '../mostpopular/most_popular_screen.dart';
 import '../profile/profile_screen.dart';
@@ -120,6 +122,7 @@ import '../special_offers/special_offers_screen.dart';
 import '../tabs/biketab.dart';
 import '../tabs/keketab.dart';
 import '../tabs/motortab.dart';
+import '../utils/likeicon.dart';
 import '../utils/mytab.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -202,14 +205,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
 
-                        const Expanded(
+                        Expanded(
                           child: TabBarView(
                               physics: BouncingScrollPhysics(),
                               children: [
                                 //foodpage
-                                BikeTab(),
+                                BikeTab( bikes: bikes,),
 
-                                KekeTab(),
+                                //KekeTab(),
+                                KekeTab(kekes: kekes,),
 
                                 MotorTab(),
 
@@ -254,16 +258,16 @@ AppBar buildAppBar(BuildContext context) {
     title: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        InkWell(
-          borderRadius: const BorderRadius.all(Radius.circular(24)),
-          onTap: () => Navigator.pushNamed(context, ProfileScreen.route()),
-          child: const CircleAvatar(
-            //backgroundImage: AssetImage('$kIconPath/me.png'),
-            backgroundColor: Colors.amber,
-
-            radius: 24,
-          ),
-        ),
+        // InkWell(
+        //   borderRadius: const BorderRadius.all(Radius.circular(24)),
+        //   onTap: () => Navigator.pushNamed(context, ProfileScreen.route()),
+        //   child: const CircleAvatar(
+        //     //backgroundImage: AssetImage('$kIconPath/me.png'),
+        //     backgroundColor: Colors.amber,
+        //
+        //     radius: 24,
+        //   ),
+        // ),
 
         Expanded(
           child: Padding(
@@ -273,15 +277,15 @@ AppBar buildAppBar(BuildContext context) {
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
                 Text(
-                  'Good Morning 👋',
+                  'Welcome to 👋',
                   style: TextStyle(
                     color: Color(0xFF757575),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(height: 6),
+                SizedBox(height: 4),
                 Text(
-                  'Ubanized',
+                  'Ime Afia',
                   style: TextStyle(
                     color: Color(0xFF212121),
                     fontWeight: FontWeight.bold,
@@ -294,16 +298,11 @@ AppBar buildAppBar(BuildContext context) {
         ),
         IconButton(
           iconSize: 28,
-          icon: Icon(Icons.notifications_none),
+          icon: Icon(Icons.notifications),
           onPressed: () {},
         ),
         const SizedBox(width: 5),
-        IconButton(
-          iconSize: 28,
-          icon: Image.asset('assets/icons/not_collected@2x.png',
-              width: 28, height: 28),
-          onPressed: () {},
-        ),
+        //LikeButton(),
       ],
     ),
 

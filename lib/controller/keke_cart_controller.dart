@@ -6,14 +6,14 @@ import '../model/kekemodel.dart';
 
 class KekeCartController extends GetxController {
   //add a dict to store the products in the cart
-  var _Products = {}.obs;
+  var _kekeProducts = {}.obs;
 
   void addProductToCart(KekeModel products){
-    if (_Products.containsKey(products)){
-      _Products[products] += 1;
+    if (_kekeProducts.containsKey(products)){
+      _kekeProducts[products] += 1;
     }
     else{
-      _Products[products] = 1;
+      _kekeProducts[products] = 1;
 
     }
     Get.snackbar('Product Added',
@@ -25,10 +25,10 @@ class KekeCartController extends GetxController {
   }
 
   void removeProductFromCart(KekeModel products){
-    if (_Products.containsKey(products) && _Products[products] == 1){
-      _Products.removeWhere((key, value) => key == products);
+    if (_kekeProducts.containsKey(products) && _kekeProducts[products] == 1){
+      _kekeProducts.removeWhere((key, value) => key == products);
     } else {
-      _Products[products] -= 1;
+      _kekeProducts[products] -= 1;
     }
 
     Get.snackbar('Product Removed',
@@ -39,13 +39,13 @@ class KekeCartController extends GetxController {
 
   }
 
-  get products => _Products;
+  get products => _kekeProducts;
 
-  get productSubTotal => _Products.entries
+  get productSubTotal => _kekeProducts.entries
       .map((product) => product.key.price * product.value)
       .toList();
 
-  get total => _Products.entries
+  get total => _kekeProducts.entries
       .map((product) => product.key.price * product.value)
       .toList()
       .reduce((value, element) => value + element)

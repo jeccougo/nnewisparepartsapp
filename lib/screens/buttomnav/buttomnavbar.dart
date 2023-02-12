@@ -52,7 +52,7 @@ class _ButtomNavbarScreenState extends State<ButtomNavbarScreen> {
     CartScreen(),
     const OrderScreen(title: 'Orders'),
     //const WalletScreen(title: 'Wallet'),
-    const ProfileScreen(),
+    //const ProfileScreen(),
   ];
 
   static Image generateIcon(String path) {
@@ -84,11 +84,11 @@ class _ButtomNavbarScreenState extends State<ButtomNavbarScreen> {
     //   activeIcon: Icon(Icons.notifications_none),
     //   label: 'Wallet',
     // ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.person),
-      activeIcon: Icon(Icons.person),
-      label: 'Profile',
-    ),
+    // const BottomNavigationBarItem(
+    //   icon: Icon(Icons.person),
+    //   activeIcon: Icon(Icons.person),
+    //   label: 'Profile',
+    // ),
   ];
 
   @override

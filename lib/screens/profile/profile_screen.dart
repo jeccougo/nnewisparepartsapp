@@ -43,15 +43,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool _isDark = false;
 
   get datas => <ProfileOption>[
-        ProfileOption.arrow(title: 'Edit Profile', icon: _profileIcon('user@2x.png')),
-        ProfileOption.arrow(title: 'Adress', icon: _profileIcon('location@2x.png')),
+        //ProfileOption.arrow(title: 'Edit Profile', icon: _profileIcon('user@2x.png')),
+        ProfileOption.arrow(title: 'Address', icon: _profileIcon('location@2x.png')),
         ProfileOption.arrow(title: 'Notification', icon: _profileIcon('notification@2x.png')),
-        ProfileOption.arrow(title: 'Payment', icon: _profileIcon('wallet@2x.png')),
-        ProfileOption.arrow(title: 'Security', icon: _profileIcon('shield_done@2x.png')),
+       // ProfileOption.arrow(title: 'Payment', icon: _profileIcon('wallet@2x.png')),
+        //ProfileOption.arrow(title: 'Security', icon: _profileIcon('shield_done@2x.png')),
         _languageOption(),
         _darkModel(),
         ProfileOption.arrow(title: 'Help Center', icon: _profileIcon('info_square@2x.png')),
-        ProfileOption.arrow(title: 'Invite Friends', icon: _profileIcon('user@2x.png')),
+        //ProfileOption.arrow(title: 'Invite Friends', icon: _profileIcon('user@2x.png')),
         ProfileOption(
           title: 'Logout',
           icon: _profileIcon('logout@2x.png'),
