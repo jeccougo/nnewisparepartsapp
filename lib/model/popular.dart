@@ -48,7 +48,7 @@ class Bike extends Product {
 }
 List<Bike> bikes = [
   Bike(
-    name: 'Innoson',
+    name: 'Akanchawa',
     price: 320000.00,
     image: 'assets/icons/products/1bike.png',
     productDescription: 'Qlink Motocycle is the high grade this',
@@ -57,9 +57,9 @@ List<Bike> bikes = [
     type: 'met', index: 0,
   ),
   Bike(
-    name: 'Yamaha',
-    price: 245000.00,
-    image: 'assets/icons/products/2bike.png',
+    name: 'Ugbo-epepe',
+    price: 845000.00,
+    image: 'assets/icons/products/pngwing.com (70).png',
     productDescription: 'yamaha Motocycle is the high grade this',
     moreProductImages: [
       'assets/icons/products/2bike.png', 'assets/icons/products/4bike.png','assets/icons/products/3bike.png'],
@@ -76,13 +76,20 @@ List<Bike> bikes = [
     type: '', index: 2,
   ),
   Bike(
-    name: 'Today',
+    name: 'Yamaha',
     price: 258000.00,
-    image: 'assets/icons/products/3bike.png',
+    image: 'assets/icons/products/ladies2.png',
     productDescription: 'Today Motocycle is the high grade this',
     moreProductImages: [],
     model: '',
     type: '', index: 3,
+  ),
+  Bike(
+    name: 'Ladies',
+    price: 569000.00,
+    image: 'assets/icons/products/ladies.png',
+    productDescription: 'Ogbuawa Motocycle is the high grade this',
+    moreProductImages: [], model: '', type: '', index: 4,
   ),
   Bike(
     name: 'Ogbuawa',
@@ -92,7 +99,21 @@ List<Bike> bikes = [
     moreProductImages: [], model: '', type: '', index: 4,
   ),
   Bike(
-    name: 'Innoson',
+    name: 'Ogbuawa',
+    price: 569000.00,
+    image: 'assets/icons/products/jet.png',
+    productDescription: 'Ogbuawa Motocycle is the high grade this',
+    moreProductImages: [], model: '', type: '', index: 4,
+  ),
+  Bike(
+      name: 'Enyi',
+    price: 569000.00,
+    image: 'assets/icons/products/enyi.png',
+    productDescription: 'Ogbuawa Motocycle is the high grade this',
+    moreProductImages: [], model: '', type: '', index: 4,
+  ),
+  Bike(
+    name: 'Kymko',
     price: 559000.00,
     image: 'assets/icons/products/4bike.png',
     productDescription: 'Innoson Motocycle is the high grade this',
@@ -100,7 +121,7 @@ List<Bike> bikes = [
   ),
 
   Bike(
-    name: 'Innoson',
+    name: 'jianshe',
     price: 759000.00,
     image: 'assets/icons/products/4bike.png',
     productDescription: 'Innoson Motocycle is the high grade this',
@@ -108,7 +129,7 @@ List<Bike> bikes = [
   ),
 
   Bike(
-    name: 'Innoson',
+    name: 'Bajaj',
 
     price: 579000.00,
     image: 'assets/icons/products/2bike.png',
@@ -117,19 +138,19 @@ List<Bike> bikes = [
   ),
 
   Bike(
-    name: 'Innoson',
+    name: 'Kotec',
     price: 159000.00,
-    image: 'assets/icons/products/4bike.png',
+    image: 'assets/icons/products/pngwing.com (69).png',
     productDescription: 'Innoson Motocycle is the high grade this',
     moreProductImages: [], model: '', type: '', index: 8,
   ),
 
   Bike(
-    name: 'Innoson',
+    name: 'Qlink',
 
     price: 179000.00,
     image: 'assets/icons/products/2bike.png',
-    productDescription: 'Innoson Motocycle is the high grade this',
+    productDescription: 'Qlink is the high grade this',
     moreProductImages: [], model: '', type: '', index: 9,
   ),
 
@@ -273,6 +294,136 @@ List<Keke> kekes = [
       type: 'Met',
       price: 233000.00,
       image: 'assets/icons/products/Keke3.png',
+      productDescription: 'Qlink Motocycle is the high grade this',
+      moreProductImages: [],  model: '2012', index: 11
+  ),
+];
+
+
+
+
+class Motor extends Product {
+  int index;
+  String model;
+  String type;
+  List moreProductImages;
+  String image;
+  String productDescription;
+  operator [](int index) => this.index == index ? this : null;
+
+
+
+  Motor({required String name,
+    required double price,
+    required this.model,
+    required this.image,
+    required this.index,
+
+    required this.moreProductImages,
+    required this.productDescription,
+
+    required this.type })
+      : super(name: name, price: price , image: image);
+}
+List<Motor> motors = [
+  Motor(
+    name: 'Gear Box',
+    price: 220000.00,
+    image: 'assets/icons/products/benx.png',
+    productDescription: 'Qlink Motocycle is the high grade this',
+    moreProductImages: [],
+    model: '02',
+    type: 'met', index: 0,
+  ),
+  Motor(
+    name: 'Brake Pad',
+    price: 5000.00,
+    image: 'assets/icons/products/benzligh.png',
+    productDescription: 'yamaha Motocycle is the high grade this',
+    moreProductImages: [
+      'assets/icons/products/2bike.png', 'assets/icons/products/4bike.png','assets/icons/products/3bike.png'],
+    model: '',
+    type: '', index: 1,
+  ),
+  Motor(
+    name: 'Engine Top',
+    price: 640600.00,
+    image: 'assets/icons/products/benztop.png',
+    productDescription: 'Club Motocycle is the high grade this',
+    moreProductImages: [],
+    model: '',
+    type: '', index: 2,
+  ),
+  Motor(
+    name: 'C120 RearLight',
+    price: 258000.00,
+    image: 'assets/icons/products/benzre.png',
+    productDescription: 'Today Motocycle is the high grade this',
+    moreProductImages: [],
+    model: '',
+    type: '', index: 3,
+  ),
+  Motor(
+    name: 'Ogbuawa RearLight',
+    price: 69000.00,
+    image: 'assets/icons/products/benzrear.png',
+    productDescription: 'Ogbuawa Motocycle is the high grade this',
+    moreProductImages: [], model: '', type: '', index: 4,
+  ),
+  Motor(
+    name: 'Innoson RearLight',
+    price: 59000.00,
+    image: 'assets/icons/products/benzre.png',
+    productDescription: 'Innoson Motocycle is the high grade this',
+    moreProductImages: [], model: '', type: '', index: 5,
+  ),
+
+  Motor(
+    name: 'Innoson',
+    price: 759000.00,
+    image: 'assets/icons/products/benzsh.png',
+    productDescription: 'Innoson Motocycle is the high grade this',
+    moreProductImages: [], model: '', type: '', index: 6,
+  ),
+
+  Motor(
+    name: 'Innoson',
+    price: 579000.00,
+    image: 'assets/icons/products/benzligh.png',
+    productDescription: 'Innoson Motocycle is the high grade this',
+    moreProductImages: [], model: '', type: '', index: 7,
+  ),
+
+  Motor(
+    name: 'Innoson',
+    price: 159000.00,
+    image: 'assets/icons/products/benzlig.png',
+    productDescription: 'Innoson Motocycle is the high grade this',
+    moreProductImages: [], model: '', type: '', index: 8,
+  ),
+
+  Motor(
+    name: 'Innoson',
+
+    price: 179000.00,
+    image: 'assets/icons/products/benx.png',
+    productDescription: 'Innoson Motocycle is the high grade this',
+    moreProductImages: [], model: '', type: '', index: 9,
+  ),
+
+  Motor(
+    name: 'Kotec',
+    price: 196000.00,
+    image: 'assets/icons/products/benzlli.png',
+    productDescription: 'Kotec Motocycle is the high grade this',
+    moreProductImages: [], model: '', type: '', index: 10,
+  ),
+
+  Motor(
+      name: 'Innoson',
+      type: 'Met',
+      price: 233000.00,
+      image: 'assets/icons/products/benzr.png',
       productDescription: 'Qlink Motocycle is the high grade this',
       moreProductImages: [],  model: '2012', index: 11
   ),

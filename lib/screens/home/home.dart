@@ -215,7 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 //KekeTab(),
                                 KekeTab(kekes: kekes,),
 
-                                MotorTab(),
+                                MotorTab(motors: motors,),
 
 
                               ]),
@@ -258,6 +258,11 @@ AppBar buildAppBar(BuildContext context) {
     title: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+          child: Image.asset('assets/icons/nwlo.png', width: 70, height: 70),
+        ),
+
         // InkWell(
         //   borderRadius: const BorderRadius.all(Radius.circular(24)),
         //   onTap: () => Navigator.pushNamed(context, ProfileScreen.route()),
@@ -269,31 +274,27 @@ AppBar buildAppBar(BuildContext context) {
         //   ),
         // ),
 
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Text(
-                  'Welcome to 👋',
-                  style: TextStyle(
-                    color: Color(0xFF757575),
-                    fontWeight: FontWeight.w500,
-                  ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text(
+                'Welcome to 👋',
+                style: TextStyle(
+                  color: Color(0xFF757575),
+                  fontWeight: FontWeight.w500,
                 ),
-                SizedBox(height: 4),
-                Text(
-                  'Ime Afia',
-                  style: TextStyle(
-                    color: Color(0xFF212121),
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.start,
+              ),
+              Text(
+                'Ime Afia',
+                style: TextStyle(
+                  color: Color(0xFF212121),
+                  fontWeight: FontWeight.bold,
                 ),
-              ],
-            ),
+                textAlign: TextAlign.start,
+              ),
+            ],
           ),
         ),
         IconButton(
@@ -301,7 +302,7 @@ AppBar buildAppBar(BuildContext context) {
           icon: Icon(Icons.notifications),
           onPressed: () {},
         ),
-        const SizedBox(width: 5),
+        //const SizedBox(width: 5),
         //LikeButton(),
       ],
     ),

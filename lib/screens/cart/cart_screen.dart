@@ -156,6 +156,7 @@ import '../../model/cartmodel.dart';
 import '../../model/popular.dart';
 
 import '../../size_config.dart';
+import '../utils/checkoutfinal.dart';
 
 class CartScreen extends StatefulWidget {
 
@@ -274,7 +275,9 @@ class _CartScreenState extends State<CartScreen> {
                     width: getProportionateScreenWidth(190),
                     child: DefaultButton(
                       text: "Check Out",
-                      press: () {},
+                      press: () {
+                        Get.to(() => CheckoutForm());
+                      },
                     ),
                   ),
                 ],

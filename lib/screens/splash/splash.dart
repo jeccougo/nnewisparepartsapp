@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 5), () => Get.to(() => ButtomNavbarScreen(),
+    Timer(Duration(seconds: 5), () => Get.off(() => ButtomNavbarScreen(),
 
         duration: Duration(milliseconds: 500),
         transition: Transition.downToUp));
@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.asset('assets/icons/nwn.png', width: 130, height: 130),
+              Image.asset('assets/icons/nlo.png', width: 150, height: 150),
               SizedBox(
                 height: 5,
               ),

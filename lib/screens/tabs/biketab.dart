@@ -449,7 +449,9 @@ class _BikeTabState extends State<BikeTab> {
       //     ),
       //   ],
       // ),
-      body: CustomScrollView(slivers: [
+      body: CustomScrollView(
+          physics: BouncingScrollPhysics(),
+        slivers: [
         // SliverPadding(
         //   padding: padding,
         //   sliver: SliverList(
@@ -553,13 +555,16 @@ class BikeProductCard extends StatelessWidget {
               ),
             ),
           ),
+          Text(
+            '\N${bikes.price.toStringAsFixed(2)}',
+            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Color(0xFF212121)),
+          ),
+          const SizedBox(width: 50),
+
           const SizedBox(height: 10),
           _buildSoldPoint(4.5, 6937),
           const SizedBox(height: 10),
-          Text(
-            '\$${bikes.price.toStringAsFixed(2)}',
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF212121)),
-          )
+
         ],
       ),
     );
@@ -578,30 +583,29 @@ class BikeProductCard extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        const SizedBox(width: 8),
-        const Text(
-          '|',
-          style: TextStyle(fontWeight: FontWeight.w500, color: Color(0xFF616161), fontSize: 14),
-        ),
-        const SizedBox(width: 8),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(6)),
-            color: const Color(0xFF101010).withOpacity(0.08),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-          child: Text(
-            '$sold sold',
-            style: const TextStyle(
-              color: Color(0xFF35383F),
-              fontWeight: FontWeight.w500,
-              fontSize: 10,
-            ),
-          ),
-
-        ),
+        //const SizedBox(width: 16),
+        // const Text(
+        //   '|',
+        //   style: TextStyle(fontWeight: FontWeight.w500, color: Color(0xFF616161), fontSize: 14),
+        // ),
+        // Container(
+        //   decoration: BoxDecoration(
+        //     borderRadius: const BorderRadius.all(Radius.circular(6)),
+        //     color: const Color(0xFF101010).withOpacity(0.08),
+        //   ),
+        //   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        //   child: Text(
+        //     '$sold sold',
+        //     style: const TextStyle(
+        //       color: Color(0xFF35383F),
+        //       fontWeight: FontWeight.w500,
+        //       fontSize: 10,
+        //     ),
+        //   ),
+        //
+        // ),
         SizedBox(
-          width: 20,
+          width: 95,
         ),
         GestureDetector(
           onTap: () {

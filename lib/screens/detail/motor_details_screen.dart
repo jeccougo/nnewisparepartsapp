@@ -1,14 +1,22 @@
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
+import '../../controller/bike_cart_controller.dart';
 import '../../model/kekemodel.dart';
 import '../../model/motorpartsmodel.dart';
+import '../../model/popular.dart';
 import '../../size_config.dart';
 
 class MotorDetailScreen extends StatefulWidget {
-  final MotorPartsModel? motormodels;
+  final cartController  = Get.put(BikeCartController());
+  final BikeCartController? controller;
+  final int? index;
+  final int? quantity;
 
-  const MotorDetailScreen({super.key, this.motormodels,
+  final Product? product;
+  MotorDetailScreen({super.key, this.product, this.controller, this.index, this.quantity,
 
   });
 
@@ -19,8 +27,8 @@ class MotorDetailScreen extends StatefulWidget {
 }
 
 class _MotorDetailScreenState extends State<MotorDetailScreen> {
-  int _quantity = 0;
-
+  final cartController  = Get.put(BikeCartController());
+  late final BikeCartController? controller;
   bool _iscollected = false;
 
   get index => 0;
@@ -28,7 +36,6 @@ class _MotorDetailScreenState extends State<MotorDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final kekemodel = kekeProducts;
 
     return Scaffold(
       body: SafeArea(
@@ -46,7 +53,7 @@ class _MotorDetailScreenState extends State<MotorDetailScreen> {
                   flexibleSpace: FlexibleSpaceBar(
                     background: Container(
                         color: const Color(0xFFeeeeee),
-                        child: Image.asset(widget.motormodels!.image,
+                        child: Image.asset(widget.product!.image,
                           fit: BoxFit.contain,
                         )),
                   ),
@@ -63,28 +70,28 @@ class _MotorDetailScreenState extends State<MotorDetailScreen> {
                         const SizedBox(height: 16),
                         ..._buildDescription(),
                         const SizedBox(height: 24),
-                        _buildQuantity(),
+                       // _buildQuantity(),
                         const SizedBox(height: 15),
-                        SizedBox(
-                          height: 300,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: widget.motormodels!.moreProductImages.length,
-                            itemBuilder: (context, index) {
-                              return SizedBox(
-                                width: 150,
-                                height: 50,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(15),
-                                  child: Image.asset(
-                                    widget.motormodels!.moreProductImages[index],
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        )
+                        // SizedBox(
+                        //   height: 300,
+                        //   child: ListView.builder(
+                        //     scrollDirection: Axis.horizontal,
+                        //     itemCount: widget.product!.images.length,
+                        //     itemBuilder: (context, index) {
+                        //       return SizedBox(
+                        //         width: 150,
+                        //         height: 50,
+                        //         child: Padding(
+                        //           padding: const EdgeInsets.all(15),
+                        //           child: Image.asset(
+                        //             widget.product!.moreProductImages[index],
+                        //             fit: BoxFit.contain,
+                        //           ),
+                        //         ),
+                        //       );
+                        //     },
+                        //   ),
+                        // )
                       ],
                     ),
                   ),
@@ -105,7 +112,7 @@ class _MotorDetailScreenState extends State<MotorDetailScreen> {
         children: [
           FittedBox(
             child: Text(
-              widget.motormodels!.title,
+              widget.product!.name,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
             ),
           ),
@@ -151,7 +158,7 @@ class _MotorDetailScreenState extends State<MotorDetailScreen> {
       const Text('Description', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
       const SizedBox(height: 8),
       ExpandableText(
-        widget.motormodels!.productDescription,
+        widget.product!.image,
         expandText: 'view more',
         collapseText: 'view less',
         linkStyle: TextStyle(color: Color(0xFF424242), fontWeight: FontWeight.bold),
@@ -159,46 +166,46 @@ class _MotorDetailScreenState extends State<MotorDetailScreen> {
     ];
   }
 
-  Widget _buildQuantity() {
-    return Row(
-      children: [
-        const Text('Quantity', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-        const SizedBox(width: 20),
-        Container(
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(24)),
-            color: Color(0xFFF3F3F3),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          child: Material(
-            color: Colors.transparent,
-            child: Row(
-              children: [
-                InkWell(
-                  child: Image.asset('assets/icons/detail/minus@2x.png', scale: 2),
-                  onTap: () {
-                    if (_quantity <= 0) return;
-                    setState(() => _quantity -= 1);
-                  },
-                ),
-                const SizedBox(width: 20),
-                Text('$_quantity',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    )),
-                const SizedBox(width: 20),
-                InkWell(
-                  child: Image.asset('assets/icons/detail/plus@2x.png', scale: 2),
-                  onTap: () => setState(() => _quantity += 1),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
+  // Widget _buildQuantity() {
+  //   return Row(
+  //     children: [
+  //       const Text('Quantity', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+  //       const SizedBox(width: 20),
+  //       Container(
+  //         decoration: const BoxDecoration(
+  //           borderRadius: BorderRadius.all(Radius.circular(24)),
+  //           color: Color(0xFFF3F3F3),
+  //         ),
+  //         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+  //         child: Material(
+  //           color: Colors.transparent,
+  //           child: Row(
+  //             children: [
+  //               InkWell(
+  //                 child: Image.asset('assets/icons/detail/minus@2x.png', scale: 2),
+  //                 onTap: () {
+  //                   if (_quantity <= 0) return;
+  //                   setState(() => _quantity -= 1);
+  //                 },
+  //               ),
+  //               const SizedBox(width: 20),
+  //               Text('$_quantity',
+  //                   style: const TextStyle(
+  //                     fontWeight: FontWeight.bold,
+  //                     fontSize: 18,
+  //                   )),
+  //               const SizedBox(width: 20),
+  //               InkWell(
+  //                 child: Image.asset('assets/icons/detail/plus@2x.png', scale: 2),
+  //                 onTap: () => setState(() => _quantity += 1),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buldFloatBar() {
     buildAddCard() => Container(
@@ -220,7 +227,10 @@ class _MotorDetailScreenState extends State<MotorDetailScreen> {
         child: InkWell(
           borderRadius: const BorderRadius.all(Radius.circular(29)),
           // splashColor: const Color(0xFFEEEEEE),
-          onTap: () {},
+          onTap: () {
+            widget.controller?.addProductToCart(widget.product!);
+
+          },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

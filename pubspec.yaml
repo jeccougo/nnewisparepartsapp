@@ -40,6 +40,8 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   get:
   flutter_svg:
+  url_launcher: ^6.0.9
+  whatsapp_share:
 
 dev_dependencies:
   flutter_test:

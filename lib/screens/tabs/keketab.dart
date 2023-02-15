@@ -259,13 +259,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-
-import '../../components/product_card.dart';
 import '../../controller/bike_cart_controller.dart';
-import '../../controller/keke_cart_controller.dart';
-import '../../model/kekemodel.dart';
 import '../../model/popular.dart';
-import '../detail/details_screen.dart';
 import '../detail/keke_detail_screen.dart';
 
 
@@ -295,7 +290,9 @@ class _KekeTabState extends State<KekeTab> {
       //     ),
       //   ],
       // ),
-      body: CustomScrollView(slivers: [
+      body: CustomScrollView(
+          physics: BouncingScrollPhysics(),
+          slivers: [
         // SliverPadding(
         //   padding: padding,
         //   sliver: SliverList(
@@ -398,13 +395,14 @@ class KekeProductCard extends StatelessWidget {
               ),
             ),
           ),
+          Text(
+            '\N${kekes.price.toStringAsFixed(2)}',
+            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Color(0xFF212121)),
+          ),
           const SizedBox(height: 10),
           _buildSoldPoint(4.5, 6937),
           const SizedBox(height: 10),
-          Text(
-            '\$${kekes.price.toStringAsFixed(2)}',
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF212121)),
-          )
+
         ],
       ),
     );
@@ -423,30 +421,29 @@ class KekeProductCard extends StatelessWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        const SizedBox(width: 8),
-        const Text(
-          '|',
-          style: TextStyle(fontWeight: FontWeight.w500, color: Color(0xFF616161), fontSize: 14),
-        ),
-        const SizedBox(width: 8),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(6)),
-            color: const Color(0xFF101010).withOpacity(0.08),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-          child: Text(
-            '$sold sold',
-            style: const TextStyle(
-              color: Color(0xFF35383F),
-              fontWeight: FontWeight.w500,
-              fontSize: 10,
-            ),
-          ),
-
-        ),
+        // const SizedBox(width: 16),
+        // const Text(
+        //   '|',
+        //   style: TextStyle(fontWeight: FontWeight.w500, color: Color(0xFF616161), fontSize: 14),
+        // ),
+        // Container(
+        //   decoration: BoxDecoration(
+        //     borderRadius: const BorderRadius.all(Radius.circular(6)),
+        //     color: const Color(0xFF101010).withOpacity(0.08),
+        //   ),
+        //   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        //   child: Text(
+        //     '$sold sold',
+        //     style: const TextStyle(
+        //       color: Color(0xFF35383F),
+        //       fontWeight: FontWeight.w500,
+        //       fontSize: 10,
+        //     ),
+        //   ),
+        //
+        // ),
         SizedBox(
-          width: 20,
+          width: 95,
         ),
         GestureDetector(
           onTap: () {
