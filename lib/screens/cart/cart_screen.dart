@@ -224,6 +224,30 @@ class _CartScreenState extends State<CartScreen> {
           ],
         ),
       ),
+
+      body: SizedBox(
+        height: getProportionateScreenHeight(620),
+        child: Obx(() {
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: cartController.products.length,
+            itemBuilder: (context, index) {
+              return CartScreenCard(
+                controller: cartController,
+                index: index,
+                product: cartController.products.keys.toList()[index],
+                quantity: cartController.products.values.toList()[index],
+                model: '',
+                type: '',
+
+              );
+            },
+          );
+
+        }
+        ),
+      ),
+
       floatingActionButton:  Container(
         padding: EdgeInsets.symmetric(
           vertical: getProportionateScreenWidth(5),
@@ -286,29 +310,6 @@ class _CartScreenState extends State<CartScreen> {
             }
             ),
           ],
-        ),
-      ),
-
-      body: SizedBox(
-        height: getProportionateScreenHeight(620),
-        child: Obx(() {
-          return ListView.builder(
-            shrinkWrap: true,
-            itemCount: cartController.products.length,
-            itemBuilder: (context, index) {
-              return CartScreenCard(
-                controller: cartController,
-                index: index,
-                product: cartController.products.keys.toList()[index],
-                quantity: cartController.products.values.toList()[index],
-                model: '',
-                type: '',
-
-              );
-            },
-          );
-
-        }
         ),
       ),
 

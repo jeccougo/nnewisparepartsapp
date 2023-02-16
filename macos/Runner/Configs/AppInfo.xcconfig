@@ -8,7 +8,7 @@
 PRODUCT_NAME = nnewi_spare_parts
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.nnewi_spare_parts
+PRODUCT_BUNDLE_IDENTIFIER = com.nnewitech.nkwonnewi
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2022 com.example. All rights reserved.

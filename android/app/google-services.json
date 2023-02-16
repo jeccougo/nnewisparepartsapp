@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "853010933045",
+    "project_id": "nkwo-nnewi",
+    "storage_bucket": "nkwo-nnewi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:853010933045:android:13927cb65c61a31b60187c",
+        "android_client_info": {
+          "package_name": "com.nnewitech.nkwonnewi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "853010933045-3uldq4ri460ugfob6feo3oruligla3j9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsdvoeUzihbwCZfbtBm5uB9FyhKyjhNm4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "853010933045-3uldq4ri460ugfob6feo3oruligla3j9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

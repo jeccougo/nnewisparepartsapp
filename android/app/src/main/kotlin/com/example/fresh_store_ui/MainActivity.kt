@@ -1,4 +1,4 @@
-package com.example.nnewi_spare_parts
+package com.nnewitech.nkwonnewi
 
 import io.flutter.embedding.android.FlutterActivity
 
