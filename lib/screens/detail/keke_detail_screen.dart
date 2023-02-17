@@ -4,9 +4,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../controller/bike_cart_controller.dart';
-import '../../model/kekemodel.dart';
 import '../../model/popular.dart';
-import '../../model/popular.dart';
+import '../../model/productmodel.dart';
 import '../../size_config.dart';
 
 class KekeDetailScreen extends StatefulWidget {
@@ -15,7 +14,7 @@ class KekeDetailScreen extends StatefulWidget {
   final int? index;
   final int? quantity;
 
-  final Product? product;
+  final ProductModel? product;
    KekeDetailScreen({super.key, required this.product, this.controller, this.index, this.quantity,
 
   });
@@ -55,7 +54,7 @@ class _KekeDetailScreenState extends State<KekeDetailScreen> {
                   flexibleSpace: FlexibleSpaceBar(
                     background: Container(
                       color: const Color(0xFFeeeeee),
-                      child: Image.asset(widget.product!.image,
+                      child: Image.asset(widget.product!.image.toString(),
                         fit: BoxFit.contain,
                       )),
                   ),
@@ -114,36 +113,36 @@ class _KekeDetailScreenState extends State<KekeDetailScreen> {
         children: [
            FittedBox(
             child: Text(
-                 widget.product!.name,
+                 widget.product!.name.toString(),
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
             ),
           ),
-          IconButton(
-            onPressed: () => setState(() => _iscollected = !_iscollected),
-            icon: Image.asset('assets/icons/${_iscollected ? 'bold' : 'light'}/heart@2x.png'),
-            iconSize: 28,
-          ),
+          // IconButton(
+          //   onPressed: () => setState(() => _iscollected = !_iscollected),
+          //   icon: Image.asset('assets/icons/${_iscollected ? 'bold' : 'light'}/heart@2x.png'),
+          //   iconSize: 28,
+          // ),
         ],
       ),
       const SizedBox(height: 12),
       Row(
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(6)),
-              color: Color(0xFFeeeeee),
-            ),
-            child: const Text(
-              '9,742 sold',
-              style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
-            ),
-          ),
-          const SizedBox(width: 16),
+          // Container(
+          //   padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+          //   decoration: const BoxDecoration(
+          //     borderRadius: BorderRadius.all(Radius.circular(6)),
+          //     color: Color(0xFFeeeeee),
+          //   ),
+          //   child: const Text(
+          //     '9,742 sold',
+          //     style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+          //   ),
+          // ),
+          //const SizedBox(width: 16),
           Image.asset('assets/icons/start@2x.png', height: 20, width: 20),
           const SizedBox(width: 8),
           const Text(
-            '4.8 (6,573 reviews)',
+            '4.8',
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           ),
         ],
@@ -160,7 +159,7 @@ class _KekeDetailScreenState extends State<KekeDetailScreen> {
       const Text('Description', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
       const SizedBox(height: 8),
        ExpandableText(
-        widget.product!.image,
+        widget.product!.image.toString(),
         expandText: 'view more',
         collapseText: 'view less',
         linkStyle: TextStyle(color: Color(0xFF424242), fontWeight: FontWeight.bold),
@@ -267,10 +266,13 @@ class _KekeDetailScreenState extends State<KekeDetailScreen> {
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children:  [
                     Text('Total price', style: TextStyle(color: Color(0xFF757575), fontSize: 12)),
                     SizedBox(height: 6),
-                    Text('\$280.00', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+                    Text(
+                      '\N${widget.product?.price}',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF212121)),
+                    ),
                   ],
                 ),
                 buildAddCard()

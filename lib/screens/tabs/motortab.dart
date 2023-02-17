@@ -261,11 +261,12 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../../controller/bike_cart_controller.dart';
 import '../../model/popular.dart';
+import '../../model/productmodel.dart';
 import '../detail/keke_detail_screen.dart';
 
 
 class MotorTab extends StatefulWidget {
-  final List<Motor> motors;
+  final List<ProductModel> motors;
   const MotorTab({super.key, required this.motors});
 
 
@@ -274,7 +275,6 @@ class MotorTab extends StatefulWidget {
 }
 
 class _MotorTabState extends State<MotorTab> {
-  late final datas = motors;
 
   @override
   Widget build(BuildContext context) {
@@ -334,14 +334,14 @@ class _MotorTabState extends State<MotorTab> {
 
 
 
-typedef MotorProductCardOnTaped = void Function(Product motors);
+typedef MotorProductCardOnTaped = void Function(ProductModel motors);
 
 class MotorProductCard extends StatelessWidget {
   final cartController = Get.put(BikeCartController());
 
   MotorProductCard({super.key,this.ontap, required this.motors, required this.index, required this.quantity});
 
-  final Motor motors;
+  final ProductModel motors;
   final int index;
   final MotorProductCardOnTaped? ontap;
   final int quantity;
@@ -375,7 +375,7 @@ class MotorProductCard extends StatelessWidget {
                           duration: Duration(milliseconds: 500),
                           transition: Transition.downToUp);
                     },
-                    child: Image.asset(motors.image, width: 182, height: 182)),
+                    child: Image.asset(motors.image.toString(), width: 182, height: 182)),
                 // Positioned(
                 //   top: 16,
                 //   right: 16,
@@ -387,7 +387,7 @@ class MotorProductCard extends StatelessWidget {
           const SizedBox(height: 12),
           FittedBox(
             child: Text(
-              motors.name,
+              motors.name.toString(),
               style: const TextStyle(
                 color: Color(0xFF212121),
                 fontWeight: FontWeight.bold,
@@ -396,7 +396,7 @@ class MotorProductCard extends StatelessWidget {
             ),
           ),
           Text(
-            '\N${motors.price.toStringAsFixed(2)}',
+            '\N${motors.price}',
             style: const TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Color(0xFF212121)),
           ),
           const SizedBox(height: 5),
@@ -446,7 +446,7 @@ class MotorProductCard extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            cartController.addProductToCart(motors[index]);
+            cartController.addProductToCart(motors);
 
           },
           child: Container(

@@ -23,24 +23,28 @@ class SpecialOfferWidget extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(left: 32),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: ListView(
               children: [
-                Text(
-                  data.discount,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  data.title,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  data.detail,
-                  style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
-                ),
+                Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    data.discount,
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    data.title,
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    data.detail,
+                    style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+                  ),
+                ],
+              ),
               ],
             ),
           ),

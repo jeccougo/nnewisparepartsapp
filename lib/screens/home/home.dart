@@ -114,7 +114,6 @@ import 'package:nnewi_spare_parts_market/screens/home/search_field.dart';
 import 'package:nnewi_spare_parts_market/screens/home/special_offer.dart';
 
 import '../../constants.dart';
-import '../../model/kekemodel.dart';
 import '../../size_config.dart';
 import '../mostpopular/most_popular_screen.dart';
 import '../profile/profile_screen.dart';
@@ -210,12 +209,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               physics: BouncingScrollPhysics(),
                               children: [
                                 //foodpage
-                                BikeTab( bikes: bikes,),
+                                BikeTab(bikes: [],),
 
                                 //KekeTab(),
-                                KekeTab(kekes: kekes,),
+                                KekeTab(kekes: [],),
 
-                                MotorTab(motors: motors,),
+                                MotorTab(motors: [],),
 
 
                               ]),
@@ -251,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
 AppBar buildAppBar(BuildContext context) {
   return AppBar(
     toolbarHeight: 80,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.transparent,
     elevation: 0,
     automaticallyImplyLeading: false,
     //foregroundColor: Colors.transparent,
@@ -259,8 +258,8 @@ AppBar buildAppBar(BuildContext context) {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-          child: Image.asset('assets/icons/nwlo.png', width: 70, height: 70),
+          padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+          child: Image.asset('assets/icons/nwlo.png', width: 60, height: 60),
         ),
 
         // InkWell(

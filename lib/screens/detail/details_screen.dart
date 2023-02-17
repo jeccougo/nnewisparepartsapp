@@ -4,15 +4,16 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../controller/bike_cart_controller.dart';
-import '../../model/cartmodel.dart';
+import '../../model/ordermodel.dart';
 import '../../model/popular.dart';
 import '../../model/popular.dart';
+import '../../model/productmodel.dart';
 import '../../size_config.dart';
 
 class ShopDetailScreen extends StatefulWidget {
   final cartController  = Get.put(BikeCartController());
   final BikeCartController? controller;
-  final Product? product;
+  final ProductModel? product;
 
    ShopDetailScreen({super.key,
      required this.product,
@@ -58,7 +59,7 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
                   flexibleSpace: FlexibleSpaceBar(
                     background: Container(
                         color: const Color(0xFFeeeeee),
-                        child: Image.asset(widget.product!.image,
+                        child: Image.asset(widget.product!.image.toString(),
                           fit: BoxFit.contain,
                         )),
                   ),
@@ -117,15 +118,15 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
         children: [
           FittedBox(
             child: Text(
-              widget.product!.name,
+              widget.product!.name.toString(),
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
             ),
           ),
-          IconButton(
-            onPressed: () => setState(() => _iscollected = !_iscollected),
-            icon: Image.asset('assets/icons/${_iscollected ? 'bold' : 'light'}/heart@2x.png'),
-            iconSize: 28,
-          ),
+          // IconButton(
+          //   onPressed: () => setState(() => _iscollected = !_iscollected),
+          //   icon: Image.asset('assets/icons/${_iscollected ? 'bold' : 'light'}/heart@2x.png'),
+          //   iconSize: 28,
+          // ),
         ],
       ),
       const SizedBox(height: 12),
@@ -146,7 +147,7 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
           Image.asset('assets/icons/start@2x.png', height: 20, width: 20),
           const SizedBox(width: 8),
           const Text(
-            '4.8 (6,573 reviews)',
+            '4.8',
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
           ),
         ],
@@ -162,7 +163,7 @@ class _ShopDetailScreenState extends State<ShopDetailScreen> {
       const Text('Description', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
       const SizedBox(height: 8),
       ExpandableText(
-        widget.product!.image,
+        widget.product!.image.toString(),
         expandText: 'view more',
         collapseText: 'view less',
         linkStyle: TextStyle(color: Color(0xFF424242), fontWeight: FontWeight.bold),

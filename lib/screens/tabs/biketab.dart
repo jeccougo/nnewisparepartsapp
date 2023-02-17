@@ -419,12 +419,13 @@ import 'package:get/get_core/src/get_main.dart';
 import '../../controller/bike_cart_controller.dart';
 
 import '../../model/popular.dart';
+import '../../model/productmodel.dart';
 import '../detail/details_screen.dart';
 import '../utils/likeicon.dart';
 
 
 class BikeTab extends StatefulWidget {
-  final List<Bike> bikes;
+  final List<ProductModel> bikes;
   const BikeTab({super.key, required this.bikes});
 
 
@@ -493,14 +494,14 @@ class _BikeTabState extends State<BikeTab> {
 
 
 
-typedef BikeProductCardOnTaped = void Function(Product bikes);
+typedef BikeProductCardOnTaped = void Function(ProductModel bikes);
 
 class BikeProductCard extends StatelessWidget {
   final cartController = Get.put(BikeCartController());
 
   BikeProductCard({super.key,this.ontap, required this.bikes, required this.index, required this.quantity});
 
-  final Bike bikes;
+  final ProductModel bikes;
   final int index;
   final BikeProductCardOnTaped? ontap;
   final int quantity;
@@ -535,7 +536,7 @@ class BikeProductCard extends StatelessWidget {
                           duration: Duration(milliseconds: 500),
                           transition: Transition.downToUp);
                     },
-                    child: Image.asset(bikes.image, width: 182, height: 182)),
+                    child: Image.asset(bikes.image.toString(), width: 182, height: 182)),
                 // Positioned(
                 //   top: 5,
                 //   right: 5,
@@ -547,7 +548,7 @@ class BikeProductCard extends StatelessWidget {
           const SizedBox(height: 12),
           FittedBox(
             child: Text(
-              bikes.name,
+              bikes.name.toString(),
               style: const TextStyle(
                 color: Color(0xFF212121),
                 fontWeight: FontWeight.bold,
@@ -556,7 +557,7 @@ class BikeProductCard extends StatelessWidget {
             ),
           ),
           Text(
-            '\N${bikes.price.toStringAsFixed(2)}',
+            '\N${bikes.price}',
             style: const TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Color(0xFF212121)),
           ),
           const SizedBox(width: 50),
@@ -572,17 +573,9 @@ class BikeProductCard extends StatelessWidget {
 
   Widget _buildSoldPoint(double star, int sold) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Image.asset('assets/icons/start@2x.png', width: 20, height: 20),
-        const SizedBox(width: 8),
-        Text(
-          '$star',
-          style: const TextStyle(
-            color: Color(0xFF616161),
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
         //const SizedBox(width: 16),
         // const Text(
         //   '|',
@@ -604,12 +597,10 @@ class BikeProductCard extends StatelessWidget {
         //   ),
         //
         // ),
-        SizedBox(
-          width: 95,
-        ),
+
         GestureDetector(
           onTap: () {
-            cartController.addProductToCart(bikes[index]);
+            cartController.addProductToCart(bikes);
 
           },
           child: Container(

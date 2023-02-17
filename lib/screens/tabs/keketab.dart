@@ -261,11 +261,12 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../../controller/bike_cart_controller.dart';
 import '../../model/popular.dart';
+import '../../model/productmodel.dart';
 import '../detail/keke_detail_screen.dart';
 
 
 class KekeTab extends StatefulWidget {
-  final List<Keke> kekes;
+  final List<ProductModel> kekes;
   const KekeTab({super.key, required this.kekes});
 
 
@@ -274,7 +275,6 @@ class KekeTab extends StatefulWidget {
 }
 
 class _KekeTabState extends State<KekeTab> {
-  late final datas = kekes;
 
   @override
   Widget build(BuildContext context) {
@@ -334,14 +334,14 @@ class _KekeTabState extends State<KekeTab> {
 
 
 
-typedef KekeProductCardOnTaped = void Function(Product kekes);
+typedef KekeProductCardOnTaped = void Function(ProductModel kekes);
 
 class KekeProductCard extends StatelessWidget {
   final cartController = Get.put(BikeCartController());
 
   KekeProductCard({super.key,this.ontap, required this.kekes, required this.index, required this.quantity});
 
-  final Keke kekes;
+  final ProductModel kekes;
   final int index;
   final KekeProductCardOnTaped? ontap;
   final int quantity;
@@ -375,7 +375,7 @@ class KekeProductCard extends StatelessWidget {
                           duration: Duration(milliseconds: 500),
                           transition: Transition.downToUp);
                     },
-                    child: Image.asset(kekes.image, width: 182, height: 182)),
+                    child: Image.asset(kekes.image.toString(), width: 182, height: 182)),
                 // Positioned(
                 //   top: 16,
                 //   right: 16,
@@ -387,7 +387,7 @@ class KekeProductCard extends StatelessWidget {
           const SizedBox(height: 12),
           FittedBox(
             child: Text(
-              kekes.name,
+              kekes.name.toString(),
               style: const TextStyle(
                 color: Color(0xFF212121),
                 fontWeight: FontWeight.bold,
@@ -396,7 +396,7 @@ class KekeProductCard extends StatelessWidget {
             ),
           ),
           Text(
-            '\N${kekes.price.toStringAsFixed(2)}',
+            '\N${kekes.price}',
             style: const TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Color(0xFF212121)),
           ),
           const SizedBox(height: 10),
@@ -410,17 +410,10 @@ class KekeProductCard extends StatelessWidget {
 
   Widget _buildSoldPoint(double star, int sold) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Image.asset('assets/icons/start@2x.png', width: 20, height: 20),
-        const SizedBox(width: 8),
-        Text(
-          '$star',
-          style: const TextStyle(
-            color: Color(0xFF616161),
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+
         // const SizedBox(width: 16),
         // const Text(
         //   '|',
@@ -442,12 +435,10 @@ class KekeProductCard extends StatelessWidget {
         //   ),
         //
         // ),
-        SizedBox(
-          width: 95,
-        ),
+
         GestureDetector(
           onTap: () {
-            cartController.addProductToCart(kekes[index]);
+            cartController.addProductToCart(kekes);
 
           },
           child: Container(

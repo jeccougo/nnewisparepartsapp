@@ -152,9 +152,10 @@ import 'package:get/get_core/src/get_main.dart';
 
 import '../../components/button.dart';
 import '../../controller/bike_cart_controller.dart';
-import '../../model/cartmodel.dart';
+import '../../model/ordermodel.dart';
 import '../../model/popular.dart';
 
+import '../../model/productmodel.dart';
 import '../../size_config.dart';
 import '../utils/checkoutfinal.dart';
 
@@ -178,7 +179,6 @@ class _CartScreenState extends State<CartScreen> {
 
   var cartTotal = 0;
 
-  CartModel cartModel = CartModel();
 
 
   @override
@@ -188,15 +188,15 @@ class _CartScreenState extends State<CartScreen> {
   }
 
 
-  void checkCartTotal() {
-    var _cartTotal = cartModel.cartTotal;
-    if(_cartTotal != 0 ) {
-      cartTotal = _cartTotal;
-    }
-    else {
-      cartTotal = 0000;
-    }
-  }
+  // void checkCartTotal() {
+  //   var _cartTotal = cartModel.cartTotal;
+  //   if(_cartTotal != 0 ) {
+  //     cartTotal = _cartTotal;
+  //   }
+  //   else {
+  //     cartTotal = 0000;
+  //   }
+  // }
 
   @override
   void dispose() {
@@ -263,8 +263,8 @@ class _CartScreenState extends State<CartScreen> {
                       text: "Total:\n",
                       children: [
                         TextSpan(
-                          text: widget.cartController.total.toString(),
-                          style: TextStyle(fontSize: 16, color: Colors.black),
+                          text: '\N${widget.cartController.total.toString()}',
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Colors.black),
                         ),
                       ],
                     ),
@@ -317,7 +317,7 @@ class _CartScreenState extends State<CartScreen> {
 }
 class CartScreenCard extends StatefulWidget {
   final BikeCartController controller;
-  final Product product;
+  final ProductModel product;
   final String model;
   final String type;
   final int index;
@@ -338,7 +338,8 @@ class _CartScreenCardState extends State<CartScreenCard> {
   Widget build(BuildContext context) {
     return Padding(padding: const EdgeInsets.fromLTRB(15, 7, 15, 7),
       child: Container(
-        color: Colors.grey.shade50,
+        decoration: BoxDecoration(color: Colors.grey.shade50,
+        borderRadius: BorderRadius.circular(15)) ,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -350,19 +351,19 @@ class _CartScreenCardState extends State<CartScreenCard> {
                 decoration: BoxDecoration(
                   color: Colors.grey.shade50,
                 ),
-                child: Image.asset(widget.product.image),
+                child: Image.asset(widget.product.image.toString()),
               ),
             ),
 
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(widget.product.name,
-                  style: TextStyle(fontSize: 20),),
+                Text(widget.product.name.toString(),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                 Text('Quantity: ${widget.quantity}',
-                  style: TextStyle(fontSize: 20),),
-                Text('Price: \$${widget.product.price.toString()}',
-                  style: TextStyle(fontSize: 20),),
+                  style: TextStyle(fontSize: 16),),
+                Text('Price: \N${widget.product.price.toString()}',
+                  style: TextStyle(fontSize: 16),),
                 SizedBox(height: 10,),
 
               ],

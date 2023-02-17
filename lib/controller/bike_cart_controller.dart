@@ -178,16 +178,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:whatsapp_share/whatsapp_share.dart';
-import 'package:whatsapp_share/whatsapp_share.dart';
 
 
 import '../model/popular.dart';
+import '../model/productmodel.dart';
 
 class BikeCartController extends GetxController {
   var _Products = {}.obs;
 
-  void addProductToCart(Product products) {
+  void addProductToCart(ProductModel products) {
     if (_Products.containsKey(products)) {
       _Products[products] += 1;
     } else {
@@ -202,7 +201,7 @@ class BikeCartController extends GetxController {
     );
   }
 
-  void removeProductFromCart(Product products) {
+  void removeProductFromCart(ProductModel products) {
     if (_Products.containsKey(products) && _Products[products] == 1) {
       _Products.removeWhere((key, value) => key == products);
     } else {
@@ -212,7 +211,7 @@ class BikeCartController extends GetxController {
       'Product Removed',
       'You have removed ${products.name} from your cart',
       snackPosition: SnackPosition.TOP,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.amber,
       duration: const Duration(seconds: 2),
     );
   }

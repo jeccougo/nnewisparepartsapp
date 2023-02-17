@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../components/app_bar.dart';
 import '../../components/product_card.dart';
-import '../../model/kekemodel.dart';
+import '../../model/mostpopularmodel.dart';
 import '../../model/popular.dart';
 import '../home/most_popular.dart';
 
@@ -17,8 +17,7 @@ class MostPopularScreen extends StatefulWidget {
 }
 
 class _MostPopularScreenState extends State<MostPopularScreen> {
-  late final datas = kekeProducts;
-
+  late final datas = bikes;
   @override
   Widget build(BuildContext context) {
     const padding = EdgeInsets.fromLTRB(24, 24, 24, 0);
@@ -66,8 +65,7 @@ class _MostPopularScreenState extends State<MostPopularScreen> {
 
   Widget _buildPopularItem(BuildContext context, int index) {
     final data = datas[index % datas.length];
-    return ProductCard(
-      data: data,
+    return ProductCard(product: data,
     );
   }
 }

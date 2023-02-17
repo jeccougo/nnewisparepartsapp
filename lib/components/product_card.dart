@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../model/kekemodel.dart';
 import '../model/popular.dart';
 
-typedef ProductCardOnTaped = void Function(KekeModel data);
+typedef ProductCardOnTaped = void Function(Product data);
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.data, this.ontap});
+  const ProductCard({super.key, required this.product, this.ontap});
 
-  final KekeModel data;
+  final Product product;
   final ProductCardOnTaped? ontap;
 
   @override
@@ -17,7 +16,7 @@ class ProductCard extends StatelessWidget {
     const borderRadius = BorderRadius.all(Radius.circular(20));
     return InkWell(
       borderRadius: borderRadius,
-      onTap: () => ontap?.call(data),
+      onTap: () => ontap?.call(product),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -28,7 +27,7 @@ class ProductCard extends StatelessWidget {
             ),
             child: Stack(
               children: [
-                Image.asset(data.image, width: 182, height: 182),
+                Image.asset(product.image, width: 182, height: 182),
                 Positioned(
                   top: 16,
                   right: 16,
@@ -40,7 +39,7 @@ class ProductCard extends StatelessWidget {
           const SizedBox(height: 12),
           FittedBox(
             child: Text(
-              data.title,
+              product.name,
               style: const TextStyle(
                 color: Color(0xFF212121),
                 fontWeight: FontWeight.bold,
@@ -52,7 +51,7 @@ class ProductCard extends StatelessWidget {
           _buildSoldPoint(4.5, 6937),
           const SizedBox(height: 10),
           Text(
-            '\$${data.price.toStringAsFixed(2)}',
+            '\$${product.price.toStringAsFixed(2)}',
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF212121)),
           )
         ],
