@@ -176,6 +176,8 @@
 
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:whatsapp_share/whatsapp_share.dart';
@@ -234,6 +236,27 @@ class BikeCartController extends GetxController {
       .toList()
       .reduce((value, element) => value + element)
       .toStringAsFixed(2);
+
+
+
+  Future<void> addCartToFirestore() async {
+    // Get the current user
+    final user = FirebaseAuth.instance.currentUser;
+
+    // Get a reference to the Firestore collection where the cart items will be added
+    final collection = FirebaseFirestore.instance.collection('carts');
+
+    // Create a new document for the cart items
+    final document = collection.doc();
+
+    // Add the cart items to the document
+    await document.set({
+      'userId': user?.uid,
+      'items': products.map((key, value) => MapEntry(key.id, value)),
+      'total': total,
+    });
+  }
+
 
 
 

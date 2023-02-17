@@ -23,11 +23,20 @@ class Product {
 
   Product({required this.name, required this.image,
     required this.price});
+
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      name: json['name'],
+      price: json['price'].toDouble(),
+      image: json['image'],
+    );
+  }
 }
 
 class Bike extends Product {
   int index;
   String model;
+  String id = '0';
   String type;
   String image;
   List moreProductImages = [];
@@ -35,7 +44,8 @@ class Bike extends Product {
   
   operator [](int index) => this.index == index ? this : null;
 
-  Bike({required String name,
+  Bike({required String id,
+    required String name,
     required double price,
     required this.model,
     required this.index,
@@ -45,6 +55,29 @@ class Bike extends Product {
     required this.productDescription,
     required this.moreProductImages })
       : super(name: name, price: price, image: image);
+
+  factory Bike.fromMap(Map<String, dynamic> map) {
+    return Bike(
+      id: map['id'] ?? '',
+      name: map['name'] ?? '',
+      price: map['price'] ?? 0,
+      image: map['image'] ?? '',
+      index: map['index'] ?? 0,
+      model: map['model'] ?? '',
+      moreProductImages: map['moreProductImages'] ?? [],
+      productDescription: map['productDescription'] ?? '',
+      type: map['type'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'price': price,
+      'image': image,
+      'id': id,
+    };
+  }
 }
 List<Bike> bikes = [
   Bike(
@@ -54,7 +87,7 @@ List<Bike> bikes = [
     productDescription: 'Qlink Motocycle is the high grade this',
     moreProductImages: [],
     model: '02',
-    type: 'met', index: 0,
+    type: 'met', index: 0, id: '1',
   ),
   Bike(
     name: 'Ugbo-epepe',
@@ -64,7 +97,7 @@ List<Bike> bikes = [
     moreProductImages: [
       'assets/icons/products/2bike.png', 'assets/icons/products/4bike.png','assets/icons/products/3bike.png'],
     model: '',
-    type: '', index: 1,
+    type: '', index: 1, id: '2',
   ),
   Bike(
     name: 'Club',
@@ -73,7 +106,7 @@ List<Bike> bikes = [
     productDescription: 'Club Motocycle is the high grade this',
     moreProductImages: [],
     model: '',
-    type: '', index: 2,
+    type: '', index: 2, id: '3',
   ),
   Bike(
     name: 'Yamaha',
@@ -82,42 +115,42 @@ List<Bike> bikes = [
     productDescription: 'Today Motocycle is the high grade this',
     moreProductImages: [],
     model: '',
-    type: '', index: 3,
+    type: '', index: 3, id: '4',
   ),
   Bike(
     name: 'Ladies',
     price: 569000.00,
     image: 'assets/icons/products/ladies.png',
     productDescription: 'Ogbuawa Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 4,
+    moreProductImages: [], model: '', type: '', index: 4, id: '5',
   ),
   Bike(
     name: 'Ogbuawa',
     price: 569000.00,
     image: 'assets/icons/products/1bike.png',
     productDescription: 'Ogbuawa Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 4,
+    moreProductImages: [], model: '', type: '', index: 4, id: '6',
   ),
   Bike(
     name: 'Ogbuawa',
     price: 569000.00,
     image: 'assets/icons/products/jet.png',
     productDescription: 'Ogbuawa Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 4,
+    moreProductImages: [], model: '', type: '', index: 4, id: '7',
   ),
   Bike(
       name: 'Enyi',
     price: 569000.00,
     image: 'assets/icons/products/enyi.png',
     productDescription: 'Ogbuawa Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 4,
+    moreProductImages: [], model: '', type: '', index: 4, id: '8',
   ),
   Bike(
     name: 'Kymko',
     price: 559000.00,
     image: 'assets/icons/products/4bike.png',
     productDescription: 'Innoson Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 5,
+    moreProductImages: [], model: '', type: '', index: 5, id: '15',
   ),
 
   Bike(
@@ -125,7 +158,7 @@ List<Bike> bikes = [
     price: 759000.00,
     image: 'assets/icons/products/4bike.png',
     productDescription: 'Innoson Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 6,
+    moreProductImages: [], model: '', type: '', index: 6, id: '9',
   ),
 
   Bike(
@@ -134,7 +167,7 @@ List<Bike> bikes = [
     price: 579000.00,
     image: 'assets/icons/products/2bike.png',
     productDescription: 'Innoson Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 7,
+    moreProductImages: [], model: '', type: '', index: 7, id: '16',
   ),
 
   Bike(
@@ -142,7 +175,7 @@ List<Bike> bikes = [
     price: 159000.00,
     image: 'assets/icons/products/pngwing.com (69).png',
     productDescription: 'Innoson Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 8,
+    moreProductImages: [], model: '', type: '', index: 8, id: '10',
   ),
 
   Bike(
@@ -151,7 +184,7 @@ List<Bike> bikes = [
     price: 179000.00,
     image: 'assets/icons/products/2bike.png',
     productDescription: 'Qlink is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 9,
+    moreProductImages: [], model: '', type: '', index: 9, id: '11',
   ),
 
   Bike(
@@ -159,7 +192,7 @@ List<Bike> bikes = [
     price: 196000.00,
     image: 'assets/icons/products/4bike.png',
     productDescription: 'Kotec Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 10,
+    moreProductImages: [], model: '', type: '', index: 10, id: '12',
   ),
 
   Bike(
@@ -168,7 +201,7 @@ List<Bike> bikes = [
     price: 233000.00,
     image: 'assets/icons/products/4bike.png',
     productDescription: 'Qlink Motocycle is the high grade this',
-    moreProductImages: [],  model: '2012', index: 11
+    moreProductImages: [],  model: '2012', index: 11, id: '13'
   ),
 ];
 

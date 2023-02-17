@@ -145,7 +145,10 @@
 //   }
 // }
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -173,6 +176,9 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   final cartController  = Get.put(BikeCartController());
 
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+
 
   final BikeCartController controller = Get.find();
 
@@ -184,19 +190,55 @@ class _CartScreenState extends State<CartScreen> {
   @override
   void initState() {
     super.initState();
-    // checkCartTotal();
+  }
+
+  Future<void> addCartToFirestore() async {
+    final CollectionReference cartsCollection = FirebaseFirestore.instance.collection('carts');
+    final currentUser = FirebaseAuth.instance.currentUser;
+    final products = widget.cartController.products;
+
+    // convert each Bike object to a map
+    final productsAsMaps = products.entries.map((entry) => entry.key.toMap()).toList();
+
+    try {
+      await cartsCollection.add({
+        'userId': currentUser?.uid,
+        'timestamp': FieldValue.serverTimestamp(),
+        'items': productsAsMaps.map((map) => {'product': map, 'quantity': products[map]}).toList(),
+        'total': widget.cartController.total,
+      });
+    } catch (error) {
+      print(error);
+    }
   }
 
 
-  void checkCartTotal() {
-    var _cartTotal = cartModel.cartTotal;
-    if(_cartTotal != 0 ) {
-      cartTotal = _cartTotal;
-    }
-    else {
-      cartTotal = 0000;
+
+  Future<void> sendOrderToFirestore() async {
+    final CollectionReference ordersCollection = firestore.collection('orders');
+    final DocumentReference newOrderDoc = ordersCollection.doc();
+    // Convert the Rx observable map to a list
+    final List<Map<String, dynamic>> cartProducts = widget.cartController.products.values.toList();
+    // Map the contents of "cartController.products" to a List<Map<String, dynamic>>
+    final List<Map<String, dynamic>> cartProductsList = cartProducts.map((json) {
+      final product = Product.fromJson(json);
+      return {
+        "productName": product.name,
+        "productPrice": product.price,
+        "productImage": product.image,
+      };
+    }).toList();
+
+
+    // Set the contents of the new Firestore document with the mapped list
+    await newOrderDoc.set({
+      "cartProducts": cartProductsList,
+    });
+    if (kDebugMode) {
+      print('Order Saved And Sent!');
     }
   }
+
 
   @override
   void dispose() {
@@ -299,7 +341,8 @@ class _CartScreenState extends State<CartScreen> {
                     width: getProportionateScreenWidth(190),
                     child: DefaultButton(
                       text: "Check Out",
-                      press: () {
+                      press: () async {
+                        await addCartToFirestore();
                         Get.to(() => CheckoutForm());
                       },
                     ),

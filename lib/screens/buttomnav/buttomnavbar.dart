@@ -50,7 +50,7 @@ class _ButtomNavbarScreenState extends State<ButtomNavbarScreen> {
       title: '',
     ),
     CartScreen(),
-    const OrderScreen(title: 'Orders'),
+    OrderScreen(title: 'Orders'),
     //const WalletScreen(title: 'Wallet'),
     //const ProfileScreen(),
   ];

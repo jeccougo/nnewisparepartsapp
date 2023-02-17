@@ -8,8 +8,8 @@ import '../../model/popular.dart';
 import '../cart/cart_screen.dart';
 import 'orderCard.dart';
 
-class OrderScreen extends StatelessWidget {
-   OrderScreen({super.key, this.title = ''});
+class AllOrderScreen extends StatelessWidget {
+  AllOrderScreen({super.key, this.title = ''});
 
   static String route() => '/cart';
 
@@ -32,7 +32,7 @@ class OrderScreen extends StatelessWidget {
           itemBuilder: (context, index) {
             final doc = docs![index];
             final product = Bike.fromMap(doc.data() as Map<String, dynamic>);
-            return OrderScreenCard(product: product);
+            return OrderCard(orderNumber: product.id);
           },
         );
       },
@@ -80,7 +80,7 @@ class _OrderScreenCardState extends State<OrderScreenCard> {
                 Text(widget.product.name,
                   style: TextStyle(fontSize: 20),),
                 //Text('Quantity: ${widget.quantity}',
-                 // style: TextStyle(fontSize: 20),),
+                // style: TextStyle(fontSize: 20),),
                 Text('Price: \$${widget.product.price.toString()}',
                   style: TextStyle(fontSize: 20),),
                 SizedBox(height: 10,),

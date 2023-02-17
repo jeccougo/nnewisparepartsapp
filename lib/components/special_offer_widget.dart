@@ -31,12 +31,12 @@ class SpecialOfferWidget extends StatelessWidget {
                   data.discount,
                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 8),
                 Text(
                   data.title,
                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 8),
                 Text(
                   data.detail,
                   style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),

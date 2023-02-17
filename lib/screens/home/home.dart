@@ -112,6 +112,7 @@ import 'package:nnewi_spare_parts_market/model/popular.dart';
 import 'package:nnewi_spare_parts_market/screens/home/most_popular.dart';
 import 'package:nnewi_spare_parts_market/screens/home/search_field.dart';
 import 'package:nnewi_spare_parts_market/screens/home/special_offer.dart';
+import 'package:nnewi_spare_parts_market/screens/orders/AllOrders.dart';
 
 import '../../constants.dart';
 import '../../model/kekemodel.dart';
@@ -258,21 +259,18 @@ AppBar buildAppBar(BuildContext context) {
     title: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-          child: Image.asset('assets/icons/nwlo.png', width: 70, height: 70),
+        GestureDetector(
+          onDoubleTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AllOrderScreen()),
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+            child: Image.asset('assets/icons/nwlo.png', width: 70, height: 70),
+          ),
         ),
-
-        // InkWell(
-        //   borderRadius: const BorderRadius.all(Radius.circular(24)),
-        //   onTap: () => Navigator.pushNamed(context, ProfileScreen.route()),
-        //   child: const CircleAvatar(
-        //     //backgroundImage: AssetImage('$kIconPath/me.png'),
-        //     backgroundColor: Colors.amber,
-        //
-        //     radius: 24,
-        //   ),
-        // ),
 
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
