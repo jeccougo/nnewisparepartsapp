@@ -409,17 +409,18 @@ class MotorProductCard extends StatelessWidget {
 
   Widget _buildSoldPoint(double star, int sold) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Image.asset('assets/icons/start@2x.png', width: 20, height: 20),
-        const SizedBox(width: 8),
-        Text(
-          '$star',
-          style: const TextStyle(
-            color: Color(0xFF616161),
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
+        // const SizedBox(width: 8),
+        // Text(
+        //   '$star',
+        //   style: const TextStyle(
+        //     color: Color(0xFF616161),
+        //     fontSize: 14,
+        //     fontWeight: FontWeight.w500,
+        //   ),
+        // ),
         //const SizedBox(width: 16),
         // const Text(
         //   '|',
@@ -441,9 +442,7 @@ class MotorProductCard extends StatelessWidget {
         //   ),
         //
         // ),
-        SizedBox(
-          width: 95,
-        ),
+
         GestureDetector(
           onTap: () {
             cartController.addProductToCart(motors[index]);
