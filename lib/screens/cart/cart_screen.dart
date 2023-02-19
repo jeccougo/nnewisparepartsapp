@@ -152,6 +152,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../components/button.dart';
 import '../../controller/bike_cart_controller.dart';
@@ -178,14 +179,11 @@ class _CartScreenState extends State<CartScreen> {
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-
+  late String _orderNumber;
 
   final BikeCartController controller = Get.find();
 
   var cartTotal = 0;
-
-  CartModel cartModel = CartModel();
-
 
   @override
   void initState() {
@@ -193,51 +191,46 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Future<void> addCartToFirestore() async {
-    final CollectionReference cartsCollection = FirebaseFirestore.instance.collection('carts');
+    final CollectionReference cartsCollection =
+    FirebaseFirestore.instance.collection('carts');
     final currentUser = FirebaseAuth.instance.currentUser;
     final products = widget.cartController.products;
+    //final numberOfItems = widget.cartController.products.lenght;
 
-    // convert each Bike object to a map
-    final productsAsMaps = products.entries.map((entry) => entry.key.toMap()).toList();
+
+    // Generate a unique order number
+    final orderNumber = '${DateTime.now().millisecondsSinceEpoch}-${currentUser?.uid}';
+
+    // Save the order number to shared preferences
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('orderNumber', orderNumber);
+    _orderNumber = orderNumber;
+
+    // Convert each Bike object to a map
+    final productsAsMaps =
+    products.entries.map((entry) => entry.key.toMap()).toList();
 
     try {
-      await cartsCollection.add({
+      await cartsCollection.doc(orderNumber).set({
+        'orderNumber': orderNumber,
         'userId': currentUser?.uid,
-        'timestamp': FieldValue.serverTimestamp(),
-        'items': productsAsMaps.map((map) => {'product': map, 'quantity': products[map]}).toList(),
+        'dateOfOrder': FieldValue.serverTimestamp(),
+        'items': productsAsMaps
+            .map((map) => {'product': map, 'quantity': products[map]})
+            .toList(),
+        'numberOfItems': 4,
         'total': widget.cartController.total,
+        'statusOfOrder': 'pending',
       });
     } catch (error) {
-      print(error);
+      if (kDebugMode) {
+        print(error);
+      }
     }
   }
 
 
 
-  Future<void> sendOrderToFirestore() async {
-    final CollectionReference ordersCollection = firestore.collection('orders');
-    final DocumentReference newOrderDoc = ordersCollection.doc();
-    // Convert the Rx observable map to a list
-    final List<Map<String, dynamic>> cartProducts = widget.cartController.products.values.toList();
-    // Map the contents of "cartController.products" to a List<Map<String, dynamic>>
-    final List<Map<String, dynamic>> cartProductsList = cartProducts.map((json) {
-      final product = Product.fromJson(json);
-      return {
-        "productName": product.name,
-        "productPrice": product.price,
-        "productImage": product.image,
-      };
-    }).toList();
-
-
-    // Set the contents of the new Firestore document with the mapped list
-    await newOrderDoc.set({
-      "cartProducts": cartProductsList,
-    });
-    if (kDebugMode) {
-      print('Order Saved And Sent!');
-    }
-  }
 
 
   @override
@@ -253,7 +246,7 @@ class _CartScreenState extends State<CartScreen> {
       appBar: AppBar(
         toolbarHeight: 80,
         title: Row(
-          children: [
+          children: const [
             Icon(Icons.arrow_back),
             SizedBox(
               width: 15,
@@ -298,7 +291,7 @@ class _CartScreenState extends State<CartScreen> {
         // height: 174,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(0),
             topRight: Radius.circular(30),
             bottomRight: Radius.circular(30)
@@ -343,7 +336,7 @@ class _CartScreenState extends State<CartScreen> {
                       text: "Check Out",
                       press: () async {
                         await addCartToFirestore();
-                        Get.to(() => CheckoutForm());
+                        Get.to(() => CheckoutForm(orderNumber: _orderNumber));
                       },
                     ),
                   ),

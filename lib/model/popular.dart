@@ -20,15 +20,17 @@ class Product {
   String name;
   double price;
   String image;
+  String id;
 
   Product({required this.name, required this.image,
-    required this.price});
+    required this.price, this.id = ''});
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
       name: json['name'],
       price: json['price'].toDouble(),
       image: json['image'],
+      id: json['id'],
     );
   }
 }
@@ -36,7 +38,7 @@ class Product {
 class Bike extends Product {
   int index;
   String model;
-  String id = '0';
+  String id;
   String type;
   String image;
   List moreProductImages = [];
@@ -44,7 +46,7 @@ class Bike extends Product {
   
   operator [](int index) => this.index == index ? this : null;
 
-  Bike({required String id,
+  Bike({this.id = '',
     required String name,
     required double price,
     required this.model,
@@ -54,7 +56,7 @@ class Bike extends Product {
     required this.image,
     required this.productDescription,
     required this.moreProductImages })
-      : super(name: name, price: price, image: image);
+      : super(name: name, price: price, image: image, id: id);
 
   factory Bike.fromMap(Map<String, dynamic> map) {
     return Bike(

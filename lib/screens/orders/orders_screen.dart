@@ -1,15 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../controller/bike_cart_controller.dart';
+import '../../model/orderModel.dart';
 import '../../model/popular.dart';
 import '../cart/cart_screen.dart';
 import 'orderCard.dart';
 
 class OrderScreen extends StatelessWidget {
-   OrderScreen({super.key, this.title = ''});
+  OrderScreen({super.key, required this.title,});
 
   static String route() => '/cart';
 
@@ -17,79 +19,41 @@ class OrderScreen extends StatelessWidget {
 
   final cartController  = Get.put(BikeCartController());
 
+  final User? user = FirebaseAuth.instance.currentUser;
+  final CollectionReference cartsCollection = FirebaseFirestore.instance.collection('carts');
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('carts').snapshots(),
+      stream: cartsCollection
+          //.where('userId', isEqualTo: user?.uid)
+          .orderBy('timestamp', descending: true)
+          .snapshots(),
       builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return const Center(child: CircularProgressIndicator());
+        if (snapshot.hasError) {
+          return Center(
+            child: Text('Error: ${snapshot.error}'),
+          );
         }
-        final docs = snapshot.data?.docs;
+
+        if (!snapshot.hasData) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        final cartDocs = snapshot.data!.docs;
+        final cartItems = cartDocs.map((doc) => OrderModel.fromMap(doc.data() as Map<String, dynamic>)).toList();
         return ListView.builder(
-          itemCount: docs?.length,
+          itemCount: cartItems.length,
           itemBuilder: (context, index) {
-            final doc = docs![index];
-            final product = Bike.fromMap(doc.data() as Map<String, dynamic>);
-            return OrderScreenCard(product: product);
+            return OrderCard(
+              order: cartItems[index]
+            );
           },
         );
       },
     );
-
   }
-}
 
-
-
-class OrderScreenCard extends StatefulWidget {
-  final Product product;
-  const OrderScreenCard({
-    Key? key,
-    required this.product,}) : super(key: key);
-
-  @override
-  State<OrderScreenCard> createState() => _OrderScreenCardState();
-}
-
-class _OrderScreenCardState extends State<OrderScreenCard> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(padding: const EdgeInsets.fromLTRB(15, 7, 15, 7),
-      child: Container(
-        color: Colors.grey.shade50,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(15, 15, 0, 0),
-              child: Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade50,
-                ),
-                child: Image.asset(widget.product.image),
-              ),
-            ),
-
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(widget.product.name,
-                  style: TextStyle(fontSize: 20),),
-                //Text('Quantity: ${widget.quantity}',
-                 // style: TextStyle(fontSize: 20),),
-                Text('Price: \$${widget.product.price.toString()}',
-                  style: TextStyle(fontSize: 20),),
-                SizedBox(height: 10,),
-
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }

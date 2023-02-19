@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../../model/orderModel.dart';
 import 'OrderDetailsPage.dart';
 
 class OrderCard extends StatelessWidget {
-  final String orderNumber;
- // final String customerName;
-  //final DateTime orderDate;
-  //final String orderStatus;
+  final OrderModel order;
 
   const OrderCard({
     Key? key,
-    required this.orderNumber,
-  //  required this.customerName,
-  //  required this.orderDate,
-   // required this.orderStatus,
+    required this.order,
   }) : super(key: key);
 
   @override
@@ -23,7 +18,7 @@ class OrderCard extends StatelessWidget {
         // Navigate to the OrderDetailsPage
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => OrderDetailsPage(orderNumber: '',)),
+          MaterialPageRoute(builder: (context) => OrderDetailsPage(orderNumber: order.orderNumber.toString(),)),
         );
       },
       child: Card(
@@ -32,10 +27,15 @@ class OrderCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Order Number: $orderNumber'),
-              Text('Customer Name: hg'),
-              Text('Order Date: df'),
-              Text('Order Status: d'),
+              Text('User Id: ${order.userId}'),
+              Text('Order Number: ${order.orderNumber}'),
+              Text('Customer Name: ${order.customerName}'),
+              Text('Customer Phone: ${order.customerPhone}'),
+              Text('Delivery Address: ${order.deliveryAddress}'),
+              Text('Number Of Items: ${order.numberOfItems}'),
+              Text('Date Of Order: ${order.dateOfOrder}'),
+              Text('Status Of Order: ${order.statusOfOrder}'),
+              Text('Total For Order: ${order.totalForOrder}'),
             ],
           ),
         ),
@@ -43,3 +43,4 @@ class OrderCard extends StatelessWidget {
     );
   }
 }
+
