@@ -1,13 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class OrderModel {
-  final String? orderNumber;
-  final String? userId;
-  final String? customerName;
-  final String? customerPhone;
-  final String? deliveryAddress;
-  final int? numberOfItems;
-  final DateTime? dateOfOrder;
-  final String? statusOfOrder;
-  final String? totalForOrder;
+  String? orderNumber;
+  String? userId;
+  String? customerName;
+  String? customerPhone;
+  String? deliveryAddress;
+  int? numberOfItems;
+  Timestamp? dateOfOrder;
+  String? statusOfOrder;
+  String? totalForOrder;
 
   OrderModel({
     this.orderNumber,
@@ -29,9 +31,12 @@ class OrderModel {
       customerPhone: map['customerPhone'] ?? '',
       deliveryAddress: map['deliveryAddress'] ?? '',
       numberOfItems: map['numberOfItems'] ?? 0,
-      dateOfOrder: map['dateOfOrder'] != null ? DateTime.parse(map['dateOfOrder']) : null,
+      dateOfOrder: map['dateOfOrder'],
       statusOfOrder: map['statusOfOrder'] ?? '',
-      totalForOrder: map['totalOrOrder'] ?? '',
+      totalForOrder: map['totalForOrder'] ?? '',
     );
   }
+
+  ///converts the Timestamp in each session to a DateTime Object
+  DateTime? get dateTime => dateOfOrder!.toDate();
 }

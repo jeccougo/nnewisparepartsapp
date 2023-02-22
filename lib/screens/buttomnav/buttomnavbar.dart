@@ -51,7 +51,7 @@ class _ButtomNavbarScreenState extends State<ButtomNavbarScreen> {
     ),
     CartScreen(),
     OrderScreen(title: 'Orders'),
-    //const WalletScreen(title: 'Wallet'),
+    WalletScreen(title: 'Wallet'),
     //const ProfileScreen(),
   ];
 
@@ -67,7 +67,7 @@ class _ButtomNavbarScreenState extends State<ButtomNavbarScreen> {
     const BottomNavigationBarItem(
       icon: Icon(Icons.home_filled),
       activeIcon: Icon(Icons.home_filled),
-      label: 'Home',
+      label: 'Market',
     ),
     const BottomNavigationBarItem(
       icon: Icon(Icons.shopping_cart),
@@ -79,11 +79,11 @@ class _ButtomNavbarScreenState extends State<ButtomNavbarScreen> {
       activeIcon: Icon(Icons.notifications_none),
       label: 'Orders',
     ),
-    // const BottomNavigationBarItem(
-    //   icon: Icon(Icons.notifications_none),
-    //   activeIcon: Icon(Icons.notifications_none),
-    //   label: 'Wallet',
-    // ),
+     const BottomNavigationBarItem(
+       icon: Icon(Icons.notifications_none),
+       activeIcon: Icon(Icons.notifications_none),
+       label: 'Wallet',
+     ),
     // const BottomNavigationBarItem(
     //   icon: Icon(Icons.person),
     //   activeIcon: Icon(Icons.person),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../components/helper.dart';
 import '../../model/orderModel.dart';
 import 'OrderDetailsPage.dart';
 
@@ -33,7 +34,7 @@ class OrderCard extends StatelessWidget {
               Text('Customer Phone: ${order.customerPhone}'),
               Text('Delivery Address: ${order.deliveryAddress}'),
               Text('Number Of Items: ${order.numberOfItems}'),
-              Text('Date Of Order: ${order.dateOfOrder}'),
+              Text('Date Of Order: ${timeConverter(order.dateOfOrder!)}'),
               Text('Status Of Order: ${order.statusOfOrder}'),
               Text('Total For Order: ${order.totalForOrder}'),
             ],
