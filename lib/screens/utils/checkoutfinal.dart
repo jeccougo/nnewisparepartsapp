@@ -22,6 +22,8 @@ class _CheckoutFormState extends State<CheckoutForm> {
   final TextEditingController _customerPhone = TextEditingController();
   final TextEditingController _deliveryAddress = TextEditingController();
   final TextEditingController _anyMoreInfo = TextEditingController();
+  late  String _orderNumber;
+
 
   final _formKey = GlobalKey<FormState>();
 
@@ -225,7 +227,8 @@ class _CheckoutFormState extends State<CheckoutForm> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    await updateOrderOnFirestore();
+                    _orderNumber = widget.orderNumber;
+                    await updateOrderOnFirestore(_orderNumber);
                     onContinueToWhatsAppClicked();
                   },
                   child: Container(
@@ -256,7 +259,8 @@ class _CheckoutFormState extends State<CheckoutForm> {
                 const SizedBox(height: 8,),
                 GestureDetector(
                   onTap: () async {
-                    await updateOrderOnFirestore();
+                    _orderNumber = widget.orderNumber;
+                    await updateOrderOnFirestore(_orderNumber);
                     launchEmailApp();
                   },
                   child: Container(
@@ -334,8 +338,8 @@ class _CheckoutFormState extends State<CheckoutForm> {
 
 
     return """
-      Hi, Admin,
-      I'm requesting some cash for the month. These are the details:
+      Hello, Nkwo Nnewi Market Admin,
+      I'm ready to confirm my order. These are my details.:
 
       UserId: $userId
       
@@ -353,18 +357,25 @@ class _CheckoutFormState extends State<CheckoutForm> {
   }
 
 
-  Future<void> updateOrderOnFirestore() async {
+  Future<void> updateOrderOnFirestore(String orderNumber) async {
     final CollectionReference cartsCollection = FirebaseFirestore.instance.collection('carts');
     final currentUser = FirebaseAuth.instance.currentUser;
-    final orderNumber = widget.orderNumber.toString();
+    var userId = currentUser?.uid;
+    var orderNumber = widget.orderNumber;
+    var customerName = _customerName.text.isEmpty ? "null" : _customerName.text;
+    var customerPhone = _customerPhone.text.isEmpty ? "null" : _customerPhone.text;
+    var deliveryAddress = _deliveryAddress.text.isEmpty ? "null" : _deliveryAddress.text;
+    var anyMoreInfo = _anyMoreInfo.text.isEmpty ? "null" : _anyMoreInfo.text;
+    const String statusOfOrder = 'Confirmed';
+
 
     try {
       await cartsCollection.doc(orderNumber).set({
-        'customerName': _customerName,
-        'customerPhone': _customerPhone,
-        'deliveryAddress': _deliveryAddress,
-        'statusOfOrder': 'confirmed',
-        'anyMoreInfo': _anyMoreInfo,
+        'customerName': customerName,
+        'customerPhone': customerPhone,
+        'deliveryAddress': deliveryAddress,
+        'statusOfOrder': statusOfOrder,
+        'anyMoreInfo': anyMoreInfo,
       }, SetOptions(merge: true));
     } catch (error) {
       if (kDebugMode) {

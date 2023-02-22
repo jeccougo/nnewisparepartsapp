@@ -198,7 +198,7 @@ class _CartScreenState extends State<CartScreen> {
 
 
     // Generate a unique order number
-    final orderNumber = '${DateTime.now().millisecondsSinceEpoch}-${currentUser?.uid}';
+    final orderNumber = '${Timestamp.now().millisecondsSinceEpoch}-${currentUser?.uid}';
 
     // Save the order number to shared preferences
     final prefs = await SharedPreferences.getInstance();
@@ -209,16 +209,18 @@ class _CartScreenState extends State<CartScreen> {
     final productsAsMaps =
     products.entries.map((entry) => entry.key.toMap()).toList();
 
+    final int quantityOfItems = products.length;
+
     try {
       await cartsCollection.doc(orderNumber).set({
         'orderNumber': orderNumber,
-        'userId': currentUser?.uid,
+        //'userId': currentUser?.uid,
         'dateOfOrder': FieldValue.serverTimestamp(),
-        'items': productsAsMaps
-            .map((map) => {'product': map, 'quantity': products[map]})
+        'items': products.entries
+            .map((entry) => {'product': entry.key.toMap(), 'quantity': entry.value})
             .toList(),
-        'numberOfItems': 4,
-        'total': widget.cartController.total,
+        'numberOfItems': quantityOfItems,
+        'totalForOrder': widget.cartController.total,
         'statusOfOrder': 'pending',
       });
     } catch (error) {
