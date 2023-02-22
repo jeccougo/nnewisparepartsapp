@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 ThemeData appTheme() => ThemeData(
+      primaryColor: Colors.amber,
       scaffoldBackgroundColor: Colors.white,
       fontFamily: 'Urbanist',
       appBarTheme: const AppBarTheme(
@@ -11,6 +12,35 @@ ThemeData appTheme() => ThemeData(
       inputDecorationTheme: inputDecorationTheme(),
       visualDensity: VisualDensity.adaptivePlatformDensity,
     );
+
+
+
+ThemeData lightTheme = ThemeData(
+  primaryColor: Colors.amber,
+  scaffoldBackgroundColor: Colors.white,
+  fontFamily: 'Urbanist',
+  appBarTheme: const AppBarTheme(
+    color: Colors.white,
+    elevation: 0,
+    iconTheme: IconThemeData(color: Colors.black),
+  ),
+  inputDecorationTheme: inputDecorationTheme(),
+  visualDensity: VisualDensity.adaptivePlatformDensity,
+);
+
+// Define the dark theme
+ThemeData darkTheme = ThemeData(
+  primaryColor: Colors.amber,
+  scaffoldBackgroundColor: Colors.black,
+  fontFamily: 'Urbanist',
+  appBarTheme: const AppBarTheme(
+    color: Colors.black,
+    elevation: 0,
+    iconTheme: IconThemeData(color: Colors.white),
+  ),
+  inputDecorationTheme: inputDecorationTheme(),
+  visualDensity: VisualDensity.adaptivePlatformDensity,
+);
 
 InputDecorationTheme inputDecorationTheme() {
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(

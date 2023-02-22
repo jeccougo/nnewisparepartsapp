@@ -79,8 +79,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
-    - assets/icons/buttomnav/bold/
-    - assets/icons/buttomnav/light/
+
     - assets/icons/light/
     - assets/icons/bold/
     - assets/icons/products/

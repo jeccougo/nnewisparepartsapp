@@ -34,4 +34,5 @@ class OrderModel {
       totalForOrder: map['totalOrOrder'] ?? '',
     );
   }
+
 }

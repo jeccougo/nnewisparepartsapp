@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../model/popular.dart';
+import '../model/product.dart';
 
 class BikeCartController extends GetxController {
   var _Products = {}.obs;

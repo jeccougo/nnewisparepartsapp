@@ -416,9 +416,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import '../../controller/bike_cart_controller.dart';
+import '../../controller/cart_controller.dart';
 
-import '../../model/popular.dart';
+import '../../model/product.dart';
 import '../detail/details_screen.dart';
 import '../utils/likeicon.dart';
 
@@ -599,9 +599,11 @@ class BikeProductCard extends StatelessWidget {
         // ),
         GestureDetector(
           onTap: () {
-            cartController.addProductToCart(bikes[index]);
-
-          },
+    final product = bikes[index];
+    if (product != null) {
+    cartController.addProductToCart(product);
+    }
+    },
           child: Container(
             height: 30,
             width: 30,

@@ -259,8 +259,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import '../../controller/bike_cart_controller.dart';
-import '../../model/popular.dart';
+import 'package:nnewi_spare_parts_market/screens/login/login.dart';
+import '../../controller/cart_controller.dart';
+import '../../model/product.dart';
 import '../detail/keke_detail_screen.dart';
 
 
@@ -368,10 +369,7 @@ class KekeProductCard extends StatelessWidget {
               children: [
                 GestureDetector(
                     onTap: () {
-                      Get.to(() => KekeDetailScreen(
-                         product: kekes,
-                          controller: cartController,
-                          index: index, quantity: quantity),
+                      Get.to(() => LoginPage(),
                           duration: Duration(milliseconds: 500),
                           transition: Transition.downToUp);
                     },
@@ -444,10 +442,12 @@ class KekeProductCard extends StatelessWidget {
         //
         // ),
         GestureDetector(
-          onTap: () {
-            cartController.addProductToCart(kekes[index]);
-
-          },
+        onTap: () {
+    final product = kekes[index];
+    if (product != null) {
+    cartController.addProductToCart(product);
+    }
+    },
           child: Container(
             height: 30,
             width: 30,

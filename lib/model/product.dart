@@ -43,7 +43,7 @@ class Bike extends Product {
   String image;
   List moreProductImages = [];
   String productDescription;
-  
+
   operator [](int index) => this.index == index ? this : null;
 
   Bike({this.id = '',
@@ -131,28 +131,28 @@ List<Bike> bikes = [
     price: 569000.00,
     image: 'assets/icons/products/1bike.png',
     productDescription: 'Ogbuawa Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 4, id: '6',
+    moreProductImages: [], model: '', type: '', index: 5, id: '6',
   ),
   Bike(
     name: 'Ogbuawa',
     price: 569000.00,
     image: 'assets/icons/products/jet.png',
     productDescription: 'Ogbuawa Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 4, id: '7',
+    moreProductImages: [], model: '', type: '', index: 6, id: '7',
   ),
   Bike(
       name: 'Enyi',
     price: 569000.00,
     image: 'assets/icons/products/enyi.png',
     productDescription: 'Ogbuawa Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 4, id: '8',
+    moreProductImages: [], model: '', type: '', index: 7, id: '8',
   ),
   Bike(
     name: 'Kymko',
     price: 559000.00,
     image: 'assets/icons/products/4bike.png',
     productDescription: 'Innoson Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 5, id: '15',
+    moreProductImages: [], model: '', type: '', index: 8, id: '9',
   ),
 
   Bike(
@@ -160,16 +160,15 @@ List<Bike> bikes = [
     price: 759000.00,
     image: 'assets/icons/products/4bike.png',
     productDescription: 'Innoson Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 6, id: '9',
+    moreProductImages: [], model: '', type: '', index: 9, id: '10',
   ),
 
   Bike(
     name: 'Bajaj',
-
     price: 579000.00,
     image: 'assets/icons/products/2bike.png',
     productDescription: 'Innoson Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 7, id: '16',
+    moreProductImages: [], model: '', type: '', index: 10, id: '11',
   ),
 
   Bike(
@@ -177,7 +176,7 @@ List<Bike> bikes = [
     price: 159000.00,
     image: 'assets/icons/products/pngwing.com (69).png',
     productDescription: 'Innoson Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 8, id: '10',
+    moreProductImages: [], model: '', type: '', index: 11, id: '12',
   ),
 
   Bike(
@@ -186,7 +185,7 @@ List<Bike> bikes = [
     price: 179000.00,
     image: 'assets/icons/products/2bike.png',
     productDescription: 'Qlink is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 9, id: '11',
+    moreProductImages: [], model: '', type: '', index: 12, id: '13',
   ),
 
   Bike(
@@ -194,7 +193,7 @@ List<Bike> bikes = [
     price: 196000.00,
     image: 'assets/icons/products/4bike.png',
     productDescription: 'Kotec Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 10, id: '12',
+    moreProductImages: [], model: '', type: '', index: 13, id: '14',
   ),
 
   Bike(
@@ -203,142 +202,25 @@ List<Bike> bikes = [
     price: 233000.00,
     image: 'assets/icons/products/4bike.png',
     productDescription: 'Qlink Motocycle is the high grade this',
-    moreProductImages: [],  model: '2012', index: 11, id: '13'
+    moreProductImages: [],  model: '2012', index: 14, id: '15'
   ),
-];
 
-class Keke extends Product {
-  int index;
-  String model;
-  String type;
-  List moreProductImages;
-  String image;
-  String productDescription;
-  operator [](int index) => this.index == index ? this : null;
-
-
-
-  Keke({required String name,
-    required double price,
-    required this.model,
-    required this.image,
-    required this.index,
-
-    required this.moreProductImages,
-    required this.productDescription,
-
-    required this.type })
-      : super(name: name, price: price , image: image);
-}
-List<Keke> kekes = [
-  Keke(
+  Bike(
     name: 'Innoson',
     price: 320000.00,
     image: 'assets/icons/products/Keke.png',
     productDescription: 'Qlink Motocycle is the high grade this',
     moreProductImages: [],
     model: '02',
-    type: 'met', index: 0,
-  ),
-  Keke(
-    name: 'Yamaha',
-    price: 245000.00,
-    image: 'assets/icons/products/Keke5.png',
-    productDescription: 'yamaha Motocycle is the high grade this',
-    moreProductImages: [
-      'assets/icons/products/2bike.png', 'assets/icons/products/4bike.png','assets/icons/products/3bike.png'],
-    model: '',
-    type: '', index: 1,
-  ),
-  Keke(
-    name: 'Club',
-    price: 440600.00,
-    image: 'assets/icons/products/Keke3.png',
-    productDescription: 'Club Motocycle is the high grade this',
-    moreProductImages: [],
-    model: '',
-    type: '', index: 2,
-  ),
-  Keke(
-    name: 'Today',
-    price: 258000.00,
-    image: 'assets/icons/products/Keke4.png',
-    productDescription: 'Today Motocycle is the high grade this',
-    moreProductImages: [],
-    model: '',
-    type: '', index: 3,
-  ),
-  Keke(
-    name: 'Ogbuawa',
-    price: 569000.00,
-    image: 'assets/icons/products/Keke5.png',
-    productDescription: 'Ogbuawa Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 4,
-  ),
-  Keke(
-    name: 'Innoson',
-    price: 559000.00,
-    image: 'assets/icons/products/Keke4.png',
-    productDescription: 'Innoson Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 5,
-  ),
-
-  Keke(
-    name: 'Innoson',
-    price: 759000.00,
-    image: 'assets/icons/products/Keke4.png',
-    productDescription: 'Innoson Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 6,
-  ),
-
-  Keke(
-    name: 'Innoson',
-    price: 579000.00,
-    image: 'assets/icons/products/Keke.png',
-    productDescription: 'Innoson Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 7,
-  ),
-
-  Keke(
-    name: 'Innoson',
-    price: 159000.00,
-    image: 'assets/icons/products/Keke5.png',
-    productDescription: 'Innoson Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 8,
-  ),
-
-  Keke(
-    name: 'Innoson',
-
-    price: 179000.00,
-    image: 'assets/icons/products/Keke.png',
-    productDescription: 'Innoson Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 9,
-  ),
-
-  Keke(
-    name: 'Kotec',
-    price: 196000.00,
-    image: 'assets/icons/products/Keke4.png',
-    productDescription: 'Kotec Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 10,
-  ),
-
-  Keke(
-      name: 'Innoson',
-      type: 'Met',
-      price: 233000.00,
-      image: 'assets/icons/products/Keke3.png',
-      productDescription: 'Qlink Motocycle is the high grade this',
-      moreProductImages: [],  model: '2012', index: 11
+    type: 'met', index: 15,  id: '16'
   ),
 ];
 
 
 
-
 class Motor extends Product {
   int index;
+  String id;
   String model;
   String type;
   List moreProductImages;
@@ -351,6 +233,7 @@ class Motor extends Product {
   Motor({required String name,
     required double price,
     required this.model,
+    required this.id,
     required this.image,
     required this.index,
 
@@ -359,6 +242,28 @@ class Motor extends Product {
 
     required this.type })
       : super(name: name, price: price , image: image);
+
+  factory Motor.fromMap(Map<String, dynamic> map) {
+    return Motor(
+      id: map['id'] ?? '',
+      name: map['name'] ?? '',
+      price: map['price'] ?? 0,
+      image: map['image'] ?? '',
+      index: map['index'] ?? 0,
+      model: map['model'] ?? '',
+      moreProductImages: map['moreProductImages'] ?? [],
+      productDescription: map['productDescription'] ?? '',
+      type: map['type'] ?? '',
+    );
+  }
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'price': price,
+      'image': image,
+      'id': id,
+    };
+  }
 }
 List<Motor> motors = [
   Motor(
@@ -368,7 +273,7 @@ List<Motor> motors = [
     productDescription: 'Qlink Motocycle is the high grade this',
     moreProductImages: [],
     model: '02',
-    type: 'met', index: 0,
+    type: 'met', index: 0, id: '1',
   ),
   Motor(
     name: 'Brake Pad',
@@ -378,7 +283,7 @@ List<Motor> motors = [
     moreProductImages: [
       'assets/icons/products/2bike.png', 'assets/icons/products/4bike.png','assets/icons/products/3bike.png'],
     model: '',
-    type: '', index: 1,
+    type: '', index: 1, id: '2',
   ),
   Motor(
     name: 'Engine Top',
@@ -387,7 +292,7 @@ List<Motor> motors = [
     productDescription: 'Club Motocycle is the high grade this',
     moreProductImages: [],
     model: '',
-    type: '', index: 2,
+    type: '', index: 2, id: '3',
   ),
   Motor(
     name: 'C120 RearLight',
@@ -396,21 +301,21 @@ List<Motor> motors = [
     productDescription: 'Today Motocycle is the high grade this',
     moreProductImages: [],
     model: '',
-    type: '', index: 3,
+    type: '', index: 3, id: '4',
   ),
   Motor(
     name: 'Ogbuawa RearLight',
     price: 69000.00,
     image: 'assets/icons/products/benzrear.png',
     productDescription: 'Ogbuawa Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 4,
+    moreProductImages: [], model: '', type: '', index: 4, id: '5',
   ),
   Motor(
     name: 'Innoson RearLight',
     price: 59000.00,
     image: 'assets/icons/products/benzre.png',
     productDescription: 'Innoson Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 5,
+    moreProductImages: [], model: '', type: '', index: 5, id: '6',
   ),
 
   Motor(
@@ -418,7 +323,7 @@ List<Motor> motors = [
     price: 759000.00,
     image: 'assets/icons/products/benzsh.png',
     productDescription: 'Innoson Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 6,
+    moreProductImages: [], model: '', type: '', index: 6, id: '7',
   ),
 
   Motor(
@@ -426,7 +331,7 @@ List<Motor> motors = [
     price: 579000.00,
     image: 'assets/icons/products/benzligh.png',
     productDescription: 'Innoson Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 7,
+    moreProductImages: [], model: '', type: '', index: 7, id: '8',
   ),
 
   Motor(
@@ -434,7 +339,7 @@ List<Motor> motors = [
     price: 159000.00,
     image: 'assets/icons/products/benzlig.png',
     productDescription: 'Innoson Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 8,
+    moreProductImages: [], model: '', type: '', index: 8, id: '9',
   ),
 
   Motor(
@@ -443,7 +348,7 @@ List<Motor> motors = [
     price: 179000.00,
     image: 'assets/icons/products/benx.png',
     productDescription: 'Innoson Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 9,
+    moreProductImages: [], model: '', type: '', index: 9, id: '10',
   ),
 
   Motor(
@@ -451,7 +356,7 @@ List<Motor> motors = [
     price: 196000.00,
     image: 'assets/icons/products/benzlli.png',
     productDescription: 'Kotec Motocycle is the high grade this',
-    moreProductImages: [], model: '', type: '', index: 10,
+    moreProductImages: [], model: '', type: '', index: 10, id: '11',
   ),
 
   Motor(
@@ -460,9 +365,173 @@ List<Motor> motors = [
       price: 233000.00,
       image: 'assets/icons/products/benzr.png',
       productDescription: 'Qlink Motocycle is the high grade this',
-      moreProductImages: [],  model: '2012', index: 11
+      moreProductImages: [],  model: '2012', index: 11, id: '12'
   ),
 ];
 
+class Keke extends Product {
+  int index;
+  String model;
+  String id;
+  String type;
+  String image;
+  List moreProductImages = [];
+  String productDescription;
 
+  operator [](int index) => this.index == index ? this : null;
+
+  Keke({this.id = '',
+    required String name,
+    required double price,
+    required this.model,
+    required this.index,
+
+    required this.type,
+    required this.image,
+    required this.productDescription,
+    required this.moreProductImages })
+      : super(name: name, price: price, image: image, id: id);
+
+  factory Keke.fromMap(Map<String, dynamic> map) {
+    return Keke(
+      id: map['id'] ?? '',
+      name: map['name'] ?? '',
+      price: map['price'] ?? 0,
+      image: map['image'] ?? '',
+      index: map['index'] ?? 0,
+      model: map['model'] ?? '',
+      moreProductImages: map['moreProductImages'] ?? [],
+      productDescription: map['productDescription'] ?? '',
+      type: map['type'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'price': price,
+      'image': image,
+      'id': id,
+    };
+  }
+}
+List<Keke>kekes = [
+Keke(
+    name: 'Innoson',
+    price: 320000.00,
+    image: 'assets/icons/products/Keke.png',
+    productDescription: 'Qlink Motocycle is the high grade this',
+    moreProductImages: [],
+    model: '02',
+    type: 'met', index: 0, id: '1'
+  ),
+  Keke(
+    name: 'Yamaha',
+    price: 245000.00,
+    image: 'assets/icons/products/Keke5.png',
+    productDescription: 'yamaha Motocycle is the high grade this',
+    moreProductImages: [
+      'assets/icons/products/2bike.png', 'assets/icons/products/4bike.png','assets/icons/products/3bike.png'],
+    model: '',
+    type: '', index: 1, id: '2',
+  ),
+  Keke(
+    name: 'Club',
+    price: 440600.00,
+    image: 'assets/icons/products/Keke3.png',
+    productDescription: 'Club Motocycle is the high grade this',
+    moreProductImages: [],
+    model: '',
+    type: '', index: 2, id: '3',
+  ),
+  Keke(
+    name: 'Today',
+    price: 258000.00,
+    image: 'assets/icons/products/Keke4.png',
+    productDescription: 'Today Motocycle is the high grade this',
+    moreProductImages: [],
+    model: '',
+    type: '', index: 3, id: '4',
+  ),
+  Keke(
+    name: 'Ogbuawa',
+    price: 569000.00,
+    image: 'assets/icons/products/Keke5.png',
+    productDescription: 'Ogbuawa Motocycle is the high grade this',
+    moreProductImages: [],
+    model: '',
+    type: '',
+    index: 4, id: '5',
+  ),
+  Keke(
+    name: 'Innoson',
+    price: 559000.00,
+    image: 'assets/icons/products/Keke4.png',
+    productDescription: 'Innoson Motocycle is the high grade this',
+    moreProductImages: [],
+    model: '',
+    type: '',
+    index: 5, id: '6',
+  ),
+
+  Keke(
+    name: 'Innoson',
+    price: 759000.00,
+    image: 'assets/icons/products/Keke4.png',
+    productDescription: 'Innoson Motocycle is the high grade this',
+    moreProductImages: [],
+    model: '',
+    type: '',
+    index: 6, id: '7',
+  ),
+
+  Keke(
+    name: 'Innoson',
+    price: 579000.00,
+    image: 'assets/icons/products/Keke.png',
+    productDescription: 'Innoson Motocycle is the high grade this',
+    moreProductImages: [],
+    model: '',
+    type: '', index: 7, id: '8',
+  ),
+
+  Keke(
+    name: 'Innoson',
+    price: 159000.00,
+    image: 'assets/icons/products/Keke5.png',
+    productDescription: 'Innoson Motocycle is the high grade this',
+    moreProductImages: [],
+    model: '', type: '',
+    index: 8, id: '9',
+  ),
+
+  Keke(
+    name: 'Innoson',
+
+    price: 179000.00,
+    image: 'assets/icons/products/Keke.png',
+    productDescription: 'Innoson Motocycle is the high grade this',
+    moreProductImages: [],
+    model: '',
+    type: '',
+    index: 9, id: '10',
+  ),
+
+  Keke(
+    name: 'Kotec',
+    price: 196000.00,
+    image: 'assets/icons/products/Keke4.png',
+    productDescription: 'Kotec Motocycle is the high grade this',
+    moreProductImages: [], model: '', type: '', index: 10, id: '11',
+  ),
+
+  Keke(
+      name: 'Innoson',
+      type: 'Met',
+      price: 233000.00,
+      image: 'assets/icons/products/Keke3.png',
+      productDescription: 'Qlink Motocycle is the high grade this',
+      moreProductImages: [],  model: '2012', index: 11, id: '12'
+  ),
+];
 

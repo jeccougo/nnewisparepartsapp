@@ -108,7 +108,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nnewi_spare_parts_market/model/popular.dart';
+import 'package:nnewi_spare_parts_market/model/product.dart';
 import 'package:nnewi_spare_parts_market/screens/home/most_popular.dart';
 import 'package:nnewi_spare_parts_market/screens/home/search_field.dart';
 import 'package:nnewi_spare_parts_market/screens/home/special_offer.dart';
@@ -210,10 +210,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: TabBarView(
                               physics: BouncingScrollPhysics(),
                               children: [
-                                //foodpage
+
                                 BikeTab( bikes: bikes,),
 
-                                //KekeTab(),
                                 KekeTab(kekes: kekes,),
 
                                 MotorTab(motors: motors,),

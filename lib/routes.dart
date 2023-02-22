@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nnewi_spare_parts_market/model/popular.dart';
+import 'package:nnewi_spare_parts_market/model/product.dart';
 import 'package:nnewi_spare_parts_market/screens/buttomnav/buttomnavbar.dart';
 import 'package:nnewi_spare_parts_market/screens/cart/cart_screen.dart';
 import 'package:nnewi_spare_parts_market/screens/detail/details_screen.dart';

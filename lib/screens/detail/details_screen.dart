@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-import '../../controller/bike_cart_controller.dart';
+import '../../controller/cart_controller.dart';
 import '../../model/cartmodel.dart';
-import '../../model/popular.dart';
-import '../../model/popular.dart';
+import '../../model/product.dart';
+import '../../model/product.dart';
 import '../../size_config.dart';
 
 class ShopDetailScreen extends StatefulWidget {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../components/app_bar.dart';
 import '../../components/product_card.dart';
 import '../../model/kekemodel.dart';
-import '../../model/popular.dart';
+import '../../model/product.dart';
 import '../home/most_popular.dart';
 
 

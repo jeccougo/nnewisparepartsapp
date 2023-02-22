@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../model/popular.dart';
+import '../../model/product.dart';
 
 class MostPupularCategory extends StatefulWidget {
   const MostPupularCategory({super.key});

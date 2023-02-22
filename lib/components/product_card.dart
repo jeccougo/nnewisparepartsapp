@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../model/kekemodel.dart';
-import '../model/popular.dart';
+import '../model/product.dart';
 
 typedef ProductCardOnTaped = void Function(KekeModel data);
 

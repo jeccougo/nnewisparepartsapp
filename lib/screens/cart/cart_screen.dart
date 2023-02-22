@@ -155,9 +155,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../components/button.dart';
-import '../../controller/bike_cart_controller.dart';
-import '../../model/cartmodel.dart';
-import '../../model/popular.dart';
+import '../../controller/cart_controller.dart';
+import '../../model/product.dart';
 
 import '../../size_config.dart';
 import '../utils/checkoutfinal.dart';
@@ -230,6 +229,32 @@ class _CartScreenState extends State<CartScreen> {
   }
 
 
+  // Future<void> addCartToFirestore() async {
+  //   final CollectionReference cartsCollection =
+  //   FirebaseFirestore.instance.collection('carts');
+  //   final currentUser = FirebaseAuth.instance.currentUser;
+  //   final cartItems = widget.cartController.products.values.toList();
+  //
+  //   // Generate a unique cart id
+  //   final cartId = '${DateTime.now().millisecondsSinceEpoch}-${currentUser?.uid}';
+  //
+  //   // Convert each CartModel object to a map
+  //   final cartItemsAsMaps = cartItems.map((cartItem) => cartItem.toMap()).toList();
+  //
+  //   try {
+  //     await cartsCollection.doc(cartId).set({
+  //       'cartId': cartId,
+  //       'userId': currentUser?.uid,
+  //       'dateCreated': FieldValue.serverTimestamp(),
+  //       'items': cartItemsAsMaps,
+  //       'total': widget.cartController.total,
+  //     });
+  //   } catch (error) {
+  //     if (kDebugMode) {
+  //       print(error);
+  //     }
+  //   }
+  // }
 
 
 
