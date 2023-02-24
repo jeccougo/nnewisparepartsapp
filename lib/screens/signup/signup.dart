@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../components/button.dart';
+import '../../firebaseServices.dart';
 import '../buttomnav/buttomnavbar.dart';
 import '../home/home.dart';
 
@@ -19,7 +20,12 @@ class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _isLoading = false;
+  final _phoneNumberController = TextEditingController();
+  final _nameController = TextEditingController();
+  final bool _isLoading = false;
+  bool isSigningIn = false;
+  final FirebaseServices _firebaseServices = FirebaseServices();
+
 
 
   @override
@@ -88,7 +94,22 @@ class _SignupPageState extends State<SignupPage> {
                 SizedBox(height: 50.0),
                 DefaultButton(
                   text: 'Register',
-                  press:  () {
+                  press:  () async {
+                      var validate = _formKey.currentState!.validate();
+                      if (validate) {
+                        isSigningIn = true;
+                        setState(() {});
+                        await _firebaseServices.register(
+                            context,
+                            _emailController.text,
+                            _passwordController.text,
+                            _phoneNumberController.text,
+                            _nameController.text);
+                      }
+                      else {
+                        //Fluttertoast.showToast(msg: 'error');
+                        isSigningIn = false;
+                      }
                     Get.off(() => ButtomNavbarScreen(),);
                   },
                 ),

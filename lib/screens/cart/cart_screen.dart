@@ -159,6 +159,7 @@ import '../../controller/cart_controller.dart';
 import '../../model/product.dart';
 
 import '../../size_config.dart';
+import '../login/login.dart';
 import '../utils/checkoutfinal.dart';
 
 class CartScreen extends StatefulWidget {
@@ -177,6 +178,7 @@ class _CartScreenState extends State<CartScreen> {
   final cartController  = Get.put(BikeCartController());
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  var currentUser = FirebaseAuth.instance.currentUser;
 
   late String _orderNumber;
 
@@ -214,7 +216,7 @@ class _CartScreenState extends State<CartScreen> {
     try {
       await cartsCollection.doc(orderNumber).set({
         'orderNumber': orderNumber,
-        //'userId': currentUser?.uid,
+        'userId': currentUser?.uid,
         'dateOfOrder': FieldValue.serverTimestamp(),
         'items': products.entries
             .map((entry) => {'product': entry.key.toMap(), 'quantity': entry.value})
@@ -362,8 +364,12 @@ class _CartScreenState extends State<CartScreen> {
                     child: DefaultButton(
                       text: "Check Out",
                       press: () async {
-                        await addCartToFirestore();
-                        Get.to(() => CheckoutForm(orderNumber: _orderNumber));
+                        if (currentUser == null) {
+                          Get.to(() => LoginPage());
+                        } else {
+                          await addCartToFirestore();
+                          Get.off(() => CheckoutForm(orderNumber: _orderNumber));
+                        }
                       },
                     ),
                   ),

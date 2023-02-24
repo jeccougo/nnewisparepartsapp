@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../components/button.dart';
+import '../../firebaseServices.dart';
+import '../buttomnav/buttomnavbar.dart';
 import '../signup/signup.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,6 +18,8 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
+  bool isSigningIn = false;
+  final FirebaseServices _firebaseServices = FirebaseServices();
 
   @override
   void dispose() {
@@ -90,15 +94,28 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 50.0),
                 DefaultButton(
                   text: 'Login',
-                  press:  () {
-                    Get.off(() => SignupPage(),);
+                  press:  () async {
+                    var validate = _formKey.currentState!.validate();
+                    if (validate) {
+                      isSigningIn = true;
+                      setState(() {});
+                      await _firebaseServices.signIn(
+                          context,
+                          _emailController.text,
+                          _passwordController.text);
+                    }
+                    else {
+                      //Fluttertoast.showToast(msg: 'error');
+                      isSigningIn = false;
+                    }
+                    Get.off(() => ButtomNavbarScreen(),);
                   },
                 ),
                 SizedBox(height: 16.0),
                 DefaultButton(
-                  text: 'Login with Google',
+                  text: 'Register',
                   press:  () {
-
+                    Get.off(() => SignupPage(),);
                   },
                 ),
 
