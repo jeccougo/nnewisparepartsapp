@@ -360,7 +360,6 @@ class _CheckoutFormState extends State<CheckoutForm> {
   Future<void> updateOrderOnFirestore(String orderNumber) async {
     final CollectionReference cartsCollection = FirebaseFirestore.instance.collection('carts');
     final currentUser = FirebaseAuth.instance.currentUser;
-    var userId = currentUser?.uid;
     var orderNumber = widget.orderNumber;
     var customerName = _customerName.text.isEmpty ? "null" : _customerName.text;
     var customerPhone = _customerPhone.text.isEmpty ? "null" : _customerPhone.text;

@@ -24,8 +24,8 @@ class OrderScreen extends StatelessWidget {
       body: SafeArea(
         child: StreamBuilder<QuerySnapshot>(
           stream: cartsCollection
-              //.where('userId', isEqualTo: user?.uid)
-              //.orderBy('dateOfOrder', descending: true)
+              .where('userId', isEqualTo: user?.uid)
+              .orderBy('dateOfOrder', descending: true)
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
