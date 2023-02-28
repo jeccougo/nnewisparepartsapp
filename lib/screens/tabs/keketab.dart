@@ -369,7 +369,10 @@ class KekeProductCard extends StatelessWidget {
               children: [
                 GestureDetector(
                     onTap: () {
-                      Get.to(() => LoginPage(),
+                      Get.to(() => KekeDetailScreen(
+                          product: kekes,
+                          controller: cartController,
+                          index: index, quantity: quantity),
                           duration: Duration(milliseconds: 500),
                           transition: Transition.downToUp);
                     },
