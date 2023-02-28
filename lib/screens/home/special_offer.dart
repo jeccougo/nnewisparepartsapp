@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 
@@ -20,6 +22,34 @@ class _SpecialOffersState extends State<SpecialOffers> {
   late final List<SpecialOffer> specials = homeSpecialOffers;
 
   int selectIndex = 0;
+  final PageController controller = PageController();
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    // Start the timer to animate the PageView
+    _timer = Timer.periodic(Duration(seconds: 5), (Timer timer) {
+      if (!controller.hasClients) return;
+      if (selectIndex == specials.length - 1) {
+        selectIndex = 0;
+      } else {
+        selectIndex++;
+      }
+      controller.animateToPage(
+        selectIndex,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +57,8 @@ class _SpecialOffersState extends State<SpecialOffers> {
       children: [
         _buildTitle(),
         const SizedBox(height: 10),
-        Stack(children: [
+        Stack(
+            children: [
           Container(
             height: 151,
             decoration: const BoxDecoration(
@@ -35,17 +66,14 @@ class _SpecialOffersState extends State<SpecialOffers> {
               borderRadius: BorderRadius.all(Radius.circular(32)),
             ),
             child: PageView.builder(
-              itemBuilder: (context, index) {
-                final data = specials[index];
-                return SpecialOfferWidget(context, data: data, index: index);
-              },
-              itemCount: specials.length,
-              allowImplicitScrolling: true,
-              onPageChanged: (value) {
-                setState(() => selectIndex = value);
-              },
-            ),
-          ),
+                    controller: controller,
+                     itemBuilder: (context, index) {
+                     final data = specials[index];
+                     return SpecialOfferWidget(context, data: data, index: index);},
+                            itemCount: specials.length,
+                            allowImplicitScrolling: true,
+                             onPageChanged: (value) {
+                             setState(() => selectIndex = value);},),),
           _buildPageIndicator()
         ]),
         // const SizedBox(height: 24),

@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -23,9 +25,17 @@ class _CheckoutFormState extends State<CheckoutForm> {
   final TextEditingController _deliveryAddress = TextEditingController();
   final TextEditingController _anyMoreInfo = TextEditingController();
   late  String _orderNumber;
-
-
   final _formKey = GlobalKey<FormState>();
+
+
+  @override
+  void dispose() {
+    _customerName.dispose();
+    _customerPhone.dispose();
+    _deliveryAddress.dispose();
+    _anyMoreInfo.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +143,7 @@ class _CheckoutFormState extends State<CheckoutForm> {
                             keyboardType: TextInputType.number,
                             style: GoogleFonts.lato(
                                 fontSize: 12.0,
-                                color: Colors.white,
+                                color: Colors.black45,
                                 fontWeight: FontWeight.w400)),
                       ),
                       const SizedBox(
@@ -230,6 +240,7 @@ class _CheckoutFormState extends State<CheckoutForm> {
                     _orderNumber = widget.orderNumber;
                     await updateOrderOnFirestore(_orderNumber);
                     onContinueToWhatsAppClicked();
+                    Get.offNamed('/order');
                   },
                   child: Container(
                     color: Colors.green,
@@ -262,6 +273,7 @@ class _CheckoutFormState extends State<CheckoutForm> {
                     _orderNumber = widget.orderNumber;
                     await updateOrderOnFirestore(_orderNumber);
                     launchEmailApp();
+                    Get.offNamed('/order');
                   },
                   child: Container(
                     color: Colors.red,
@@ -302,7 +314,9 @@ class _CheckoutFormState extends State<CheckoutForm> {
   onContinueToWhatsAppClicked() {
     var whatsAppUrl = getWhatsAppUrl(getPayload() ?? "");
     launch(whatsAppUrl!);
+
   }
+
 
   launchEmailApp() {
     String? encodeQueryParameters(Map<String, String> params) {
@@ -310,6 +324,7 @@ class _CheckoutFormState extends State<CheckoutForm> {
           .map((e) =>
       '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
           .join('&');
+
     }
 
     final String payload = getPayload().toString();

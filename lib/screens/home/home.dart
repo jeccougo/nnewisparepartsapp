@@ -108,10 +108,13 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:nnewi_spare_parts_market/model/product.dart';
 import 'package:nnewi_spare_parts_market/screens/home/most_popular.dart';
 import 'package:nnewi_spare_parts_market/screens/home/search_field.dart';
 import 'package:nnewi_spare_parts_market/screens/home/special_offer.dart';
+import 'package:nnewi_spare_parts_market/screens/home/texttobuy.dart';
 import 'package:nnewi_spare_parts_market/screens/orders/AllOrders.dart';
 
 import '../../constants.dart';
@@ -227,9 +230,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
 
-
-
-
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.amber,
+            onPressed: () {
+              Get.to(() => const TexttoBuy());
+            },
+            child: Icon(Icons.chat),
+          ),
 
         ),
       ),

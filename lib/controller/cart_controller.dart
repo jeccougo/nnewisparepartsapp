@@ -35,6 +35,13 @@ class BikeCartController extends GetxController {
       duration: const Duration(seconds: 2),
     );
   }
+  bool isCartEmpty() {
+    return _Products.isEmpty;
+  }
+
+  void clearCart() {
+    _Products.clear();
+  }
 
   get products => _Products;
 

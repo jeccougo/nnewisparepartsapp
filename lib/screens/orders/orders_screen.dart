@@ -1,26 +1,47 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
-import '../../controller/cart_controller.dart';
 import '../../model/orderModel.dart';
-import '../../model/product.dart';
-import '../cart/cart_screen.dart';
 import 'orderCard.dart';
 
 class OrderScreen extends StatelessWidget {
   OrderScreen({super.key, required this.title,});
-
+  static String route() => '/order';
   final String title;
 
   final User? user = FirebaseAuth.instance.currentUser;
   final CollectionReference cartsCollection = FirebaseFirestore.instance.collection('carts');
 
+  Future<void> deleteOrder(OrderModel order) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('carts')
+          .doc(order.orderNumber) // use the ID of the order as the document ID
+          .delete();
+    } catch (error) {
+      // handle any errors here
+      print('Error deleting order: $error');
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 80,
+        title: Row(
+          children: const [
+
+            Text('Orders',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: StreamBuilder<QuerySnapshot>(
           stream: cartsCollection
@@ -45,9 +66,36 @@ class OrderScreen extends StatelessWidget {
             return ListView.builder(
               itemCount: cartItems.length,
               itemBuilder: (context, index) {
-                return OrderCard(
-                  order: cartItems[index]
+                return Dismissible(
+                  key: Key(cartItems[index].orderNumber.toString()),
+                  onDismissed: (_) async {
+                    await deleteOrder(cartItems[index]); // call deleteOrder with the corresponding OrderModel object
+                  },
+                  confirmDismiss: (_) async {
+                    return await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Delete Order'),
+                          content: Text('Are you sure you want to delete this order?'),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('Cancel'),
+                              onPressed: () => Navigator.of(context).pop(false),
+                            ),
+                            TextButton(
+                              child: Text('Delete'),
+                              onPressed: () => Navigator.of(context).pop(true),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: OrderCard(order: cartItems[index]),
                 );
+
+
               },
             );
           },
