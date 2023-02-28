@@ -263,6 +263,7 @@ import 'package:nnewi_spare_parts_market/screens/login/login.dart';
 import '../../controller/cart_controller.dart';
 import '../../model/product.dart';
 import '../detail/keke_detail_screen.dart';
+import '../utils/starrating.dart';
 
 
 class KekeTab extends StatefulWidget {
@@ -413,37 +414,7 @@ class KekeProductCard extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Image.asset('assets/icons/start@2x.png', width: 20, height: 20),
 
-        // Text(
-        //   '$star',
-        //   style: const TextStyle(
-        //     color: Color(0xFF616161),
-        //     fontSize: 14,
-        //     fontWeight: FontWeight.w500,
-        //   ),
-        // ),
-        // const SizedBox(width: 16),
-        // const Text(
-        //   '|',
-        //   style: TextStyle(fontWeight: FontWeight.w500, color: Color(0xFF616161), fontSize: 14),
-        // ),
-        // Container(
-        //   decoration: BoxDecoration(
-        //     borderRadius: const BorderRadius.all(Radius.circular(6)),
-        //     color: const Color(0xFF101010).withOpacity(0.08),
-        //   ),
-        //   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-        //   child: Text(
-        //     '$sold sold',
-        //     style: const TextStyle(
-        //       color: Color(0xFF35383F),
-        //       fontWeight: FontWeight.w500,
-        //       fontSize: 10,
-        //     ),
-        //   ),
-        //
-        // ),
         GestureDetector(
         onTap: () {
     final product = kekes[index];

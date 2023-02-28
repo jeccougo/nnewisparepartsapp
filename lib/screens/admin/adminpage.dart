@@ -21,14 +21,7 @@
 //
 //           List<OrderModel> orders = snapshot.data!.docs.map((DocumentSnapshot document) {
 //             Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-//             return OrderModel.fromMap(data);
-//           }).toList();
-//
-//           return ListView.builder(
-//             itemCount: orders.length,
-//             itemBuilder: (context, index) {
-//               return ListTile(
-//                 title: Text(orders[index].orderId),
+//             return OrderModel.fromMap(data);  title: Text(orders[index].orderId),
 //                 subtitle: Text(orders[index].customerId),
 //                 onTap: () {
 //                   // Navigate to order details page

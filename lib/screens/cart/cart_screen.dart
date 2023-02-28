@@ -165,8 +165,8 @@ import '../utils/checkoutfinal.dart';
 class CartScreen extends StatefulWidget {
 
   CartScreen({Key? key,}) : super(key: key);
+  final BikeCartController cartController = Get.find<BikeCartController>();
 
-  final cartController  = Get.put(BikeCartController());
 
   static String route() => '/cart';
 
@@ -185,11 +185,43 @@ class _CartScreenState extends State<CartScreen> {
   final BikeCartController controller = Get.find();
 
   var cartTotal = 0;
+  bool isCartEmpty = true;
+
+
 
   @override
   void initState() {
     super.initState();
   }
+
+  Future<void> disposeCart() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('cartItems');
+    await cartController.clearCart;
+  }
+
+  Future showConfirmationDialog() async {
+    return await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Confirm Order"),
+          content: Text("Are you sure you want to place this order?"),
+          actions: [
+            TextButton(
+              child: Text("Cancel"),
+              onPressed: () => Navigator.of(context).pop(false),
+            ),
+            TextButton(
+              child: Text("Confirm"),
+              onPressed: () => Navigator.of(context).pop(true),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
   Future<void> addCartToFirestore() async {
     final CollectionReference cartsCollection =
@@ -233,32 +265,6 @@ class _CartScreenState extends State<CartScreen> {
   }
 
 
-  // Future<void> addCartToFirestore() async {
-  //   final CollectionReference cartsCollection =
-  //   FirebaseFirestore.instance.collection('carts');
-  //   final currentUser = FirebaseAuth.instance.currentUser;
-  //   final cartItems = widget.cartController.products.values.toList();
-  //
-  //   // Generate a unique cart id
-  //   final cartId = '${DateTime.now().millisecondsSinceEpoch}-${currentUser?.uid}';
-  //
-  //   // Convert each CartModel object to a map
-  //   final cartItemsAsMaps = cartItems.map((cartItem) => cartItem.toMap()).toList();
-  //
-  //   try {
-  //     await cartsCollection.doc(cartId).set({
-  //       'cartId': cartId,
-  //       'userId': currentUser?.uid,
-  //       'dateCreated': FieldValue.serverTimestamp(),
-  //       'items': cartItemsAsMaps,
-  //       'total': widget.cartController.total,
-  //     });
-  //   } catch (error) {
-  //     if (kDebugMode) {
-  //       print(error);
-  //     }
-  //   }
-  // }
 
 
 
@@ -271,15 +277,18 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Check if the cart is empty
+    if (cartController.products.isEmpty) {
+      isCartEmpty = true;
+    } else {
+      isCartEmpty = false;
+    }
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 80,
         title: Row(
           children: const [
-            Icon(Icons.arrow_back),
-            SizedBox(
-              width: 15,
-            ),
+
             Text('Cart',
               style: TextStyle(
                 color: Colors.black,
@@ -352,7 +361,7 @@ class _CartScreenState extends State<CartScreen> {
                       children: [
                         TextSpan(
                           text: widget.cartController.total.toString(),
-                          style: TextStyle(fontSize: 16, color: Colors.black),
+                          style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold, color: Colors.black),
                         ),
                       ],
                     ),
@@ -363,16 +372,24 @@ class _CartScreenState extends State<CartScreen> {
                     width: getProportionateScreenWidth(190),
                     child: DefaultButton(
                       text: "Check Out",
-                      press: () async {
+                      press: cartController.products.isEmpty
+                          ? null
+                          : () async {
                         if (currentUser == null) {
                           Get.to(() => LoginPage());
                         } else {
-                          await addCartToFirestore();
-                          Get.off(() => CheckoutForm(orderNumber: _orderNumber));
+                          bool confirmed = await showConfirmationDialog();
+                          if (confirmed) {
+                            await addCartToFirestore();
+                            cartController.clearCart();
+                            Get.to(() => CheckoutForm(orderNumber: _orderNumber));
+                          }
                         }
                       },
+                      disabled: cartController.products.isEmpty,
                     ),
                   ),
+
                 ],
             ),
               );
@@ -431,7 +448,7 @@ class _CartScreenCardState extends State<CartScreenCard> {
                   style: TextStyle(fontSize: 20),),
                 Text('Quantity: ${widget.quantity}',
                   style: TextStyle(fontSize: 20),),
-                Text('Price: \$${widget.product.price.toString()}',
+                Text('Price: \N${widget.product.price.toString()}',
                   style: TextStyle(fontSize: 20),),
                 SizedBox(height: 10,),
 
