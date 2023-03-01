@@ -109,24 +109,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:nnewi_spare_parts_market/model/product.dart';
 import 'package:nnewi_spare_parts_market/screens/home/most_popular.dart';
 import 'package:nnewi_spare_parts_market/screens/home/search_field.dart';
 import 'package:nnewi_spare_parts_market/screens/home/special_offer.dart';
 import 'package:nnewi_spare_parts_market/screens/home/texttobuy.dart';
 import 'package:nnewi_spare_parts_market/screens/orders/AllOrders.dart';
-
-import '../../constants.dart';
-import '../../model/kekemodel.dart';
 import '../../size_config.dart';
 import '../mostpopular/most_popular_screen.dart';
-import '../profile/profile_screen.dart';
 import '../special_offers/special_offers_screen.dart';
 import '../tabs/biketab.dart';
 import '../tabs/keketab.dart';
 import '../tabs/motortab.dart';
-import '../utils/likeicon.dart';
 import '../utils/mytab.dart';
 
 class HomeScreen extends StatefulWidget {

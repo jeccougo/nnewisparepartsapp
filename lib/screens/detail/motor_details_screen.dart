@@ -1,7 +1,6 @@
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../controller/cart_controller.dart';
 
@@ -165,46 +164,6 @@ class _MotorDetailScreenState extends State<MotorDetailScreen> {
     ];
   }
 
-  // Widget _buildQuantity() {
-  //   return Row(
-  //     children: [
-  //       const Text('Quantity', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-  //       const SizedBox(width: 20),
-  //       Container(
-  //         decoration: const BoxDecoration(
-  //           borderRadius: BorderRadius.all(Radius.circular(24)),
-  //           color: Color(0xFFF3F3F3),
-  //         ),
-  //         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-  //         child: Material(
-  //           color: Colors.transparent,
-  //           child: Row(
-  //             children: [
-  //               InkWell(
-  //                 child: Image.asset('assets/icons/detail/minus@2x.png', scale: 2),
-  //                 onTap: () {
-  //                   if (_quantity <= 0) return;
-  //                   setState(() => _quantity -= 1);
-  //                 },
-  //               ),
-  //               const SizedBox(width: 20),
-  //               Text('$_quantity',
-  //                   style: const TextStyle(
-  //                     fontWeight: FontWeight.bold,
-  //                     fontSize: 18,
-  //                   )),
-  //               const SizedBox(width: 20),
-  //               InkWell(
-  //                 child: Image.asset('assets/icons/detail/plus@2x.png', scale: 2),
-  //                 onTap: () => setState(() => _quantity += 1),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
 
   Widget _buldFloatBar() {
     buildAddCard() => Container(
@@ -282,47 +241,3 @@ class _MotorDetailScreenState extends State<MotorDetailScreen> {
   }
 }
 
-// class ExpandableText extends StatefulWidget {
-//   ExpandableText({this.text = ""});
-//   //text is the total text of our expandable widget
-//   final String text;
-//   @override
-//   _ExpandableTextState createState() => _ExpandableTextState();
-// }
-
-// class _ExpandableTextState extends State<ExpandableText> {
-//   static const viewMore = ' view more...';
-//   static const fixedLength = 50;
-//   late String textToDisplay;
-//   @override
-//   void initState() {
-//     //if the text has more than a certain number of characters, the text we display will consist of that number of characters;
-//     //if it's not longer we display all the text
-//     print(widget.text.length);
-
-//     //we arbitrarily chose 25 as the length
-//     textToDisplay = widget.text.length > 25 ? widget.text.substring(0, 25) + viewMore : widget.text;
-//     super.initState();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return InkWell(
-//       child: Text(textToDisplay),
-//       onTap: () {
-//         //if the text is not expanded we show it all
-//         if (widget.text.length > 25 && textToDisplay.length <= (25 + viewMore.length)) {
-//           setState(() {
-//             textToDisplay = widget.text;
-//           });
-//         }
-//         //else if the text is already expanded we contract it back
-//         else if (widget.text.length > 25) {
-//           setState(() {
-//             textToDisplay = widget.text.substring(0, 25) + viewMore;
-//           });
-//         }
-//       },
-//     );
-//   }
-// }

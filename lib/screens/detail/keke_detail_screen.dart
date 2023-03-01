@@ -1,11 +1,8 @@
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../controller/cart_controller.dart';
-import '../../model/kekemodel.dart';
-import '../../model/product.dart';
 import '../../model/product.dart';
 import '../../size_config.dart';
 
@@ -167,47 +164,6 @@ class _KekeDetailScreenState extends State<KekeDetailScreen> {
       ),
     ];
   }
-
-  // Widget _buildQuantity() {
-  //   return Row(
-  //     children: [
-  //       const Text('Quantity', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-  //       const SizedBox(width: 20),
-  //       Container(
-  //         decoration: const BoxDecoration(
-  //           borderRadius: BorderRadius.all(Radius.circular(24)),
-  //           color: Color(0xFFF3F3F3),
-  //         ),
-  //         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-  //         child: Material(
-  //           color: Colors.transparent,
-  //           child: Row(
-  //             children: [
-  //               InkWell(
-  //                 child: Image.asset('assets/icons/detail/minus@2x.png', scale: 2),
-  //                 onTap: () {
-  //                   if (_quantity <= 0) return;
-  //                   setState(() => _quantity -= 1);
-  //                 },
-  //               ),
-  //               const SizedBox(width: 20),
-  //               Text('$_quantity',
-  //                   style: const TextStyle(
-  //                     fontWeight: FontWeight.bold,
-  //                     fontSize: 18,
-  //                   )),
-  //               const SizedBox(width: 20),
-  //               InkWell(
-  //                 child: Image.asset('assets/icons/detail/plus@2x.png', scale: 2),
-  //                 onTap: () => setState(() => _quantity += 1),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
 
   Widget _buldFloatBar() {
     buildAddCard() => Container(
