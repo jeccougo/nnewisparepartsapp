@@ -60,10 +60,10 @@ class _SpecialOffersState extends State<SpecialOffers> {
         Stack(
             children: [
           Container(
-            height: 151,
+            height: 131,
             decoration: const BoxDecoration(
-              color: Color(0xFFE7E7E7),
-              borderRadius: BorderRadius.all(Radius.circular(32)),
+              color: Color(0xFFFFFFFF),
+              borderRadius: BorderRadius.all(Radius.circular(15)),
             ),
             child: PageView.builder(
                     controller: controller,
@@ -126,7 +126,7 @@ class _SpecialOffersState extends State<SpecialOffers> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Text(
-          'Special Offers',
+          'Top Vendors',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Color(0xFF212121)),
         ),
         TextButton(
@@ -147,9 +147,9 @@ class _SpecialOffersState extends State<SpecialOffers> {
       list.add(i == selectIndex ? _indicator(true) : _indicator(false));
     }
     return Container(
-      height: 181,
+      height: 120,
       alignment: Alignment.bottomCenter,
-      padding: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.only(top: 30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: list,

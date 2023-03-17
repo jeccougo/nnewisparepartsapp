@@ -52,7 +52,7 @@ class _MostPupularCategoryState extends State<MostPupularCategory> {
         borderRadius: radius,
         onTap: () => _onTapItem(index),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
           child: Text(
             data.category,
             style: TextStyle(

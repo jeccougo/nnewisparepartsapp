@@ -110,10 +110,10 @@ class _SignupPageState extends State<SignupPage> {
                         //Fluttertoast.showToast(msg: 'error');
                         isSigningIn = false;
                       }
-                    Get.off(() => ButtomNavbarScreen(),);
+                    Get.off(() => const MainScreen(),);
                   },
                 ),
-                SizedBox(height: 16.0),
+                const SizedBox(height: 16.0),
 
               ],
             ),

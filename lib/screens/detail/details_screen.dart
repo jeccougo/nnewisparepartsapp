@@ -18,13 +18,13 @@ class ShopDetailScreen extends StatefulWidget {
      required this.product,
      required this.controller,
      required this.index,
-     required this.quantity,
+    // required this.quantity,
 
   });
 
 
   final int? index;
-  final int? quantity;
+  //final int? quantity;
 
   static String route() => '/shop_detail';
 

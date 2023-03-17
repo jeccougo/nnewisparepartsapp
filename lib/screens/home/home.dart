@@ -1,111 +1,3 @@
-// import 'package:flutter/material.dart';
-//
-// import 'package:nnewi_spare_parts_market/screens/home/search_field.dart';
-// import 'package:nnewi_spare_parts_market/screens/home/special_offer.dart';
-//
-// import '../../components/product_card.dart';
-// import '../../model/popular.dart';
-// import '../detail/detail_screen.dart';
-// import '../mostpopular/most_popular_screen.dart';
-// import '../special_offers/special_offers_screen.dart';
-// import 'hearder.dart';
-// import 'most_popular.dart';
-//
-// class HomeScreen extends StatefulWidget {
-//   final String title;
-//
-//   static String route() => '/home';
-//
-//   const HomeScreen({super.key, required this.title});
-//
-//   @override
-//   State<StatefulWidget> createState() => _HomeScreenState();
-// }
-//
-// class _HomeScreenState extends State<HomeScreen> {
-//   late final datas = homePopularProducts;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     const padding = EdgeInsets.fromLTRB(24, 24, 24, 0);
-//     return Scaffold(
-//       body: CustomScrollView(
-//         slivers: <Widget>[
-//           const SliverPadding(
-//             padding: EdgeInsets.only(top: 24),
-//             sliver: SliverAppBar(
-//               pinned: true,
-//               flexibleSpace: HomeAppBar(),
-//             ),
-//           ),
-//           SliverPadding(
-//             padding: padding,
-//             sliver: SliverList(
-//               delegate: SliverChildBuilderDelegate(
-//                 ((context, index) => _buildBody(context)),
-//                 childCount: 1,
-//               ),
-//             ),
-//           ),
-//           SliverPadding(
-//             padding: padding,
-//             sliver: _buildPopulars(),
-//           ),
-//           const SliverAppBar(flexibleSpace: SizedBox(height: 24))
-//         ],
-//       ),
-//     );
-//   }
-//
-//   Widget _buildBody(BuildContext context) {
-//     return Column(
-//       children: [
-//         const SearchField(),
-//         const SizedBox(height: 24),
-//         SpecialOffers(onTapSeeAll: () => _onTapSpecialOffersSeeAll(context)),
-//         const SizedBox(height: 24),
-//         MostPopularTitle(onTapseeAll: () => _onTapMostPopularSeeAll(context)),
-//         const SizedBox(height: 24),
-//         const MostPupularCategory(),
-//       ],
-//     );
-//   }
-//
-//   Widget _buildPopulars() {
-//     return SliverGrid(
-//       gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-//         maxCrossAxisExtent: 185,
-//         mainAxisSpacing: 24,
-//         crossAxisSpacing: 16,
-//         mainAxisExtent: 285,
-//       ),
-//       delegate: SliverChildBuilderDelegate(_buildPopularItem, childCount: datas.length),
-//     );
-//   }
-//
-//   Widget _buildPopularItem(BuildContext context, int index) {
-//     final data = datas[index % datas.length];
-//     return ProductCard(
-//       data: data,
-//       ontap: (data) => Navigator.push(
-//         context,
-//         MaterialPageRoute(builder: (context) => const ShopDetailScreen()),
-//       ),
-//     );
-//   }
-//
-//   void _onTapMostPopularSeeAll(BuildContext context) {
-//     Navigator.pushNamed(context, MostPopularScreen.route());
-//   }
-//
-//   void _onTapSpecialOffersSeeAll(BuildContext context) {
-//     Navigator.pushNamed(context, SpecialOfferScreen.route());
-//   }
-// }
-
-
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -117,16 +9,15 @@ import 'package:nnewi_spare_parts_market/screens/home/special_offer.dart';
 import 'package:nnewi_spare_parts_market/screens/home/texttobuy.dart';
 import 'package:nnewi_spare_parts_market/screens/orders/AllOrders.dart';
 
-import '../../constants.dart';
-import '../../model/kekemodel.dart';
+import '../../controller/cart_controller.dart';
 import '../../size_config.dart';
+import '../detail/details_screen.dart';
 import '../mostpopular/most_popular_screen.dart';
 import '../profile/profile_screen.dart';
 import '../special_offers/special_offers_screen.dart';
 import '../tabs/biketab.dart';
 import '../tabs/keketab.dart';
 import '../tabs/motortab.dart';
-import '../utils/likeicon.dart';
 import '../utils/mytab.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -134,12 +25,15 @@ class HomeScreen extends StatefulWidget {
   static String route() => '/home';
   const HomeScreen({Key? key, required this.title}) : super(key: key);
 
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final cartController  = Get.put(BikeCartController());
+
+
+
   List<Widget> myTabs = [
     //food tab
     MyTab(tabName: 'Motor cycle'),
@@ -148,73 +42,76 @@ class _HomeScreenState extends State<HomeScreen> {
     //bakery tab
     MyTab(tabName: 'Motor parts'),
     //drinks tab
-
-
-
   ];
   @override
   Widget build(BuildContext context) {
-    const padding = EdgeInsets.fromLTRB(24, 0, 24, 0);
+    const padding = EdgeInsets.fromLTRB(15, 0, 15, 0);
     SizeConfig().init(context);
-
 
     return DefaultTabController(
       length: myTabs.length,
       child: SafeArea(
-
         child: Scaffold(
+          backgroundColor: Colors.grey[100],
           appBar: buildAppBar(context),
           body: ListView(
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             children: [
               SizedBox(
-                height: 1000,
+                height: SizeConfig.screenHeight,
                 child: Column(
-                      children: [
-                        //HomeAppBar(),
-                         Padding(
-                           padding: padding,
-                           child: SearchField(),
-                         ),
-                        Padding(
-                          padding: padding,
-                          child: SpecialOffers(onTapSeeAll: () => _onTapSpecialOffersSeeAll(context)),
+                  children: [
+                    //HomeAppBar(),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(
+                          getProportionateScreenWidth(15),
+                          getProportionateScreenHeight(15),
+                          getProportionateScreenWidth(15),
+                          0),
+                    //child:  SearchField(),
+                    ),
+                    Padding(
+                      padding: padding,
+                      child: SpecialOffers(
+                          onTapSeeAll: () =>
+                              _onTapSpecialOffersSeeAll(context)),
+                    ),
+                    Padding(
+                      padding: padding,
+                      child: MostPopularTitle(
+                          onTapseeAll: () => _onTapMostPopularSeeAll(context)),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(
+                          getProportionateScreenWidth(20),
+                          getProportionateScreenHeight(5),
+                          getProportionateScreenWidth(20),
+                          getProportionateScreenHeight(0)),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12),
                         ),
-
-                        Padding(
-                          padding: padding,
-                          child: MostPopularTitle(onTapseeAll: () => _onTapMostPopularSeeAll(context)),
-                        ),
-
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade100,
+                        child: Padding(
+                          padding: const EdgeInsets.all(6),
+                          child: TabBar(
+                            labelColor: Colors.black,
+                            unselectedLabelColor: Colors.black,
+                            indicator: BoxDecoration(
+                              color: Colors.amber,
                               borderRadius: BorderRadius.circular(12),
-
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(6),
-                              child: TabBar(
-                                labelColor: Colors.black,
-                                unselectedLabelColor: Colors.black12,
-                                indicator: BoxDecoration(
-                                  color: Colors.amber,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                  tabs: myTabs),
-                            ),
+                            tabs: myTabs,
                           ),
                         ),
-
-                        Expanded(
-                          child: TabBarView(
-                              physics: BouncingScrollPhysics(),
-                              children: [
-
-                                BikeTab( bikes: bikes,),
+                      ),
+                    ),
+                    Expanded(
+                      child: TabBarView(
+                          physics: BouncingScrollPhysics(),
+                          children: [
+                            BikeTab( bikes: bikes,),
 
                                 KekeTab(kekes: kekes,),
 
@@ -229,13 +126,15 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-
           floatingActionButton: FloatingActionButton(
             backgroundColor: Colors.amber,
             onPressed: () {
               Get.to(() => const TexttoBuy());
             },
-            child: Icon(Icons.chat),
+            child: Icon(
+              Icons.chat,
+              color: Colors.black,
+            ),
           ),
 
         ),
@@ -249,6 +148,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void _onTapMostPopularSeeAll(BuildContext context) {
     Navigator.pushNamed(context, MostPopularScreen.route());
   }
+
+
 }
 
 
@@ -256,6 +157,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 AppBar buildAppBar(BuildContext context) {
+  final cartController  = Get.put(BikeCartController());
+
   return AppBar(
     toolbarHeight: 80,
     backgroundColor: Colors.white,
@@ -274,7 +177,14 @@ AppBar buildAppBar(BuildContext context) {
           },
           child: Padding(
             padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-            child: Image.asset('assets/icons/nwlo.png', width: 70, height: 70),
+            child: GestureDetector(
+              onTap: () {
+                Get.to(ProfileScreen());
+              },
+              child: const CircleAvatar(
+                backgroundColor: Colors.amber,
+              ),
+            ),
           ),
         ),
 
@@ -288,24 +198,46 @@ AppBar buildAppBar(BuildContext context) {
                 style: TextStyle(
                   color: Color(0xFF757575),
                   fontWeight: FontWeight.w500,
+                  fontSize: 15
                 ),
               ),
               Text(
-                'Ime Afia',
+                'Nkwo Nnewi',
                 style: TextStyle(
                   color: Color(0xFF212121),
                   fontWeight: FontWeight.bold,
+                  fontSize: 20
                 ),
                 textAlign: TextAlign.start,
               ),
             ],
           ),
         ),
-        IconButton(
-          iconSize: 28,
-          icon: Icon(Icons.notifications),
-          onPressed: () {},
-        ),
+
+        GestureDetector(
+            onTap: () async {
+              final query = await showSearch(context: context, delegate: SearchBar(cartController.bikes));
+              if (query != null) {
+                cartController.search(query);
+              }
+            },
+            child: Icon(Icons.search)),
+        // GestureDetector(
+        //   onTap: () async {
+        //     print('Number of bikes: ${cartController.bikes.length}');
+        //     final query = await showSearch(context: context, delegate: SearchBar(cartController.bikes));
+        //     if (query != null) {
+        //       cartController.search(query);
+        //     }
+        //   },
+        //   child: Icon(
+        //         Icons.search,
+        //         color: Colors.black,
+        //
+        //
+        //   ),
+        // ),
+
         //const SizedBox(width: 5),
         //LikeButton(),
       ],
@@ -314,4 +246,99 @@ AppBar buildAppBar(BuildContext context) {
   );
 }
 
+
+
+
+class SearchBar extends SearchDelegate<String> {
+  final List<Product> searchResults;
+
+  SearchBar(this.searchResults);
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = '';        },      ),    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.arrow_back),
+      onPressed: () {
+        close(context, '');
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    final cartController  = Get.put(BikeCartController());
+
+    final matchingBikes = bikes
+        .where((bike) => bike.name.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+    return SizedBox(
+      height: 900,
+      child: ListView.builder(
+        itemCount: matchingBikes.length,
+        itemBuilder: (context, index) {
+          final item = matchingBikes[index];
+          return ListTile(
+            title: Text(
+              item.name,
+              style: TextStyle(color: Colors.red),
+            ),
+            subtitle: Text(item.name),
+            onTap: () {
+              // Navigate to the details screen for the selected bike
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ShopDetailScreen(
+                    product: item,
+                    controller: cartController,
+                    index: index, ),
+                ),
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    final cartController  = Get.put(BikeCartController());
+
+    final suggestions = bikes.where((bike) => bike.name.toLowerCase().contains(query.toLowerCase())).toList();
+
+    return ListView.builder(
+      itemCount: suggestions.length,
+      itemBuilder: (context, index) {
+        final item = suggestions[index];
+
+        return ListTile(
+          title: Text(item.name),
+          onTap: () {
+            // Navigate to the details screen for the selected bike
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ShopDetailScreen(
+                  product: item,
+                  controller: cartController,
+                  index: index, ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
+}
 

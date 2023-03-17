@@ -1,7 +1,23 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class ProfileHeader extends StatelessWidget {
-  const ProfileHeader({super.key});
+class ProfileHeader extends StatefulWidget {
+  ProfileHeader({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<ProfileHeader> createState() => _ProfileHeaderState();
+}
+
+class _ProfileHeaderState extends State<ProfileHeader> {
+  late User _user;
+
+  @override
+  void initState() {
+    super.initState();
+    _user = FirebaseAuth.instance.currentUser!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,10 +27,10 @@ class ProfileHeader extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Icon(Icons.arrow_back),
-              const SizedBox(width: 15),
-              const Expanded(
+            children: const [
+              Icon(Icons.arrow_back),
+              SizedBox(width: 15),
+              Expanded(
                 child: Text('Profile', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
               ),
               // IconButton(
@@ -44,9 +60,9 @@ class ProfileHeader extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 12),
-        const Text('Ubanized', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+         Text('Email: ${_user.email}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
         const SizedBox(height: 8),
-        const Text('99 300 00 00', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+        Text('User ID: ${_user.uid}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
         const SizedBox(height: 20),
         Container(
           color: const Color(0xFFEEEEEE),

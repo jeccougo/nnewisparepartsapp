@@ -6,6 +6,10 @@ import '../model/product.dart';
 class BikeCartController extends GetxController {
   var _Products = {}.obs;
 
+  get isEmpty => 0;
+
+
+
   void addProductToCart(Product products) {
     if (_Products.containsKey(products)) {
       _Products[products] += 1;
@@ -14,10 +18,11 @@ class BikeCartController extends GetxController {
     }
     Get.snackbar(
       'Product Added',
-      'You have added ${products.name} to your cart',
-      snackPosition: SnackPosition.TOP,
-      backgroundColor: Colors.transparent,
+      "You have ${products.name} items in your cart.",
+      backgroundColor: Colors.amber,
+      colorText: Colors.black,
       duration: const Duration(milliseconds: 800),
+      snackPosition: SnackPosition.TOP,
     );
   }
 
@@ -43,6 +48,10 @@ class BikeCartController extends GetxController {
     _Products.clear();
   }
 
+  final cartItems = <Product>[].obs;
+
+
+
   get products => _Products;
 
   get productSubTotal => _Products.entries
@@ -61,4 +70,31 @@ class BikeCartController extends GetxController {
       .reduce((value, element) => value + element)
       .toStringAsFixed(2);
 
+
+
+
+  var totals = 0.0.obs;
+  var isSuccess = false.obs;
+
+  void checkout() async {
+    // Payment logic goes here
+    // ...
+    // If payment is successful, set isSuccess to true
+    isSuccess.value = true;
+  }
+
+
+
+  final items = <Product>[].obs;
+
+  final bikes = <Product>[].obs;
+
+  void search(String query) {
+    print('Searching for: $query');
+    if (query.isNotEmpty) {
+      bikes.value = items.where((item) => item.name.toLowerCase().contains(query.toLowerCase())).toList();
+    } else {
+      bikes.value = []; // clear the list if query is empty
+    }
+  }
 }

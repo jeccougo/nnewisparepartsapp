@@ -108,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                       //Fluttertoast.showToast(msg: 'error');
                       isSigningIn = false;
                     }
-                    Get.off(() => ButtomNavbarScreen(),);
+                    Get.off(() => const MainScreen(),);
                   },
                 ),
                 SizedBox(height: 16.0),
