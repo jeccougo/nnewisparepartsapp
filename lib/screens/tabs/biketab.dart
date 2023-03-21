@@ -440,6 +440,8 @@ class _BikeTabState extends State<BikeTab> {
   Widget build(BuildContext context) {
     const padding = EdgeInsets.fromLTRB(24, 24, 24, 0);
     return Scaffold(
+      backgroundColor: Colors.grey[100],
+
       // appBar: FRAppBar.defaultAppBar(
       //   context,
       //   title: 'Most Popular',
@@ -451,7 +453,7 @@ class _BikeTabState extends State<BikeTab> {
       //   ],
       // ),
       body: CustomScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
         slivers: [
         // SliverPadding(
         //   padding: padding,
@@ -473,12 +475,11 @@ class _BikeTabState extends State<BikeTab> {
 
   Widget _buildPopulars() {
     return SliverGrid(
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 185,
-        mainAxisSpacing: 24,
-        crossAxisSpacing: 16,
-        mainAxisExtent: 285,
-      ),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 15,
+          mainAxisExtent: 250),
       delegate: SliverChildBuilderDelegate(_buildPopularItem, childCount: widget.bikes.length),
     );
   }
@@ -522,7 +523,7 @@ class BikeProductCard extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               borderRadius: borderRadius,
-              color: Color(0xFFeeeeee),
+              color: Color(0xffffffff),
             ),
             child: Stack(
               children: [
@@ -531,7 +532,7 @@ class BikeProductCard extends StatelessWidget {
                       Get.to(() => ShopDetailScreen(
                           product: bikes,
                           controller: cartController,
-                          index: index, quantity: quantity),
+                          index: index,),
 
                           duration: Duration(milliseconds: 500),
                           transition: Transition.downToUp);
@@ -539,10 +540,10 @@ class BikeProductCard extends StatelessWidget {
                     child: AspectRatio(
                       aspectRatio: 1,
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16.0),
+                        borderRadius: BorderRadius.circular(15.0),
                         child: Image.asset(
                           bikes.image,
-                          fit: BoxFit.contain,
+                          fit: BoxFit.fill,
                         ),
                       ),
                     ),
@@ -555,25 +556,35 @@ class BikeProductCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          FittedBox(
-            child: Text(
-              bikes.name,
-              style: const TextStyle(
-                color: Color(0xFF212121),
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-          ),
-          Text(
-            '\N${bikes.price.toStringAsFixed(2)}',
-            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Color(0xFF212121)),
-          ),
-          const SizedBox(width: 50),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-          const SizedBox(height: 10),
-          _buildSoldPoint(4.5, 6937),
-          const SizedBox(height: 10),
+            children: [
+              FittedBox(
+                child: Text(
+                  bikes.name,
+                  style: const TextStyle(
+                    color: Color(0xFF212121),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              _buildSoldPoint(4.5, 6937),
+
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '\N${bikes.price.toStringAsFixed(2)}',
+                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Color(0xFF212121)),
+              ),
+
+            ],
+          ),
+
 
         ],
       ),

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:nnewi_spare_parts_market/screens/buttomnav/buttomnavbar.dart';
 
+import '../../firebaseServices.dart';
 import 'header.dart';
 
 typedef ProfileOptionTap = void Function();
@@ -29,7 +33,8 @@ class ProfileOption {
 }
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+
+  ProfileScreen({super.key});
 
   static String route() => '/profile';
 
@@ -38,6 +43,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final FirebaseServices firebaseServices = FirebaseServices();
+
   static _profileIcon(String last) => 'assets/icons/profile/$last';
 
   bool _isDark = false;
@@ -53,6 +60,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ProfileOption.arrow(title: 'Help Center', icon: _profileIcon('info_square@2x.png')),
         //ProfileOption.arrow(title: 'Invite Friends', icon: _profileIcon('user@2x.png')),
         ProfileOption(
+          onClick: () async {
+             await firebaseServices.signOut;
+             // navigate to login screen after signout
+             Get.to(() => MainScreen());
+},
           title: 'Logout',
           icon: _profileIcon('logout@2x.png'),
           titleColor: const Color(0xFFF75555),
@@ -92,19 +104,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          const SliverList(
-            delegate: SliverChildListDelegate.fixed([
-              Padding(
-                padding: EdgeInsets.only(top: 30),
-                child: ProfileHeader(),
-              ),
-            ]),
-          ),
-          _buildBody(),
-        ],
+    return SafeArea(
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+             SliverList(
+              delegate: SliverChildListDelegate.fixed([
+                Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: ProfileHeader(),
+                ),
+              ]),
+            ),
+            _buildBody(),
+          ],
+        ),
       ),
     );
   }

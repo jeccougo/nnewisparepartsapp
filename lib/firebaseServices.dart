@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -126,6 +128,18 @@ class FirebaseServices extends ChangeNotifier {
       return false;
     }
   }
+
+  Future<void> signOut(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      prefs = await SharedPreferences.getInstance();
+      prefs!.remove(usersKey);
+      // redirect to login screen or any other screen as required
+      Get.offAllNamed('/bnav');    } catch (e) {
+      logger.e(e);
+    }
+  }
+
 
 
   /// cache user id

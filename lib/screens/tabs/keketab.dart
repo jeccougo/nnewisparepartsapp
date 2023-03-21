@@ -282,6 +282,8 @@ class _KekeTabState extends State<KekeTab> {
   Widget build(BuildContext context) {
     const padding = EdgeInsets.fromLTRB(24, 24, 24, 0);
     return Scaffold(
+      backgroundColor: Colors.grey[100],
+
       // appBar: FRAppBar.defaultAppBar(
       //   context,
       //   title: 'Most Popular',
@@ -315,12 +317,11 @@ class _KekeTabState extends State<KekeTab> {
 
   Widget _buildPopulars() {
     return SliverGrid(
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 185,
-        mainAxisSpacing: 24,
-        crossAxisSpacing: 16,
-        mainAxisExtent: 285,
-      ),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 15,
+          mainAxisExtent: 250),
       delegate: SliverChildBuilderDelegate(_buildPopularItem, childCount: widget.kekes.length),
     );
   }
@@ -364,7 +365,7 @@ class KekeProductCard extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               borderRadius: borderRadius,
-              color: Color(0xFFeeeeee),
+              color: Color(0xffffffff),
             ),
             child: Stack(
               children: [
@@ -387,23 +388,34 @@ class KekeProductCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          FittedBox(
-            child: Text(
-              kekes.name,
-              style: const TextStyle(
-                color: Color(0xFF212121),
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+            children: [
+              FittedBox(
+                child: Text(
+                  kekes.name,
+                  style: const TextStyle(
+                    color: Color(0xFF212121),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
               ),
-            ),
+              _buildSoldPoint(4.5, 6937),
+
+            ],
           ),
-          Text(
-            '\N${kekes.price.toStringAsFixed(2)}',
-            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Color(0xFF212121)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '\N${kekes.price.toStringAsFixed(2)}',
+                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Color(0xFF212121)),
+              ),
+
+            ],
           ),
-          const SizedBox(height: 10),
-          _buildSoldPoint(4.5, 6937),
-          const SizedBox(height: 10),
 
         ],
       ),

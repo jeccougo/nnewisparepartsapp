@@ -133,6 +133,7 @@ class _CartScreenState extends State<CartScreen> {
       isCartEmpty = false;
     }
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         toolbarHeight: 80,
         title: Row(
@@ -272,9 +273,9 @@ class CartScreenCard extends StatefulWidget {
 class _CartScreenCardState extends State<CartScreenCard> {
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: const EdgeInsets.fromLTRB(15, 7, 15, 7),
+    return Padding(padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
       child: Container(
-        color: Colors.grey.shade50,
+        color: Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -284,7 +285,7 @@ class _CartScreenCardState extends State<CartScreenCard> {
                 width: 100,
                 height: 100,
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade50,
+                  color: Colors.white,
                 ),
                 child: Image.asset(widget.product.image),
               ),
@@ -294,33 +295,35 @@ class _CartScreenCardState extends State<CartScreenCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(widget.product.name,
-                  style: TextStyle(fontSize: 20),),
+                  style: TextStyle(fontSize: 18),),
                 Text('Quantity: ${widget.quantity}',
-                  style: TextStyle(fontSize: 20),),
+                  style: TextStyle(fontSize: 14),),
                 Text('Price: \N${widget.product.price.toString()}',
-                  style: TextStyle(fontSize: 20),),
+                  style: TextStyle(fontSize: 14),),
                 SizedBox(height: 10,),
 
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    widget.controller.removeProductFromCart(widget.product);
+            SingleChildScrollView(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      widget.controller.removeProductFromCart(widget.product);
 
-                  },
-                  icon: Icon(Icons.remove_circle),
-                ),
-               Text('${widget.quantity}'),
-                IconButton(
-                  onPressed: () {
-                    widget.controller.addProductToCart(widget.product);
-                  },
-                  icon: Icon(Icons.add_circle),
-                ),
-              ],
+                    },
+                    icon: Icon(Icons.remove_circle),
+                  ),
+                 Text('${widget.quantity}',),
+                  IconButton(
+                    onPressed: () {
+                      widget.controller.addProductToCart(widget.product);
+                    },
+                    icon: Icon(Icons.add_circle),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

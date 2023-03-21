@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 5), () => Get.off(() => ButtomNavbarScreen(),
+    Timer(const Duration(seconds: 5), () => Get.off(() => MainScreen(),
 
         duration: Duration(milliseconds: 500),
         transition: Transition.downToUp));

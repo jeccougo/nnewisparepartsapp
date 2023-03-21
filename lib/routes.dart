@@ -14,10 +14,10 @@ final Map<String, WidgetBuilder> routes = {
   HomeScreen.route(): (context) => const HomeScreen(title: '123'),
   MostPopularScreen.route(): (context) => const MostPopularScreen(),
   SpecialOfferScreen.route(): (context) => const SpecialOfferScreen(),
-  ProfileScreen.route(): (context) => const ProfileScreen(),
+  ProfileScreen.route(): (context) =>  ProfileScreen(),
   KekeDetailScreen.route(): (context) =>    KekeDetailScreen( product: null,),
-  ShopDetailScreen.route(): (context) =>     ShopDetailScreen( controller: null, index: null, quantity: null, product: null, ),
+  ShopDetailScreen.route(): (context) =>     ShopDetailScreen( controller: null, index: null, product: null, ),
   CartScreen.route(): (context) =>  CartScreen(),
-  ButtomNavbarScreen.route: (context) => ButtomNavbarScreen(),
+  MainScreen.route: (context) => MainScreen(),
 
 };

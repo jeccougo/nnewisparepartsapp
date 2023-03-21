@@ -33,6 +33,8 @@ class Product {
       id: json['id'],
     );
   }
+
+  num get quantity => 0;
 }
 
 class Bike extends Product {
@@ -83,9 +85,9 @@ class Bike extends Product {
 }
 List<Bike> bikes = [
   Bike(
-    name: 'Akanchawa',
+    name: 'Husky 150',
     price: 320000.00,
-    image: 'assets/icons/products/1bike.png',
+    image: 'assets/icons/products/kymstone husky 150.jpg',
     productDescription: 'Qlink Motocycle is the high grade this',
     moreProductImages: [],
     model: '02',

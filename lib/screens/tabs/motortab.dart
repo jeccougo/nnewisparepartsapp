@@ -21,6 +21,8 @@ class _MotorTabState extends State<MotorTab> {
   Widget build(BuildContext context) {
     const padding = EdgeInsets.fromLTRB(24, 24, 24, 0);
     return Scaffold(
+      backgroundColor: Colors.grey[100],
+
       // appBar: FRAppBar.defaultAppBar(
       //   context,
       //   title: 'Most Popular',
@@ -103,7 +105,7 @@ class MotorProductCard extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               borderRadius: borderRadius,
-              color: Color(0xFFeeeeee),
+              color: Color(0xffffffff),
             ),
             child: Stack(
               children: [
