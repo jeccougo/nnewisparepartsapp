@@ -73,9 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Padding(
                       padding: padding,
-                      child: SpecialOffers(
-                          onTapSeeAll: () =>
-                              _onTapSpecialOffersSeeAll(context)),
+                      child: SpecialOffers(),
                     ),
                     Padding(
                       padding: padding,
@@ -169,27 +167,17 @@ AppBar buildAppBar(BuildContext context) {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
-          onDoubleTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AllOrderScreen()),
-            );
+          onTap: () {
+            Get.to(ProfileScreen());
           },
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-            child: GestureDetector(
-              onTap: () {
-                Get.to(ProfileScreen());
-              },
-              child: const CircleAvatar(
-                backgroundColor: Colors.amber,
-              ),
-            ),
+          child: Image.asset(
+            'assets/icons/NNTErt.png',height: 80,width: 80,
+            fit: BoxFit.fill,
           ),
         ),
 
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.all(7),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [

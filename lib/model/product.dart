@@ -306,14 +306,14 @@ List<Motor> motors = [
     type: '', index: 3, id: '4',
   ),
   Motor(
-    name: 'Ogbuawa RearLight',
+    name: 'OG RearLight',
     price: 69000.00,
     image: 'assets/icons/products/benzrear.png',
     productDescription: 'Ogbuawa Motocycle is the high grade this',
     moreProductImages: [], model: '', type: '', index: 4, id: '5',
   ),
   Motor(
-    name: 'Innoson RearLight',
+    name: 'IVM RearLight',
     price: 59000.00,
     image: 'assets/icons/products/benzre.png',
     productDescription: 'Innoson Motocycle is the high grade this',
