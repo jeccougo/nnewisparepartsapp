@@ -411,8 +411,6 @@
 // //
 // //
 
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -423,11 +421,9 @@ import '../detail/details_screen.dart';
 import '../utils/likeicon.dart';
 import '../utils/starrating.dart';
 
-
 class BikeTab extends StatefulWidget {
   final List<Bike> bikes;
   const BikeTab({super.key, required this.bikes});
-
 
   @override
   State<BikeTab> createState() => _BikeTabState();
@@ -452,9 +448,7 @@ class _BikeTabState extends State<BikeTab> {
       //     ),
       //   ],
       // ),
-      body: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-        slivers: [
+      body: CustomScrollView(physics: const BouncingScrollPhysics(), slivers: [
         // SliverPadding(
         //   padding: padding,
         //   sliver: SliverList(
@@ -480,7 +474,8 @@ class _BikeTabState extends State<BikeTab> {
           crossAxisSpacing: 20,
           mainAxisSpacing: 15,
           mainAxisExtent: 250),
-      delegate: SliverChildBuilderDelegate(_buildPopularItem, childCount: widget.bikes.length),
+      delegate: SliverChildBuilderDelegate(_buildPopularItem,
+          childCount: widget.bikes.length),
     );
   }
 
@@ -493,22 +488,22 @@ class _BikeTabState extends State<BikeTab> {
   }
 }
 
-
-
 typedef BikeProductCardOnTaped = void Function(Product bikes);
 
 class BikeProductCard extends StatelessWidget {
   final cartController = Get.put(BikeCartController());
 
-  BikeProductCard({super.key,this.ontap, required this.bikes, required this.index, required this.quantity});
+  BikeProductCard(
+      {super.key,
+      this.ontap,
+      required this.bikes,
+      required this.index,
+      required this.quantity});
 
   final Bike bikes;
   final int index;
   final BikeProductCardOnTaped? ontap;
   final int quantity;
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -528,29 +523,30 @@ class BikeProductCard extends StatelessWidget {
             child: Stack(
               children: [
                 GestureDetector(
-                    onTap: () {
-                      Get.to(() => ShopDetailScreen(
-                          product: bikes,
-                          controller: cartController,
-                          index: index,),
-
-                          duration: Duration(milliseconds: 500),
-                          transition: Transition.downToUp);
-                    },
-                    child: AspectRatio(
-                      aspectRatio: 1,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(15.0),
-                        child: Image.asset(
-                          bikes.image,
-                          fit: BoxFit.fill,
-                        ),
+                  onTap: () {
+                    Get.to(
+                        () => ShopDetailScreen(
+                              product: bikes,
+                              controller: cartController,
+                              index: index,
+                            ),
+                        duration: Duration(milliseconds: 500),
+                        transition: Transition.downToUp);
+                  },
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15.0),
+                      child: Image.asset(
+                        bikes.image,
+                        fit: BoxFit.fill,
                       ),
                     ),
-                // Positioned(
-                //   top: 5,
-                //   right: 5,
-                //   child: LikeButton(),
+                  ),
+                  // Positioned(
+                  //   top: 5,
+                  //   right: 5,
+                  //   child: LikeButton(),
                 )
               ],
             ),
@@ -558,7 +554,6 @@ class BikeProductCard extends StatelessWidget {
           const SizedBox(height: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
             children: [
               FittedBox(
                 child: Text(
@@ -571,7 +566,6 @@ class BikeProductCard extends StatelessWidget {
                 ),
               ),
               _buildSoldPoint(4.5, 6937),
-
             ],
           ),
           Row(
@@ -579,13 +573,13 @@ class BikeProductCard extends StatelessWidget {
             children: [
               Text(
                 '\N${bikes.price.toStringAsFixed(2)}',
-                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Color(0xFF212121)),
+                style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal,
+                    color: Color(0xFF212121)),
               ),
-
             ],
           ),
-
-
         ],
       ),
     );
@@ -597,11 +591,11 @@ class BikeProductCard extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-    final product = bikes[index];
-    if (product != null) {
-    cartController.addProductToCart(product);
-    }
-    },
+            final product = bikes[index];
+            if (product != null) {
+              cartController.addProductToCart(product);
+            }
+          },
           child: Container(
             height: 30,
             width: 30,
@@ -619,11 +613,3 @@ class BikeProductCard extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-
-

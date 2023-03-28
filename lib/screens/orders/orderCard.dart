@@ -59,11 +59,11 @@ class OrderCard extends StatelessWidget {
                     fontWeight: FontWeight.normal,
                     fontSize: 12.0,
                   ),),
-                Text('Total For Order: ${order.totalForOrder}',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.0,
-                  ),),
+                // Text('Total For Order: ${order.totalForOrder}',
+                //   style: TextStyle(
+                //     fontWeight: FontWeight.bold,
+                //     fontSize: 12.0,
+                //   ),),
               ],
             ),
           ),

@@ -9,7 +9,7 @@ class OrderModel {
   int? numberOfItems;
   Timestamp? dateOfOrder;
   String? statusOfOrder;
-  String? totalForOrder;
+  int? totalForOrder;
 
   OrderModel({
     this.orderNumber,
@@ -33,7 +33,7 @@ class OrderModel {
       numberOfItems: map['numberOfItems'] ?? 0,
       dateOfOrder: map['dateOfOrder'],
       statusOfOrder: map['statusOfOrder'] ?? '',
-      totalForOrder: map['totalForOrder'] ?? '',
+      //totalForOrder: int.parse(map['totalForOrder'] ?? 0),
     );
   }
 

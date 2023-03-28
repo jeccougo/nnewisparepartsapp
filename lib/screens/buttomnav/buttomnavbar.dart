@@ -155,6 +155,7 @@ class _MainScreenState extends State<MainScreen> {
       body: pageList[pageIndex],
       //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         unselectedItemColor: Colors.black12,
         selectedItemColor: Colors.amber,
         currentIndex: pageIndex,
@@ -172,7 +173,7 @@ class _MainScreenState extends State<MainScreen> {
                 icon: Stack(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(0),
                       child: Icon(Icons.shopping_cart),
                     ),
                     Positioned(

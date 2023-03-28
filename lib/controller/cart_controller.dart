@@ -59,7 +59,7 @@ class BikeCartController extends GetxController {
       .toList();
 
   get total => _Products.isEmpty
-      ? "0.00"
+      ? 0
       : _Products.entries
       .map((entry) => entry.key is Bike
       ? (entry.key as Bike).price * entry.value
@@ -68,7 +68,8 @@ class BikeCartController extends GetxController {
       : (entry.key as Motor).price * entry.value)
       .toList()
       .reduce((value, element) => value + element)
-      .toStringAsFixed(2);
+      .toInt();
+
 
 
 

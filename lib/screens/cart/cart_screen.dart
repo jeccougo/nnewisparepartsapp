@@ -154,11 +154,13 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../Payment/paystack_payment_page.dart';
 import '../../components/button.dart';
 import '../../controller/cart_controller.dart';
 import '../../model/product.dart';
 
 import '../../size_config.dart';
+import '../buttomnav/buttomnavbar.dart';
 import '../login/login.dart';
 import '../utils/checkoutfinal.dart';
 
@@ -187,6 +189,11 @@ class _CartScreenState extends State<CartScreen> {
   var cartTotal = 0;
   bool isCartEmpty = true;
 
+
+
+  String email = "//User Email Here";
+
+  get total => widget.cartController.total;
 
 
   @override
@@ -246,6 +253,7 @@ class _CartScreenState extends State<CartScreen> {
     final int quantityOfItems = products.length;
 
     try {
+      // Add cart data to Firestore
       await cartsCollection.doc(orderNumber).set({
         'orderNumber': orderNumber,
         'userId': currentUser?.uid,
@@ -255,7 +263,7 @@ class _CartScreenState extends State<CartScreen> {
             .toList(),
         'numberOfItems': quantityOfItems,
         'totalForOrder': widget.cartController.total,
-        'statusOfOrder': 'pending',
+        'statusOfOrder': 'Confirmed',
       });
     } catch (error) {
       if (kDebugMode) {
@@ -263,6 +271,26 @@ class _CartScreenState extends State<CartScreen> {
       }
     }
   }
+
+  Future<void> updateOrderOnFirestore(String orderNumber) async {
+    final CollectionReference cartsCollection = FirebaseFirestore.instance.collection('carts');
+    final currentUser = FirebaseAuth.instance.currentUser;
+
+    const String statusOfOrder = 'Confirmed';
+
+
+    try {
+      await cartsCollection.doc(orderNumber).set({
+        'statusOfOrder': statusOfOrder,
+
+      }, SetOptions(merge: true));
+    } catch (error) {
+      if (kDebugMode) {
+        print('Error updating document: $error');
+      }
+    }
+  }
+
 
 
 
@@ -325,7 +353,7 @@ class _CartScreenState extends State<CartScreen> {
       floatingActionButton:  Container(
         padding: EdgeInsets.symmetric(
           vertical: getProportionateScreenWidth(5),
-          horizontal: getProportionateScreenWidth(30),
+          horizontal: getProportionateScreenWidth(20),
         ),
         // height: 174,
         decoration: BoxDecoration(
@@ -352,7 +380,7 @@ class _CartScreenState extends State<CartScreen> {
 
             Obx(() {
               return Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(15),
                 child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -361,35 +389,69 @@ class _CartScreenState extends State<CartScreen> {
                       text: "Total:\n",
                       children: [
                         TextSpan(
-                          text: widget.cartController.total.toString(),
+                          text: '\N${widget.cartController.total.toString()}',
                           style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold, color: Colors.black),
                         ),
                       ],
                     ),
 
                   ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: getProportionateScreenWidth(100),
+                        child: DefaultButton(
+                          text: "Pay Now",
+                          press: cartController.products.isEmpty
+                              ? null
+                              : () async {
+                            final int total = widget.cartController.total;
+                            if (currentUser == null) {
+                              Get.to(() => LoginPage());
+                            } else {
+                              bool confirmed = await showConfirmationDialog();
+                              if (confirmed) {
+                                //Call Paystack payment
+                                print( widget.cartController.total);
+                                MakePayment(ctx: context, email: email, total: total)
+                                    .chargeCardAndMakePayment();
+                                await addCartToFirestore();
+                                cartController.clearCart();
+                                //Get.to(() => const MainScreen());
+                              }
+                            }
+                          },
+                          disabled: cartController.products.isEmpty,
+                        ),
+                      ),
+                      SizedBox(width: 6,),
 
-                  SizedBox(
-                    width: getProportionateScreenWidth(190),
-                    child: DefaultButton(
-                      text: "Check Out",
-                      press: cartController.products.isEmpty
-                          ? null
-                          : () async {
-                        if (currentUser == null) {
-                          Get.to(() => LoginPage());
-                        } else {
-                          bool confirmed = await showConfirmationDialog();
-                          if (confirmed) {
-                            await addCartToFirestore();
-                            cartController.clearCart();
-                            Get.to(() => CheckoutForm(orderNumber: _orderNumber));
-                          }
-                        }
-                      },
-                      disabled: cartController.products.isEmpty,
-                    ),
+                      SizedBox(
+                        width: getProportionateScreenWidth(100),
+                        child: DefaultButton(
+                          text: "Check Out",
+                          press: cartController.products.isEmpty
+                              ? null
+                              : () async {
+                            if (currentUser == null) {
+                              Get.to(() => LoginPage());
+                            } else {
+                              bool confirmed = await showConfirmationDialog();
+                              if (confirmed) {
+                                await addCartToFirestore();
+
+                                cartController.clearCart();
+                                Get.to(() => CheckoutForm(orderNumber: _orderNumber));
+                              }
+                            }
+                          },
+                          disabled: cartController.products.isEmpty,
+                        ),
+                      ),
+                    ],
                   ),
+
+
 
                 ],
             ),

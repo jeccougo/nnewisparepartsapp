@@ -1,11 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:nnewi_spare_parts_market/model/vendor.dart';
 
 
 import '../../components/special_offer_widget.dart';
 import '../../model/category.dart';
 import '../../model/special_offer.dart';
+import '../vendor/vendors.dart';
 
 typedef SpecialOffersOnTapSeeAll = void Function();
 
@@ -20,6 +24,7 @@ class SpecialOffers extends StatefulWidget {
 class _SpecialOffersState extends State<SpecialOffers> {
   late final List<Category> categories = homeCategries;
   late final List<SpecialOffer> specials = homeSpecialOffers;
+  late List<Vendor> vendors = product;
 
   int selectIndex = 0;
   final PageController controller = PageController();
@@ -130,7 +135,7 @@ class _SpecialOffersState extends State<SpecialOffers> {
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Color(0xFF212121)),
         ),
         TextButton(
-          onPressed: () => widget.onTapSeeAll?.call(),
+          onPressed: () =>  Get.to(VendorScreen(vendors: vendors,)),
           child: const Text(
             'See All',
             style: TextStyle(fontWeight: FontWeight.normal, fontSize: 16, color: Color(

@@ -316,13 +316,13 @@ class _MotorTabState extends State<MotorTab> {
 
   Widget _buildPopulars() {
     return SliverGrid(
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 185,
-        mainAxisSpacing: 24,
-        crossAxisSpacing: 16,
-        mainAxisExtent: 285,
-      ),
-      delegate: SliverChildBuilderDelegate(_buildPopularItem, childCount: widget.motors.length),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 15,
+          mainAxisExtent: 250),
+      delegate: SliverChildBuilderDelegate(_buildPopularItem,
+          childCount: widget.motors.length),
     );
   }
 
@@ -378,7 +378,16 @@ class MotorProductCard extends StatelessWidget {
                           duration: Duration(milliseconds: 500),
                           transition: Transition.downToUp);
                     },
-                    child: Image.asset(motors.image, width: 182, height: 182)),
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
+                        child: Image.asset(
+                          motors.image,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),),
                 // Positioned(
                 //   top: 16,
                 //   right: 16,
@@ -388,22 +397,36 @@ class MotorProductCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          FittedBox(
-            child: Text(
-              motors.name,
-              style: const TextStyle(
-                color: Color(0xFF212121),
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              FittedBox(
+                child: Text(
+                  motors.name,
+                  style: const TextStyle(
+                    color: Color(0xFF212121),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
               ),
-            ),
+              _buildSoldPoint(4.5, 6937),
+            ],
           ),
-          Text(
-            '\N${motors.price.toStringAsFixed(2)}',
-            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Color(0xFF212121)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '\N${motors.price.toStringAsFixed(2)}',
+                style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal,
+                    color: Color(0xFF212121)),
+              ),
+            ],
           ),
           const SizedBox(height: 5),
-          _buildSoldPoint(4.5, 6937),
+
          // const SizedBox(height: 10),
         ],
       ),
@@ -419,8 +442,7 @@ class MotorProductCard extends StatelessWidget {
         GestureDetector(
           onTap: () {
             cartController.addProductToCart(motors[index]);
-
-          },
+            },
           child: Container(
             height: 30,
             width: 30,
