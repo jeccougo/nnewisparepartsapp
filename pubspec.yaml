@@ -42,19 +42,19 @@ dependencies:
   flutter_svg:
   url_launcher: ^6.0.9
   whatsapp_share:
-  cloud_firestore: ^3.3.0
-  firebase_core: ^1.4.0
-  firebase_crashlytics: ^2.1.1
-  firebase_analytics: ^9.2.0
-  firebase_messaging: ^12.0.0
-  firebase_auth: ^3.6.0
+  cloud_firestore: ^4.12.2
+  firebase_core: ^2.21.0
+  firebase_crashlytics: ^3.4.3
+  firebase_analytics: ^10.6.3
+  firebase_messaging: ^14.7.3
+  firebase_auth: ^4.12.1
   provider: ^6.0.0
-  firebase_database: ^9.0.19
-  firebase_core_platform_interface: 4.5.1
+  firebase_database: ^10.3.3
+  firebase_core_platform_interface: ^5.0.0
   shared_preferences: ^2.0.6
-  logger: ^1.0.0
+  logger: ^2.0.2+1
   flutter_paystack: ^1.0.5+1
-  flutter_launcher_icons: ^0.12.0
+  flutter_launcher_icons: ^0.13.1
 
 
     # android min sdk min:16, default 21
